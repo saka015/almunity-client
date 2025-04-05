@@ -24,7 +24,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-arp="">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-emerald-50`}>
+        <nav className="sticky top-0 z-50 text-4xl font-display font-bold bg-gray-800 text-emerald-500 p-4">
+          Alumnity
+        </nav>
+        {children}
+      </body>
     </html>
   );
 }
