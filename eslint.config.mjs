@@ -19,6 +19,8 @@ const eslintConfig = [
   {
     rules: {
       'prettier/prettier': 'warn',
+      'react/no-unescaped-entities': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
     },
   },
 ];

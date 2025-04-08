@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -40,28 +39,6 @@ export default function Navbar() {
             Alumnity
           </span>
         </div>
-
-        <header className="flex justify-end items-center gap-4">
-          <SignedOut>
-            <SignInButton mode="modal">
-              <button
-                className={`px-4 py-2 rounded-lg ${
-                  scrolled ? 'text-emerald-800 hover:bg-emerald-50' : 'text-white hover:bg-white/10'
-                } transition-colors`}
-              >
-                Sign In
-              </button>
-            </SignInButton>
-            <SignUpButton mode="modal">
-              <button className="px-4 py-2 rounded-lg bg-emerald-700 text-white hover:bg-emerald-800 transition-colors">
-                Sign Up
-              </button>
-            </SignUpButton>
-          </SignedOut>
-          <SignedIn>
-            <UserButton afterSignOutUrl="/" />
-          </SignedIn>
-        </header>
       </div>
     </nav>
   );
