@@ -30,6 +30,35 @@ export interface UserProfile {
   __v: number;
 }
 
+export interface ConnectionResponse {
+  _id: string;
+  sender: {
+    _id: string;
+    username: string;
+    name: string;
+    graduationYear: number;
+    linkedin: string;
+    company: string;
+    position: string;
+  };
+  receiver: {
+    _id: string;
+    username: string;
+    name: string;
+    graduationYear: number;
+    linkedin: string;
+    company: string;
+    position: string;
+  };
+  status: 'pending' | 'accepted';
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ConnectionStatusResponse {
+  connectionStatus: 'none' | 'requested' | 'incoming' | 'connected';
+}
+
 export type UpdateProfileData = Partial<Omit<UserProfile, 'username' | 'name' | '_id' | 'createdAt' | 'updatedAt' | '__v'>>;
 
 export const userApi = createApi({
@@ -69,32 +98,37 @@ export const userApi = createApi({
         url: `/user/alumni/${username}`,
       }),
     }),
-  sendConnectionRequest: builder.mutation<void, { receiverId: string }>({
-  query: (data) => ({
-    url: '/connection/send',
-    method: 'POST',
-    body: data,
-  }),
-  invalidatesTags: ['User'],
-  }),
-  acceptRequest: builder.mutation<void, { senderId: string }>({
-  query: (data) => ({
-    url: '/connection/accept',
-    method: 'POST',
-    body: data,
-  }),
-  invalidatesTags: ['User'],
-}),
-
-    getMyConnections: builder.query<Alumni[], {
-  status: string
-}>({
-  query: ({ status }) => ({
-    url: '/connection/my-connections',
-    params: { status }  
-  }),
-  providesTags: ['User'],
-})
+    sendConnectionRequest: builder.mutation<void, { receiverId: string }>({
+      query: (data) => ({
+        url: '/connection/send',
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['User'],
+    }),
+    acceptConnection: builder.mutation<void, { senderId: string }>({
+      query: (data) => ({
+        url: '/connection/accept',
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['User'],
+    }),
+    getConnectionStatus: builder.query<ConnectionStatusResponse, string>({
+      query: (userId) => ({
+        url: `/connection/status/${userId}`,
+      }),
+      providesTags: ['User'],
+    }),
+    getMyConnections: builder.query<ConnectionResponse[], {
+      status: string
+    }>({
+      query: ({ status }) => ({
+        url: '/connection/my-connections',
+        params: { status }  
+      }),
+      providesTags: ['User'],
+    })
   }),
 });
 
@@ -104,6 +138,7 @@ export const {
   useGetUserProfileQuery,
   useUpdateProfileMutation,
   useSendConnectionRequestMutation,
-  useAcceptRequestMutation,
+  useAcceptConnectionMutation,
+  useGetConnectionStatusQuery,
   useGetMyConnectionsQuery,
 } = userApi;

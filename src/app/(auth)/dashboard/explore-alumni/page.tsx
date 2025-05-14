@@ -48,6 +48,7 @@ const Page = () => {
           {alumni?.map((alumnus: any) => (
             <AlumiCard
               key={alumnus._id}
+              _id={alumnus._id}
               username={alumnus.username}
               name={alumnus.name}
               graduationYear={alumnus.graduationYear}

@@ -1,11 +1,11 @@
 import React from 'react';
-import { Button } from '@/components/ui/button';
 import { Linkedin } from 'lucide-react';
 import { CiLinkedin } from "react-icons/ci";
 import Link from 'next/link';
-import { HiOutlineUserPlus } from "react-icons/hi2";
+import ConnectionButton from './ConnectionButton';
 
 interface AlumiCardProps {
+  _id: string;
   username: string;
   name: string;
   graduationYear: number;
@@ -15,6 +15,7 @@ interface AlumiCardProps {
 }
 
 const AlumiCard: React.FC<AlumiCardProps> = ({
+  _id,
   username,
   name,
   graduationYear,
@@ -27,27 +28,39 @@ const AlumiCard: React.FC<AlumiCardProps> = ({
     window.open(linkedin, '_blank');
   };
 
+  const handleCardClick = (e: React.MouseEvent) => {
+    // Allow the card to be clickable for navigation
+  };
+
+  const handleConnectionClick = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent card navigation when clicking the button
+  };
+
   return (
-    <Link href={`/dashboard/explore-alumni/${username}`}>
-      <div className="flex flex-col min-w-xs backdrop-blur-md bg-white/10 border border-white/20 shadow-2xl rounded p-6 items-center gap-6 hover:border-cyan-500 transition-transform duration-200 cursor-pointer">
+      <Link href={`/dashboard/explore-alumni/${username}`}>
+    <div onClick={handleCardClick} className="flex flex-col min-w-xs backdrop-blur-md bg-white/10 border border-white/20 shadow-2xl rounded p-6 items-center gap-6 hover:border-cyan-500 transition-transform duration-200 cursor-pointer">
         <img
           src="https://avatar.iran.liara.run/public"
           alt={name}
           className="w-24 h-24 rounded-full object-cover border-2 border-cyan-500 shadow-md"
         />
-        <div className="flex flex-col justify-center w-full">
-          <div className='flex justify-between items-center text-2xl mb-4'>
+      <div className="flex flex-col justify-center w-full">
+        <div className='flex justify-between items-center text-2xl mb-4'>
             <h2 className="font-bold text-cyan-400 text-center">{name}</h2>
-            <button onClick={handleLinkedInClick}>
-              <CiLinkedin className="text-blue-400" />
-            </button>
-          </div>
-          <p className="text-sm text-white/90 mt-1">🎓 Graduated in {graduationYear}</p>
-          <p className="text-sm text-white/90 mt-1">🏢 Works at {company}</p>
-          <p className="text-sm text-white/90 mt-1">💼 Working as {position}</p>
+          <button onClick={handleLinkedInClick}>
+            <CiLinkedin className="text-blue-400" />
+          </button>
         </div>
+        <p className="text-sm text-white/90 mt-1">🎓 Graduated in {graduationYear}</p>
+        <p className="text-sm text-white/90 mt-1">🏢 Works at {company}</p>
+        <p className="text-sm text-white/90 mt-1">💼 Working as {position}</p>
+        
+        {/* <div className="mt-4" onClick={handleConnectionClick}>
+          <ConnectionButton userId={_id} className="w-full" />
+          </div> */}
       </div>
-    </Link>
+    </div>
+          </Link>
   );
 };
 

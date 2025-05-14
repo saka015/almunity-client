@@ -1,25 +1,20 @@
 'use client';
 
 import React from 'react';
-import { FaUserPlus } from "react-icons/fa6";
-import { useGetAlumniByIdQuery, useSendConnectionRequestMutation } from '@/redux/api/user';
+import { useGetAlumniByIdQuery } from '@/redux/api/user';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import { FaLinkedin, FaEnvelope } from 'react-icons/fa';
 import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Loader from '@/app/components/Loader';
-import toast from 'react-hot-toast';
+import ConnectionButton from '@/app/components/ConnectionButton';
 
 const AlumniDetailsPage = () => {
   const params = useParams();
   const username = params.alumni as string;
   const { data: alumni, isLoading, error } = useGetAlumniByIdQuery(username);
-  const [sendConnectioRequest] = useSendConnectionRequestMutation({
-  
-  })
 
   if (isLoading) {
     return (
@@ -37,20 +32,6 @@ const AlumniDetailsPage = () => {
     );
   }
 
-const sendRequest = async () => {
-  try {
-    await sendConnectioRequest({ receiverId: alumni._id }).unwrap();
-  toast.success("Request sent!")
-  } catch (error) {
-    console.error('Failed to send connection request:', error);
-  toast.error("Failed request!")
-
-    // Optional: Show error message to user
-  }
-};
-
-
-
   return (
     <div className="container mx-auto">
       <Card className="overflow-hidden rounded">
@@ -65,14 +46,11 @@ const sendRequest = async () => {
                 className="object-cover"
               />
             </div>
-            </div>
-                  
+          </div>        
         </div>
-              <div className='w-full justify-end items-end right-4 flex px-6 py-2'>
-          <Button
-            onClick={sendRequest}
-                      className='rounded bg-gradient-to-r from-slate-500 to-cyan-800 flex items-center justify-center'>Connect <FaUserPlus /></Button>
-            </div>
+        <div className='w-full justify-end items-end right-4 flex px-6 py-2'>
+          <ConnectionButton userId={alumni._id} />
+        </div>
         
         <CardContent className="pt-6">
           <div className="space-y-4">
