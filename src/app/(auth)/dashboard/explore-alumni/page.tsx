@@ -31,7 +31,6 @@ const Page = () => {
   return (
     <div className="flex min-h-screen w-full flex-col gap-8">
       <h1 className="text-3xl font-bold text-cyan-100">Explore Alumni</h1>
-
       <input
         value={search}
         onChange={(e) => setSearch(e.target.value)}
@@ -45,7 +44,7 @@ const Page = () => {
       ) : error ? (
         <div className="text-red-500">Error loading alumni data</div>
       ) : (
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3 2xl:grid-cols-4">
           {alumni?.map((alumnus: any) => (
             <AlumiCard
               key={alumnus._id}

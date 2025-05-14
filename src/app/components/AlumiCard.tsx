@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Linkedin } from 'lucide-react';
 import { CiLinkedin } from "react-icons/ci";
 import Link from 'next/link';
+import { HiOutlineUserPlus } from "react-icons/hi2";
 
 interface AlumiCardProps {
   username: string;

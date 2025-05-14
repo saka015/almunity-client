@@ -2,25 +2,28 @@
 
 import React from 'react';
 import { FaUserPlus } from "react-icons/fa6";
-import { useGetAlumniByIdQuery } from '@/redux/api/user';
+import { useGetAlumniByIdQuery, useSendConnectionRequestMutation } from '@/redux/api/user';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import { FaLinkedin, FaEnvelope } from 'react-icons/fa';
 import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import Loader from '@/app/components/Loader';
+import toast from 'react-hot-toast';
 
 const AlumniDetailsPage = () => {
   const params = useParams();
   const username = params.alumni as string;
-  console.log("username",username)
   const { data: alumni, isLoading, error } = useGetAlumniByIdQuery(username);
+  const [sendConnectioRequest] = useSendConnectionRequestMutation({
+  
+  })
 
   if (isLoading) {
     return (
-      <div className="container mx-auto p-6 space-y-6">
-        <Skeleton className="h-32 w-full rounded-lg" />
-      </div>
+      <Loader/>
     );
   }
 
@@ -33,6 +36,20 @@ const AlumniDetailsPage = () => {
       </div>
     );
   }
+
+const sendRequest = async () => {
+  try {
+    await sendConnectioRequest({ receiverId: alumni._id }).unwrap();
+  toast.success("Request sent!")
+  } catch (error) {
+    console.error('Failed to send connection request:', error);
+  toast.error("Failed request!")
+
+    // Optional: Show error message to user
+  }
+};
+
+
 
   return (
     <div className="container mx-auto">
@@ -48,23 +65,24 @@ const AlumniDetailsPage = () => {
                 className="object-cover"
               />
             </div>
-                  </div>
+            </div>
                   
         </div>
               <div className='w-full justify-end items-end right-4 flex px-6 py-2'>
-                  <Button
+          <Button
+            onClick={sendRequest}
                       className='rounded bg-gradient-to-r from-slate-500 to-cyan-800 flex items-center justify-center'>Connect <FaUserPlus /></Button>
             </div>
         
-        <CardContent className="pt-20">
+        <CardContent className="pt-6">
           <div className="space-y-4">
             <div>
-              <h1 className="text-3xl font-bold">{alumni.name}</h1>
+              <h1 className="text-3xl font-bold">{alumni.name} {}</h1>
               <p className="text-gray-500">{alumni.position} at {alumni.company}</p>
             </div>
 
             <div className="flex gap-4">
-              <a
+              <Link
                 href={alumni.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -72,7 +90,7 @@ const AlumniDetailsPage = () => {
               >
                 <FaLinkedin className="text-xl" />
                 LinkedIn Profile
-              </a>
+              </Link>
               <a
                 href={`mailto:${alumni.email}`}
                 className="flex items-center gap-2 text-gray-600 hover:text-gray-800"
@@ -83,13 +101,8 @@ const AlumniDetailsPage = () => {
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold mb-2">About</h2>
-              <p className="text-gray-600">{alumni.bio}</p>
-            </div>
-
-
-            <div>
               <h2 className="text-xl font-semibold mb-2">Education</h2>
+              <p className="text-gray-600"> {alumni.college}</p>
               <p className="text-gray-600">Class of {alumni.graduationYear}</p>
             </div>
           </div>
