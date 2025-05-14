@@ -1,9 +1,12 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
+
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+
   --font-display: 'dm-serif-display';
   --font-inter: 'inter';
   --font-gilroy: 'gilroy';
@@ -47,6 +50,8 @@
 }
 
 :root {
+  --main: #121F21;
+  --sec: #91BFC9;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.141 0.005 285.823);
@@ -124,7 +129,27 @@
   }
 }
 
+@layer utilities {
+  .bg-main {
+    background-color: var(--main);
+  }
+  .bg-sec {
+    background-color: var(--sec);
+  }
+}
+
 button {
   @apply font-gilroy font-bold;
   cursor: pointer;
+}
+
+
+/* @theme{
+
+
+} */
+
+
+body{
+  /* font-family: 'Raleway'; */
 }

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/navigation';
 import { useLoginMutation } from '@/redux/api/auth-api';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -15,60 +16,60 @@ import {
 } from '@/components/ui/card';
 import Link from 'next/link';
 import { Checkbox } from '@/components/ui/checkbox';
+import { setLoading } from '@/redux/features/auth-slice';
 
 export default function Login() {
   const dispatch = useDispatch();
+  const router = useRouter();
   const [form, setForm] = useState({ email: '', password: '' });
-  const [loading, setLoading] = useState(false);
+  const [loginError, setLoginError] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+
+  const [login, { isLoading }] = useLoginMutation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
+    setLoginError('');
+    dispatch(setLoading(true));
+    
     try {
-      const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        body: JSON.stringify(form),
-        headers: { 'Content-Type': 'application/json' },
-      });
-      const data = await res.json();
-      if (res.ok) {
-        // dispatch(login(data.user))
-        // Redirect to dashboard or home
-        window.location.href = '/';
-      }
+      await login(form).unwrap();
+      localStorage.setItem("useremail_registration",form?.email)
+
+      router.push('/otp');
     } catch (error) {
-      console.error(error);
+      console.error('Login error:', error);
+      setLoginError('Invalid email or password. Please try again.');
     } finally {
-      setLoading(false);
+      dispatch(setLoading(false));
     }
   };
 
   return (
-    <div className="flex min-h-[80vh] items-center justify-center bg-gradient-to-b from-emerald-50 to-white p-4">
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-1/3 right-1/3 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
-        <div className="absolute bottom-1/3 left-1/3 w-72 h-72 bg-emerald-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
-      </div>
-
-      <Card className="w-full max-w-md shadow-lg border-emerald-100">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold text-center text-emerald-800">
+    <div className="min-h-screen flex items-center justify-center p-4 pb-44">
+      <div className=" w-full max-w-md bg-slate-800/50 backdrop-blur-sm  shadow-xl p-4">
+        <CardHeader className="space-y-3">
+          <CardTitle className="text-3xl font-bold text-center bg-gradient-to-r from-sky-400 to-cyan-300 bg-clip-text text-transparent">
             Welcome back
           </CardTitle>
-          <CardDescription className="text-center">
+          <CardDescription className="text-center text-sky-200/80 text-lg">
             Sign in to your Alumnity account
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+        <CardContent className="space-y-6">
+          {loginError && (
+            <div className="p-3 bg-red-500/10 border border-red-500/20 text-red-400 text-sm rounded-lg">
+              {loginError}
+            </div>
+          )}
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div className="space-y-2">
               <Input
                 type="email"
                 placeholder="Email"
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
-                className="border-emerald-200 focus:border-emerald-500 focus:ring-emerald-500"
+                className="bg-slate-900/50 border-sky-200/20 text-sky-100 placeholder:text-sky-400/50 focus:border-cyan-400 focus:ring-cyan-400/20 h-12"
                 required
               />
             </div>
@@ -78,12 +79,12 @@ export default function Login() {
                 placeholder="Password"
                 value={form.password}
                 onChange={(e) => setForm({ ...form, password: e.target.value })}
-                className="border-emerald-200 focus:border-emerald-500 focus:ring-emerald-500"
+                className="bg-slate-900/50 border-sky-200/20 text-sky-100 placeholder:text-sky-400/50 focus:border-cyan-400 focus:ring-cyan-400/20 h-12"
                 required
               />
             </div>
 
-            <div className="flex items-center justify-between">
+            {/* <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <Checkbox
                   id="remember"
@@ -98,26 +99,26 @@ export default function Login() {
               <Link href="#" className="text-sm text-emerald-800 hover:underline">
                 Forgot password?
               </Link>
-            </div>
+            </div> */}
 
             <Button
               type="submit"
-              className="w-full bg-emerald-800 hover:bg-emerald-700 text-white"
-              disabled={loading}
+              className="w-full h-12 bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-600 hover:to-sky-600 text-white font-medium text-lg rounded-lg transition-all duration-200 transform hover:scale-[1.02]"
+              disabled={isLoading}
             >
-              {loading ? 'Signing in...' : 'Sign in'}
+              {isLoading ? 'Signing in...' : 'Sign in'}
             </Button>
           </form>
         </CardContent>
         <CardFooter className="flex justify-center">
-          <div className="text-center text-sm">
+          <div className="text-sky-200/80 text-center text-sm pt-12">
             Don't have an account?{' '}
-            <Link href="/register" className="text-emerald-800 hover:underline font-medium">
+            <Link href="/register" className="text-cyan-400 hover:text-cyan-300 font-medium transition-colors">
               Sign up
             </Link>
           </div>
         </CardFooter>
-      </Card>
+      </div>
     </div>
   );
 }

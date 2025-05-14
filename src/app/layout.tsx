@@ -1,11 +1,12 @@
-'use client';
+'use client'
 
-import { type Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
+import { Raleway } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import { Provider } from 'react-redux';
 import { store } from '@/redux/store';
+import { Toaster } from 'react-hot-toast';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -17,10 +18,10 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
-// export const metadata: Metadata = {
-//   title: 'Alumnity',
-//   description: 'Bridge the Campus Gap',
-// };
+const raleway = Raleway({
+  variable: '--font-raleway',
+  subsets: ['latin'],
+});
 
 export default function RootLayout({
   children,
@@ -30,8 +31,9 @@ export default function RootLayout({
   return (
     <Provider store={store}>
       <html lang="en" data-arp="">
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white`}>
-          <Navbar />
+        <body className="antialiased bg-gradient-to-br from-slatemin-h-screen">
+        <Toaster position="top-center" reverseOrder={false} />
+          {/* <Navbar /> */}
           {children}
         </body>
       </html>

@@ -14,110 +14,180 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import Link from 'next/link';
+import { toast } from 'react-hot-toast';
+import { UserRegisterData } from '@/app/interface';
+import { useRouter } from 'next/navigation';
 
 export default function Register() {
   const dispatch = useDispatch();
-  const [form, setForm] = useState({ name: '', email: '', password: '' });
+  const router = useRouter();
+  const [form, setForm] = useState<UserRegisterData>({
+    name: '',
+    email: '',
+    password: '',
+    username: '',
+    linkedin: '',
+    position: '',
+    company:'',
+    graduationYear: new Date().getFullYear(),
+  });
   const [loading, setLoading] = useState(false);
+
+  const [register] = useRegisterMutation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (form.username.length < 5) {
+      toast.error("Username must be at least 5 characters");
+      return;
+    }
+
+    const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+    if (!emailRegex.test(form.email)) {
+      toast.error("Please enter a valid email");
+      return;
+    }
+
+    if (form.password.length < 6) {
+      toast.error("Password must be at least 6 characters");
+      return;
+    }
+
+    const linkedinRegex = /^(https?:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9_-]{3,100}\/?$/;
+    if (!linkedinRegex.test(form.linkedin)) {
+      toast.error("Please enter a valid LinkedIn profile URL (e.g. https://www.linkedin.com/in/username/)");
+      return;
+    }
+
     setLoading(true);
     try {
-      const res = await fetch('/api/auth/register', {
-        method: 'POST',
-        body: JSON.stringify(form),
-        headers: { 'Content-Type': 'application/json' },
-      });
-      const data = await res.json();
-      if (res.ok) {
-        // dispatch(login(data.user))
-        // Redirect to OTP verification
-        window.location.href = '/otp-verify';
-      }
-    } catch (error) {
-      console.error(error);
+      const response = await register(form).unwrap();
+      toast.success('Registration successful');
+      localStorage.setItem("useremail_registration", form.email);
+      router.push("/otp");
+    } catch (error: any) {
+      const errorMessage = error?.data?.message || 'Registration failed. Please try again.';
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="flex min-h-[80vh] items-center justify-center bg-gradient-to-b from-emerald-50 to-white p-4">
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-emerald-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
-      </div>
+    <div className="min-h-screen flex items-center justify-center p-4 pb-44">
+      <div className="w-full max-w-md bg-slate-800/50 backdrop-blur-sm shadow-xl p-8 rounded-lg">
+        <div className="space-y-3">
+          <h1 className="text-3xl font-bold text-center bg-gradient-to-r from-sky-400 to-cyan-300 bg-clip-text text-transparent">
+            Create Account
+          </h1>
+          <p className="text-sky-200/80 text-center">
+            Join Alumnity and connect with your network
+          </p>
+        </div>
 
-      <Card className="w-full max-w-md shadow-lg border-emerald-100">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold text-center text-emerald-800">
-            Create an account
-          </CardTitle>
-          <CardDescription className="text-center">
-            Enter your details to register for Alumnity
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Input
-                type="text"
-                placeholder="Full Name"
-                value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="border-emerald-200 focus:border-emerald-500 focus:ring-emerald-500"
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <Input
-                type="email"
-                placeholder="Email"
-                value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
-                className="border-emerald-200 focus:border-emerald-500 focus:ring-emerald-500"
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <Input
-                type="password"
-                placeholder="Password"
-                value={form.password}
-                onChange={(e) => setForm({ ...form, password: e.target.value })}
-                className="border-emerald-200 focus:border-emerald-500 focus:ring-emerald-500"
-                required
-              />
-            </div>
-            <Button
-              type="submit"
-              className="w-full bg-emerald-800 hover:bg-emerald-700 text-white"
-              disabled={loading}
-            >
-              {loading ? 'Creating account...' : 'Register'}
-            </Button>
-          </form>
-        </CardContent>
-        <CardFooter className="flex flex-col space-y-2">
-          <div className="text-sm text-center text-gray-500">
-            By registering, you agree to our{' '}
-            <Link href="#" className="text-emerald-800 hover:underline">
-              Terms of Service
-            </Link>{' '}
-            and{' '}
-            <Link href="#" className="text-emerald-800 hover:underline">
-              Privacy Policy
-            </Link>
+        <form onSubmit={handleSubmit} className="mt-8 space-y-4">
+          <div className="space-y-3">
+            <Input
+              type="text"
+              placeholder="Username"
+              value={form.username}
+              onChange={(e) => setForm({ ...form, username: e.target.value })}
+              className="bg-slate-900/50 border-sky-200/20 text-sky-100 placeholder:text-sky-400/50 focus:border-cyan-400 focus:ring-cyan-400/20 h-12"
+              required
+              minLength={5}
+            />
+            <Input
+              type="text"
+              placeholder="Full Name"
+              value={form.name}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
+              className="bg-slate-900/50 border-sky-200/20 text-sky-100 placeholder:text-sky-400/50 focus:border-cyan-400 focus:ring-cyan-400/20 h-12"
+              required
+            />
+            <Input
+              type="email"
+              placeholder="Email"
+              value={form.email}
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
+              className="bg-slate-900/50 border-sky-200/20 text-sky-100 placeholder:text-sky-400/50 focus:border-cyan-400 focus:ring-cyan-400/20 h-12"
+              required
+            />
+            <Input
+              type="url"
+              placeholder="LinkedIn Profile URL"
+              value={form.linkedin}
+              onChange={(e) => setForm({ ...form, linkedin: e.target.value })}
+              className="bg-slate-900/50 border-sky-200/20 text-sky-100 placeholder:text-sky-400/50 focus:border-cyan-400 focus:ring-cyan-400/20 h-12"
+              required
+              pattern="^(https?:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9_-]{3,100}\/?$"
+            />
+            <Input
+              type="text"
+              placeholder="Company/College"
+              value={form.company}
+              onChange={(e) => setForm({ ...form, company: e.target.value })}
+              className="bg-slate-900/50 border-sky-200/20 text-sky-100 placeholder:text-sky-400/50 focus:border-cyan-400 focus:ring-cyan-400/20 h-12"
+              required
+              pattern="^(https?:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9_-]{3,100}\/?$"
+            />
+            <Input
+              type="text"
+              placeholder="Position (e.g. SDE , if you are student, fill Student)"
+              value={form.position}
+              onChange={(e) => setForm({ ...form, position: e.target.value })}
+              className="bg-slate-900/50 border-sky-200/20 text-sky-100 placeholder:text-sky-400/50 focus:border-cyan-400 focus:ring-cyan-400/20 h-12"
+              required
+              pattern="^(https?:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9_-]{3,100}\/?$"
+            />
+            <Input
+              type="number"
+              placeholder="Graduation Year (e.g. 2025)"
+              value={form.graduationYear || ''}
+              onChange={(e) => setForm({ ...form, graduationYear: Number(e.target.value) })}
+              className="bg-slate-900/50 border-sky-200/20 text-sky-100 placeholder:text-sky-400/50 focus:border-cyan-400 focus:ring-cyan-400/20 h-12"
+              required
+            />
+            <Input
+              type="password"
+              placeholder="Password"
+              value={form.password}
+              onChange={(e) => setForm({ ...form, password: e.target.value })}
+              className="bg-slate-900/50 border-sky-200/20 text-sky-100 placeholder:text-sky-400/50 focus:border-cyan-400 focus:ring-cyan-400/20 h-12"
+              required
+              minLength={6}
+            />
           </div>
-          <div className="text-center text-sm">
-            Already have an account?{' '}
-            <Link href="/login" className="text-emerald-800 hover:underline font-medium">
-              Sign in
-            </Link>
+
+          <Button
+            type="submit"
+            className="w-full h-12 bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-600 hover:to-sky-600 text-white font-medium text-lg rounded-lg transition-all duration-200 transform hover:scale-[1.02]"
+            disabled={loading}
+          >
+            {loading ? 'Creating account...' : 'Create Account'}
+          </Button>
+
+          <div className="space-y-4 text-center pt-4">
+            <p className="text-sm text-sky-200/60">
+              By registering, you agree to our{' '}
+              <Link href="#" className="text-cyan-400 hover:text-cyan-300 transition-colors">
+                Terms of Service
+              </Link>{' '}
+              and{' '}
+              <Link href="#" className="text-cyan-400 hover:text-cyan-300 transition-colors">
+                Privacy Policy
+              </Link>
+            </p>
+            
+            <p className="text-sky-200/80">
+              Already have an account?{' '}
+              <Link href="/login" className="text-cyan-400 hover:text-cyan-300 font-medium transition-colors">
+                Sign in
+              </Link>
+            </p>
           </div>
-        </CardFooter>
-      </Card>
+        </form>
+      </div>
     </div>
   );
 }

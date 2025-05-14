@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 import { CiCircleChevDown } from 'react-icons/ci';
 import { FiUsers, FiBookOpen, FiAward, FiTrendingUp } from 'react-icons/fi';
 
@@ -33,9 +34,12 @@ export default function Home() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mt-6">
-            <Button className="px-8 py-6 rounded-full bg-emerald-800 text-white hover:bg-emerald-700 transition-colors">
+            <Link
+              href="/login"
+              className="px-8 pyd-6 w-fit flex justify-center items-center rounded-full bg-emerald-800 text-white hover:bg-emerald-700 transition-colors"
+            >
               Get Started
-            </Button>
+            </Link>
             <Button className="px-8 py-6 rounded-full bg-white border border-emerald-800 text-emerald-800 hover:bg-emerald-50 transition-colors">
               Watch Demo
             </Button>
