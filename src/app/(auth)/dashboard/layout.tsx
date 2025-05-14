@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IoRocketOutline, IoChatbubbleEllipsesOutline } from "react-icons/io5";
 import { CiUser } from "react-icons/ci";
 import { BsPeople } from "react-icons/bs";
@@ -24,8 +24,13 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState(true);
+ const [isOpen, setIsOpen] = useState(true);
 
+  useEffect(() => {
+    if (window.innerWidth < 1000) {
+      setIsOpen(false);
+    }
+  }, []);
   return (
     <div className='flex min-h-screen'>
       <div className={`transition-all duration-300 bg-slate-900 border-r border-gray-500 p-5 flex flex-col ${isOpen ? 'w-[15%]' : 'w-[6%]'}`}>
