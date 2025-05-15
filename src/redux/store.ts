@@ -4,17 +4,23 @@ import authReducer from './features/auth-slice';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { userApi } from './api/user';
 import { taskApi } from './api/task';
+import { chatApi } from './api/chat';
 
 export const store = configureStore({
   reducer: {
     [authApi.reducerPath]: authApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
     [taskApi.reducerPath]: taskApi.reducer,
-
+    [chatApi.reducerPath]: chatApi.reducer,
 
     auth: authReducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(authApi.middleware).concat(userApi.middleware).concat(taskApi.middleware),
+  middleware: (getDefaultMiddleware) => 
+    getDefaultMiddleware()
+      .concat(authApi.middleware)
+      .concat(userApi.middleware)
+      .concat(taskApi.middleware)
+      .concat(chatApi.middleware),
 });
 
 setupListeners(store.dispatch);

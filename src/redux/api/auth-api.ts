@@ -2,6 +2,22 @@ import {  UserRegisterData } from '@/app/interface';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { setUser } from '../features/auth-slice';
 
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  username: string;
+  role: 'user' | 'admin'; 
+  isVerified: boolean;
+}
+
+interface OTPVerifyResponse {
+  status: 'success' | 'error'; 
+  message: string;
+  user: User;
+}
+
+
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
@@ -17,7 +33,7 @@ export const authApi = createApi({
       }),
     }),
       
-      verifyOtp: builder.mutation<any,{email?:string,otp?:string}>({
+      verifyOtp: builder.mutation<OTPVerifyResponse,{email?:string,otp?:string}>({
       query: (data) => ({
         url: '/auth/verify-otp',
         method: 'POST',

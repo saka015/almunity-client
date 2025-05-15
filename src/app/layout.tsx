@@ -7,6 +7,7 @@ import Navbar from '@/components/Navbar';
 import { Provider } from 'react-redux';
 import { store } from '@/redux/store';
 import { Toaster } from 'react-hot-toast';
+import { AuthProvider } from '@/providers/AuthProvider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -30,13 +31,15 @@ export default function RootLayout({
 }>) {
   return (
     <Provider store={store}>
-      <html lang="en" data-arp="">
-        <body className="antialiased bg-gradient-to-br from-slatemin-h-screen">
-        <Toaster position="top-center" reverseOrder={false} />
-          {/* <Navbar /> */}
-          {children}
-        </body>
-      </html>
+      <AuthProvider>
+        <html lang="en" data-arp="">
+          <body className="antialiased bg-gradient-to-br from-slatemin-h-screen">
+            <Toaster position="top-center" reverseOrder={false} />
+            {/* <Navbar /> */}
+            {children}
+          </body>
+        </html>
+      </AuthProvider>
     </Provider>
   );
 }

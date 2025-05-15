@@ -2,7 +2,7 @@
 
 import AlumiCard from '@/app/components/AlumiCard';
 import ConnectCard from '@/app/components/ConnectCard';
-import { useGetMyConnectionsQuery, useAcceptRequestMutation, useGetUserProfileQuery, ConnectionResponse } from '@/redux/api/user';
+import { useGetMyConnectionsQuery, useGetUserProfileQuery, ConnectionResponse } from '@/redux/api/user';
 import React, { useState } from 'react';
 
 
@@ -10,7 +10,7 @@ import React, { useState } from 'react';
 const Page = () => {
   const [connectStatus, setConnectStatus] = useState<'accepted' | 'pending'>('accepted');
   const { data: userData } = useGetUserProfileQuery();
-  const [acceptRequest] = useAcceptRequestMutation();
+  // const [acceptRequest] = useAcceptRequestMutation();
   
   const currentUserId = userData?._id;
 
@@ -21,12 +21,12 @@ const Page = () => {
   console.log("data-->>",data)
 
   const handleAcceptRequest = async (senderId: string) => {
-    try {
-      await acceptRequest({ senderId });
-      refetch();
-    } catch (error) {
-      console.error('Error accepting request:', error);
-    }
+    // try {
+    //   await acceptRequest({ senderId });
+    //   refetch();
+    // } catch (error) {
+    //   console.error('Error accepting request:', error);
+    // }
   };
 
   const renderConnectionCard = (connection: ConnectionResponse) => {
@@ -40,6 +40,7 @@ const Page = () => {
       return (
         <AlumiCard
           key={connection._id}
+          _id={connection._id}
           username={connectionData.username}
           name={connectionData.name}
           graduationYear={connectionData.graduationYear}

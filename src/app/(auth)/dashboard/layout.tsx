@@ -57,7 +57,7 @@ export default function DashboardLayout({
                 }`}
               >
                 <span>{icon}</span>
-                {isOpen && <span>{title}</span>}
+                {isOpen && <span className='hidden lg:block'>{title}</span>}
               </Link>
             );
           })}

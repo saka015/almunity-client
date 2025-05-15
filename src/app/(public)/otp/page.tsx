@@ -12,6 +12,7 @@ import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { setUser } from '@/redux/features/auth-slice';
+import { UserProfile } from '@/redux/api/user';
 
 const Page = () => {
   const router = useRouter();
@@ -39,13 +40,31 @@ const Page = () => {
         email,
         otp: otp
       }).unwrap();
-      
-      console.log('Server response:', response);
+
+      if (response.user) {
+        const userProfile: UserProfile = {
+          _id: response.user.id,
+          email: response.user.email,
+          name: response.user.name,
+          username: response.user.username,
+          role: response.user.role,
+          isVerified: response.user.isVerified,
+          graduationYear: 0,
+          linkedin: '',
+          company: '',
+          position: '',
+          calendly: '',
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+          __v: 0
+        };
+        dispatch(setUser(userProfile as any));
+      }
 
       toast.success(response?.message || 'OTP verified successfully');
       localStorage.removeItem("useremail_registration");
       setOtp('');
-      router.push('/explore-alumi');
+      router.push('/dashboard');
     } catch (error: any) {
       console.error('Verification error:', error);
       toast.error(error?.data?.message || 'OTP verification failed');

@@ -133,9 +133,9 @@ export const userApi = createApi({
 });
 
 export const { 
+  useGetUserProfileQuery,
   useExploreAlumniQuery, 
   useGetAlumniByIdQuery, 
-  useGetUserProfileQuery,
   useUpdateProfileMutation,
   useSendConnectionRequestMutation,
   useAcceptConnectionMutation,
