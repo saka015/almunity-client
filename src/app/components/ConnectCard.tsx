@@ -51,7 +51,7 @@ const ConnectCard: React.FC<ConnectCardProps> = ({
             onClick={onAccept}
             className="flex-1 bg-cyan-500 hover:bg-cyan-600"
           >
-            Accept
+            Acceptrrrr
           </Button>
           <Button 
             onClick={onReject}
