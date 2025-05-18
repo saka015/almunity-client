@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import React, { useState } from 'react';
 import { useGetUserProfileQuery, useUpdateProfileMutation } from '@/redux/api/user';
@@ -9,10 +9,14 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import toast from 'react-hot-toast';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { useGetMyAppliedJobsQuery, useGetMyTasksQuery } from '@/redux/api/task';
 
 const UserProfilePage = () => {
   const { data: profile, isLoading, error } = useGetUserProfileQuery();
   const [updateProfile] = useUpdateProfileMutation();
+  const { data } = useGetMyAppliedJobsQuery();
+
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -38,9 +42,9 @@ const UserProfilePage = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: name === 'graduationYear' ? parseInt(value) || 0 : value
+      [name]: name === 'graduationYear' ? parseInt(value) || 0 : value,
     }));
   };
 
@@ -65,40 +69,44 @@ const UserProfilePage = () => {
   if (error || !profile) {
     return (
       <div className="container mx-auto p-6">
-        <div className="text-center text-red-500">
-          Failed to load profile details
-        </div>
+        <div className="text-center text-red-500">Failed to load profile details</div>
       </div>
     );
   }
 
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map((part) => part[0])
+      .join('')
+      .toUpperCase()
+      .substring(0, 2);
+  };
+
+  console.log('data>jobs', data);
+
   return (
-    <div className="container mx-auto bg-slate-50">
-      <Card className="overflow-hidden rounded">
+    <div className="container min-h-screen mx-auto">
+      <Card className="overflow-hidden rounded-lg">
         <div className="relative h-48 bg-gradient-to-r from-slate-500 to-cyan-800">
           <div className="absolute -bottom-16 left-6">
-            <div className="rounded-full border-4 border-white bg-white overflow-hidden">
-              <Image
-                src='https://avatar.iran.liara.run/public'
-                alt={profile.name}
-                width={120}
-                height={120}
-                className="object-cover"
-              />
+            <div className="rounded-full border-4 border-white bg-slate-500 overflow-hidden">
+              <Avatar className="w-28 h-28">
+                <AvatarFallback className="bg-slate-700 text-slate-200 text-4xl ">
+                  {getInitials(profile.name)}
+                </AvatarFallback>
+              </Avatar>
             </div>
           </div>
         </div>
-        <div className='w-full justify-end items-end right-4 flex px-6 py-2 bg-slate-50'>
+        <div className="w-full justify-end items-end right-4 flex px-6 py-2 bg-slate-50">
           {isEditing ? (
             <div className="space-x-2">
-              <Button
-                variant="outline"
-                onClick={() => setIsEditing(false)}
-              >
+              <Button variant="outline" onClick={() => setIsEditing(false)}>
                 Cancel
               </Button>
               <Button
-                className='rounded bg-gradient-to-r from-slate-500 to-cyan-800'
+                className="rounded bg-gradient-to-r from-slate-500 to-cyan-800"
                 onClick={handleSubmit}
               >
                 Save Changes
@@ -106,34 +114,37 @@ const UserProfilePage = () => {
             </div>
           ) : (
             <Button
-              className='rounded bg-gradient-to-r from-slate-500 to-cyan-800'
+              className="rounded bg-gradient-to-r from-slate-500 to-cyan-800"
               onClick={() => setIsEditing(true)}
             >
               Edit Profile
             </Button>
           )}
         </div>
-        
-        <CardContent className=" bg-slate-50">
+
+        <CardContent className="bg-slate-50">
           <div className="space-y-4 pt-10">
             <div>
-              <div className='flex gap-1 items-end'>
-                  <h1 className="text-3xl font-bold flex">{profile.name}      </h1>
-                <span className="text-xs items-end flex-end text-gray-500">({profile.username})</span>
-            </div>
+              <div className="flex gap-1 items-end">
+                <h1 className="text-3xl font-bold flex">{profile.name} </h1>
+                <span className="text-xs items-end flex-end text-gray-500">
+                  (@{profile.username})
+                </span>
+              </div>
 
-        
               <div className="text-gray-500 mt-2">
                 {isEditing ? (
                   <div className="flex gap-2">
-                    <Input className="bg-white w-fit"
+                    <Input
+                      className="bg-white w-fit"
                       name="position"
                       value={formData.position}
                       onChange={handleInputChange}
                       placeholder="Position"
                     />
                     <span>at</span>
-                    <Input className="bg-white w-fit"
+                    <Input
+                      className="bg-white w-fit"
                       name="company"
                       value={formData.company}
                       onChange={handleInputChange}
@@ -148,7 +159,7 @@ const UserProfilePage = () => {
 
             <div className="flex gap-4">
               {isEditing ? (
-                <Input 
+                <Input
                   name="linkedin"
                   value={formData.linkedin}
                   onChange={handleInputChange}
@@ -181,7 +192,8 @@ const UserProfilePage = () => {
                 {isEditing ? (
                   <div>
                     <label className="block text-sm font-medium text-gray-700">Email</label>
-                    <Input className="bg-white w-fit"
+                    <Input
+                      className="bg-white w-fit"
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
@@ -192,15 +204,20 @@ const UserProfilePage = () => {
                 ) : (
                   <p className="text-gray-600">Email: {profile.email}</p>
                 )}
-                <p className="text-gray-600 ">Verification Status: <span className='bg-green-600 text-white px-1 rounded-3xl'>{profile.isVerified ? 'Verified' : 'Not Verified'}</span></p>
+                <p className="text-gray-600 ">
+                  Verification Status:{' '}
+                  <span className="bg-green-600 text-white px-1 rounded-3xl">
+                    {profile.isVerified ? 'Verified' : 'Not Verified'}
+                  </span>
+                </p>
               </div>
             </div>
-
 
             <div>
               <h2 className="text-xl font-semibold mb-2">Education</h2>
               {isEditing ? (
-                <Input className="bg-white w-fit"
+                <Input
+                  className="bg-white w-fit"
                   name="graduationYear"
                   value={formData.graduationYear}
                   onChange={handleInputChange}
@@ -218,6 +235,51 @@ const UserProfilePage = () => {
           </div>
         </CardContent>
       </Card>
+
+      <div className="overflow-x-auto rounded-lg shadow-md mt-2">
+        <table className="min-w-full divide-y divide-slate-600 bg-slate-800 text-white">
+          <thead className="bg-cyan-700">
+            <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                Title
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                Status
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                Price
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                Due Date
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"></th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-slate-600">
+            {data?.map((task: any) => (
+              <tr key={task._id} className="hover:bg-slate-700 transition">
+                <td className="px-6 py-4">{task.title}</td>
+                <td className="px-6 py-4">
+                  <span className="inline-flex px-2 py-1 text-sm font-semibold rounded bg-cyan-600 text-white capitalize">
+                    {task.status}
+                  </span>
+                </td>
+                <td className="px-6 py-4">₹{task.price.toLocaleString()}</td>
+                <td className="px-6 py-4">
+                  {new Date(task.dueDate).toLocaleDateString('en-IN', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                  })}
+                </td>
+                <td className="px-6 py-4 underline underline-offset-4 cursor-not-allowed ">
+                  Mark Complete
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

@@ -3,8 +3,14 @@
 import React, { useEffect, useState } from 'react';
 import { FaUserPlus, FaUserCheck, FaUserClock } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';
-import { useSendConnectionRequestMutation, useGetConnectionStatusQuery, useAcceptConnectionMutation } from '@/redux/api/user';
+import {
+  useSendConnectionRequestMutation,
+  useGetConnectionStatusQuery,
+  useAcceptConnectionMutation,
+} from '@/redux/api/user';
 import toast from 'react-hot-toast';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 
 interface ConnectionButtonProps {
   userId: string;
@@ -16,6 +22,11 @@ const ConnectionButton = ({ userId, className = '' }: ConnectionButtonProps) => 
   const [sendConnectionRequest, { isLoading: isSending }] = useSendConnectionRequestMutation();
   const [acceptConnection, { isLoading: isAccepting }] = useAcceptConnectionMutation();
   const [connectionStatus, setConnectionStatus] = useState<string>('none');
+  const currentUser = useSelector((state: RootState) => state.auth.user);
+
+  if (userId === currentUser?._id) {
+    return <Button className='bg-transparent'></Button>;
+  }
 
   useEffect(() => {
     if (data) {
@@ -44,13 +55,17 @@ const ConnectionButton = ({ userId, className = '' }: ConnectionButtonProps) => 
   };
 
   if (isLoading) {
-    return <Button className={`${className}`} disabled>Loading...</Button>;
+    return (
+      <Button className={`${className}`} disabled>
+        Loading...
+      </Button>
+    );
   }
 
   switch (connectionStatus) {
     case 'none':
       return (
-        <Button 
+        <Button
           onClick={handleConnect}
           disabled={isSending}
           className={`flex items-center gap-2 ${className}`}
@@ -58,21 +73,17 @@ const ConnectionButton = ({ userId, className = '' }: ConnectionButtonProps) => 
           <FaUserPlus /> Connect
         </Button>
       );
-    
+
     case 'requested':
       return (
-        <Button 
-          disabled
-          variant="outline"
-          className={`flex items-center gap-2 ${className}`}
-        >
+        <Button disabled variant="outline" className={`flex items-center gap-2 ${className}`}>
           <FaUserClock /> Requested
         </Button>
       );
-    
+
     case 'incoming':
       return (
-        <Button 
+        <Button
           onClick={handleAccept}
           disabled={isAccepting}
           className={`flex items-center gap-2 ${className}`}
@@ -81,21 +92,17 @@ const ConnectionButton = ({ userId, className = '' }: ConnectionButtonProps) => 
           <FaUserPlus /> Accept Request
         </Button>
       );
-    
+
     case 'connected':
       return (
-        <Button 
-          disabled
-          variant="outline"
-          className={`flex items-center gap-2 ${className}`}
-        >
+        <Button disabled variant="outline" className={`flex items-center gap-2 ${className}`}>
           <FaUserCheck /> Connected
         </Button>
       );
-    
+
     default:
       return (
-        <Button 
+        <Button
           onClick={handleConnect}
           disabled={isSending}
           className={`flex items-center gap-2 ${className}`}
@@ -106,4 +113,4 @@ const ConnectionButton = ({ userId, className = '' }: ConnectionButtonProps) => 
   }
 };
 
-export default ConnectionButton; 
+export default ConnectionButton;

@@ -14,6 +14,8 @@ export default function ChatPage() {
   const [selectedUser, setSelectedUser] = useState<{ id: string; name: string } | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const currentUser = useSelector((state: RootState) => state.auth.user);
+
+  console.log('currentUser>>chat>>', currentUser);
   
   const { data: connections, isLoading, refetch } = useGetMyConnectionsQuery({ 
     status: 'accepted',
@@ -21,9 +23,9 @@ export default function ChatPage() {
 
   // Register user with socket when page loads
   useEffect(() => {
-    if (currentUser?.id) {
-      console.log("ChatPage: Registering user:", currentUser.id);
-      registerUser(currentUser.id);
+    if (currentUser?._id) {
+      console.log("ChatPage: Registering user:", currentUser._id);
+      registerUser(currentUser._id);
       refetch();
     }
   }, [currentUser, refetch]);
@@ -34,8 +36,8 @@ export default function ChatPage() {
 
   const filteredConnections = connections?.filter((connection) => {
     let otherUser;
-    if (currentUser?.id) {
-      otherUser = connection.sender._id === currentUser.id
+    if (currentUser?._id) {
+      otherUser = connection.sender._id === currentUser._id
         ? connection.receiver
         : connection.sender;
     } else {
@@ -86,8 +88,8 @@ export default function ChatPage() {
             ) : (
               <div>
                 {filteredConnections?.map((connection) => {
-                  const otherUser = currentUser?.id 
-                    ? (connection.sender._id === currentUser.id ? connection.receiver : connection.sender)
+                  const otherUser = currentUser?._id 
+                    ? (connection.sender._id === currentUser._id ? connection.receiver : connection.sender)
                     : (connection.sender._id === selectedUser?.id ? connection.receiver : connection.sender);
                     
                   return (

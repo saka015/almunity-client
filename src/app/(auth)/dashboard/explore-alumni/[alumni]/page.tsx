@@ -2,6 +2,8 @@
 
 import React from 'react';
 import { useGetAlumniByIdQuery } from '@/redux/api/user';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import { FaLinkedin, FaEnvelope } from 'react-icons/fa';
@@ -10,27 +12,35 @@ import { Skeleton } from '@/components/ui/skeleton';
 import Link from 'next/link';
 import Loader from '@/app/components/Loader';
 import ConnectionButton from '@/app/components/ConnectionButton';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 
 const AlumniDetailsPage = () => {
+  const currentUser = useSelector((state: RootState) => state.auth.user);
   const params = useParams();
   const username = params.alumni as string;
   const { data: alumni, isLoading, error } = useGetAlumniByIdQuery(username);
 
   if (isLoading) {
-    return (
-      <Loader/>
-    );
+    return <Loader />;
   }
 
   if (error || !alumni) {
     return (
       <div className="container mx-auto p-6">
-        <div className="text-center text-red-500">
-          Failed to load alumni details
-        </div>
+        <div className="text-center text-red-500">Failed to load alumni details</div>
       </div>
     );
   }
+
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map((part) => part[0])
+      .join('')
+      .toUpperCase()
+      .substring(0, 2);
+  };
 
   return (
     <div className="container mx-auto">
@@ -38,25 +48,28 @@ const AlumniDetailsPage = () => {
         <div className="relative h-48 bg-gradient-to-r from-slate-500 to-cyan-800">
           <div className="absolute -bottom-16 left-6">
             <div className="rounded-full border-4 border-white bg-white overflow-hidden">
-              <Image
-                src='https://avatar.iran.liara.run/public'
-                alt={alumni.name}
-                width={120}
-                height={120}
-                className="object-cover"
-              />
+              <Avatar className="w-28 h-28">
+                <AvatarFallback className="bg-slate-700 text-slate-200 text-4xl ">
+                  {getInitials(alumni.name)}
+                </AvatarFallback>
+              </Avatar>
             </div>
-          </div>        
+          </div>
         </div>
-        <div className='w-full justify-end items-end right-4 flex px-6 py-2'>
+
+        <div className="w-full justify-end items-end right-4 flex px-6 py-2">
           <ConnectionButton userId={alumni._id} />
         </div>
-        
+
         <CardContent className="pt-6">
           <div className="space-y-4">
             <div>
-              <h1 className="text-3xl font-bold">{alumni.name} {}</h1>
-              <p className="text-gray-500">{alumni.position} at {alumni.company}</p>
+              <h1 className="text-3xl font-bold">
+                {alumni.name} {}
+              </h1>
+              <p className="text-gray-500">
+                {alumni.position} at {alumni.company}
+              </p>
             </div>
 
             <div className="flex gap-4">

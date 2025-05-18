@@ -34,7 +34,7 @@ export interface TasksQueryParams {
 export const taskApi = createApi({
   reducerPath: 'taskApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_BASE_API_URL || 'http://localhost:5000',
+    baseUrl: process.env.NEXT_PUBLIC_BASE_API_URL || 'http://localhost:5000/api/v1',
     credentials: 'include',
   }),
   endpoints: (builder) => ({
@@ -55,7 +55,40 @@ export const taskApi = createApi({
         },
       }),
     }),
+    getAllTasks: builder.query<any, TasksQueryParams>({
+      query: (params) => ({
+        url: '/task/all-tasks',
+        params: {
+          search: params.search || '',
+          page: params.page || 1,
+          limit: params.limit || 10,
+        },
+      }),
+    }),
+      getTaskById: builder.query<any, string>({
+      query: (id) => ({
+        url: `/task/${id}`,
+      }),
+      }),
+      getMyAppliedJobs: builder.query<any, void>({
+      query: () => ({
+        url: `/task/get-applied-jobs`,
+      }),
+      }),
+      
+    applyToTaskById: builder.mutation<any, {
+      taskId: string, formData: {
+        title: string,
+        description:string,
+        email:string
+    }}>({
+      query: ({taskId,formData}) => ({
+        url: `/task/${taskId}/apply`,
+        method: 'POST',
+        body:formData 
+      }),
+    }),
   }),
 });
 
-export const { useCreateTaskMutation, useGetMyTasksQuery } = taskApi;
+export const { useCreateTaskMutation, useGetMyTasksQuery,useGetAllTasksQuery,useGetTaskByIdQuery,useApplyToTaskByIdMutation,useGetMyAppliedJobsQuery } = taskApi;

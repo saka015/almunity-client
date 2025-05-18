@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import { useExploreAlumniQuery } from '@/redux/api/user';
@@ -18,15 +18,15 @@ const Page = () => {
   }, [search]);
 
   // Query with debounced search term
-  const { data: alumni, isLoading, error } = useExploreAlumniQuery({
+  const {
+    data: alumni,
+    isLoading,
+    error,
+  } = useExploreAlumniQuery({
     searchTerm: debouncedSearch,
   });
 
-  console.log("alum", alumni);
-
-
-
-  
+  console.log('alum', alumni);
 
   return (
     <div className="flex min-h-screen w-full flex-col gap-8">
@@ -36,7 +36,7 @@ const Page = () => {
         onChange={(e) => setSearch(e.target.value)}
         type="text"
         placeholder="Search for alumni..."
-        className="mt-4 border border-gray-500 bg-slate-700 text-white max-w-sm rounded p-[14px] outline-none"
+        className="mt-4 border border-gray-500 bg-slate-700 text-white max-w-sm rounded p-2 outline-none"
       />
 
       {isLoading ? (

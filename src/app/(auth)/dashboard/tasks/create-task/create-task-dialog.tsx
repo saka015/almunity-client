@@ -21,13 +21,12 @@ interface CreateTaskProps {
   refetch: () => void; // Define the type for refetch
 }
 
-
 const CreateTask: React.FC<CreateTaskProps> = ({ refetch }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState(0);
   const [createTask, { isLoading, error }] = useCreateTaskMutation();
-  const [isOpen, setIsOpen] = useState(false); 
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -37,8 +36,8 @@ const CreateTask: React.FC<CreateTaskProps> = ({ refetch }) => {
       setDescription('');
       setPrice(0);
       toast.success('Task Created!');
-        refetch();
-      setIsOpen(false); 
+      refetch();
+      setIsOpen(false);
     } catch (err) {
       console.error('Failed to create task: ', err);
     }
@@ -48,16 +47,17 @@ const CreateTask: React.FC<CreateTaskProps> = ({ refetch }) => {
     <div>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
-          <Button className="border border-gray-500 bg-slate-700 text-white max-w-sm rounded p-4 outline-none" onClick={() => setIsOpen(true)}>
+          <Button
+            className="border border-gray-500 bg-slate-700 text-white max-w-sm rounded p-4 outline-none"
+            onClick={() => setIsOpen(true)}
+          >
             Create a task
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[500px] bg-slate-800 border-gray-600 text-white">
+        <DialogContent className="sm:max-w-[800px] bg-slate-800 border-gray-600 text-white">
           <DialogHeader>
             <DialogTitle>Create a new task</DialogTitle>
-            <DialogDescription>
-              Fill in the details for your new task.
-            </DialogDescription>
+            <DialogDescription>Fill in the details for your new task.</DialogDescription>
           </DialogHeader>
           <form onSubmit={handleSubmit} className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
@@ -80,7 +80,7 @@ const CreateTask: React.FC<CreateTaskProps> = ({ refetch }) => {
               <Textarea
                 id="desc"
                 placeholder="Short description"
-                className="col-span-3 bg-slate-700 text-white border-gray-600"
+                className="col-span-3 bg-slate-700 text-white border-gray-600 max-h-96 overflow-scroll"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 required

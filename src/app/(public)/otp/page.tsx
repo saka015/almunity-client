@@ -58,7 +58,7 @@ const Page = () => {
           updatedAt: new Date().toISOString(),
           __v: 0
         };
-        dispatch(setUser(userProfile as any));
+        dispatch(setUser(userProfile));
       }
 
       toast.success(response?.message || 'OTP verified successfully');
