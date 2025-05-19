@@ -20,8 +20,12 @@ interface OTPVerifyResponse {
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_BASE_API_URL || 'http://localhost:5000',
+    baseUrl: process.env.NEXT_PUBLIC_BASE_API_URL || 'http://localhost:5000/api/v1',
     credentials: 'include',
+    prepareHeaders: (headers) => {
+      headers.set('Content-Type', 'application/json');
+      return headers;
+    },
   }),
   endpoints: (builder) => ({
     register: builder.mutation<any, UserRegisterData>({
@@ -59,6 +63,7 @@ export const authApi = createApi({
     logout: builder.mutation({
       query: () => ({
         url: '/auth/logout',
+        method: 'POST',
       }),
     }),
   }),
