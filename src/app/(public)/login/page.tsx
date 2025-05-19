@@ -31,10 +31,12 @@ export default function Login() {
     e.preventDefault();
     setLoginError('');
     dispatch(setLoading(true));
-    
+
     try {
       await login(form).unwrap();
-      localStorage.setItem("useremail_registration",form?.email)
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('useremail_registration', form?.email);
+      }
 
       router.push('/otp');
     } catch (error) {
@@ -113,7 +115,10 @@ export default function Login() {
         <CardFooter className="flex justify-center">
           <div className="text-sky-200/80 text-center text-sm pt-12">
             Don't have an account?{' '}
-            <Link href="/register" className="text-cyan-400 hover:text-cyan-300 font-medium transition-colors">
+            <Link
+              href="/register"
+              className="text-cyan-400 hover:text-cyan-300 font-medium transition-colors"
+            >
               Sign up
             </Link>
           </div>

@@ -16,35 +16,38 @@ export default function ChatPage() {
   const currentUser = useSelector((state: RootState) => state.auth.user);
 
   console.log('currentUser>>chat>>', currentUser);
-  
-  const { data: connections, isLoading, refetch } = useGetMyConnectionsQuery({ 
+
+  const {
+    data: connections,
+    isLoading,
+    refetch,
+  } = useGetMyConnectionsQuery({
     status: 'accepted',
   });
 
   // Register user with socket when page loads
   useEffect(() => {
     if (currentUser?._id) {
-      console.log("ChatPage: Registering user:", currentUser._id);
+      console.log('ChatPage: Registering user:', currentUser._id);
       registerUser(currentUser._id);
       refetch();
     }
   }, [currentUser, refetch]);
 
   useEffect(() => {
-    console.log("Connections data:", connections);
+    console.log('Connections data:', connections);
   }, [connections]);
 
   const filteredConnections = connections?.filter((connection) => {
     let otherUser;
     if (currentUser?._id) {
-      otherUser = connection.sender._id === currentUser._id
-        ? connection.receiver
-        : connection.sender;
+      otherUser =
+        connection.sender._id === currentUser._id ? connection.receiver : connection.sender;
     } else {
       const isCurrentUserSender = connection.sender._id === selectedUser?.id;
       otherUser = isCurrentUserSender ? connection.receiver : connection.sender;
     }
-    
+
     return (
       otherUser.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       otherUser.username.toLowerCase().includes(searchQuery.toLowerCase())
@@ -63,7 +66,7 @@ export default function ChatPage() {
   return (
     <div className="container mx-auto">
       <h1 className="text-3xl font-bold text-cyan-100 mb-6">Conversations</h1>
-      
+
       <div className="flex gap-4 h-[calc(100vh-200px)]">
         <div className="w-1/4 border rounded-lg overflow-hidden flex flex-col bg-slate-800 border-slate-700">
           <div className="p-3 border-b border-slate-700">
@@ -77,7 +80,7 @@ export default function ChatPage() {
               />
             </div>
           </div>
-          
+
           <div className="flex-1 overflow-y-auto">
             {isLoading ? (
               <div className="p-4 text-center text-slate-400">Loading connections...</div>
@@ -88,12 +91,16 @@ export default function ChatPage() {
             ) : (
               <div>
                 {filteredConnections?.map((connection) => {
-                  const otherUser = currentUser?._id 
-                    ? (connection.sender._id === currentUser._id ? connection.receiver : connection.sender)
-                    : (connection.sender._id === selectedUser?.id ? connection.receiver : connection.sender);
-                    
+                  const otherUser = currentUser?._id
+                    ? connection.sender._id === currentUser._id
+                      ? connection.receiver
+                      : connection.sender
+                    : connection.sender._id === selectedUser?.id
+                      ? connection.receiver
+                      : connection.sender;
+
                   return (
-                    <div 
+                    <div
                       key={connection._id}
                       onClick={() =>
                         setSelectedUser({
@@ -120,7 +127,7 @@ export default function ChatPage() {
             )}
           </div>
         </div>
-        
+
         <div className="flex-1 bg-slate-800 border border-slate-700 rounded-lg">
           {selectedUser ? (
             <ChatBox receiverId={selectedUser.id} receiverName={selectedUser.name} />

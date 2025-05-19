@@ -2,9 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import { UserProfile } from '../api/user';
 
-
-
-
 interface AuthState {
   user: UserProfile | null;
   isAuthenticated: boolean;
@@ -42,4 +39,4 @@ export const selectAuth = (state: RootState) => state.auth;
 export const selectUser = (state: RootState) => state.auth.user;
 export const selectIsAuthenticated = (state: RootState) => state.auth.isAuthenticated;
 
-export default authSlice.reducer; 
+export default authSlice.reducer;

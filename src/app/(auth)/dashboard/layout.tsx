@@ -88,7 +88,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <span>
               <CiLogout />
             </span>
-            {isOpen && <span className="hidden lg:block !font-sans font-light text-left ">Logout</span>}
+            {isOpen && (
+              <span className="hidden lg:block !font-sans font-light text-left ">Logout</span>
+            )}
           </Button>
         </div>
       </div>

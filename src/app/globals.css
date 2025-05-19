@@ -1,12 +1,9 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
-
-
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-
   --font-display: 'dm-serif-display';
   --font-inter: 'inter';
   --font-gilroy: 'gilroy';
@@ -50,8 +47,8 @@
 }
 
 :root {
-  --main: #121F21;
-  --sec: #91BFC9;
+  --main: #121f21;
+  --sec: #91bfc9;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.141 0.005 285.823);
@@ -143,13 +140,11 @@ button {
   cursor: pointer;
 }
 
-
 /* @theme{
 
 
 } */
 
-
-body{
+body {
   /* font-family: 'Raleway'; */
 }

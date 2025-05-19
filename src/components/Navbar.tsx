@@ -26,22 +26,15 @@ export default function Navbar() {
     };
   }, [scrolled]);
 
-  const handleLogout =async () => {
+  const handleLogout = async () => {
     await logout({}).unwrap();
-  }
-
+  };
 
   return (
-    <nav
-      className="flex justify-between items-center sticky top-0 z-50 transition-all duration-300 py-6" 
-    >
+    <nav className="flex justify-between items-center sticky top-0 z-50 transition-all duration-300 py-6">
       <div className="container mx-auto flex justify-between items-center px-4">
         <div className="flex items-center">
-          <span
-            className="text-4xl font-raleway font-bold text-white"
-          >
-            Alumnity
-          </span>
+          <span className="text-4xl font-raleway font-bold text-white">Alumnity</span>
         </div>
 
         <Button onClick={handleLogout}>Logout</Button>

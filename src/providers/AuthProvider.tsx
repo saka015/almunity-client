@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -11,11 +11,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     dispatch(setLoading(isLoading));
-    
+
     if (userProfile) {
       dispatch(setUser(userProfile));
     }
   }, [userProfile, isLoading, dispatch]);
 
   return <>{children}</>;
-} 
+}

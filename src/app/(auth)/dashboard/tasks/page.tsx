@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import MyTasks from './MyTasks';
 import AllTasks from './AllTasks';
 
-const page = () => {
+const Page = () => {
   const [myTasks, setMyTasks] = useState<boolean>(false);
 
   return (
@@ -28,9 +28,9 @@ const page = () => {
         </button>
       </div>
 
-      <div>{myTasks ? <MyTasks /> : <AllTasks/>}</div>
+      <div>{myTasks ? <MyTasks /> : <AllTasks />}</div>
     </div>
   );
 };
 
-export default page;
+export default Page;

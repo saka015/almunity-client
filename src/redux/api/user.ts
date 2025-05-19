@@ -1,7 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 interface Alumni {
-
   _id: string;
   username: string;
   name: string;
@@ -10,7 +9,7 @@ interface Alumni {
   company: string;
   position: string;
   email: string;
-  college: string;  
+  college: string;
 }
 
 export interface UserProfile {
@@ -25,8 +24,8 @@ export interface UserProfile {
   company: string;
   position: string;
   calendly: string;
-  createdAt: string; 
-  updatedAt: string; 
+  createdAt: string;
+  updatedAt: string;
   __v: number;
 }
 
@@ -59,7 +58,9 @@ export interface ConnectionStatusResponse {
   connectionStatus: 'none' | 'requested' | 'incoming' | 'connected';
 }
 
-export type UpdateProfileData = Partial<Omit<UserProfile, 'username' | 'name' | '_id' | 'createdAt' | 'updatedAt' | '__v'>>;
+export type UpdateProfileData = Partial<
+  Omit<UserProfile, 'username' | 'name' | '_id' | 'createdAt' | 'updatedAt' | '__v'>
+>;
 
 export const userApi = createApi({
   reducerPath: 'userApi',
@@ -85,11 +86,11 @@ export const userApi = createApi({
       invalidatesTags: ['User'],
     }),
 
-    exploreAlumni: builder.query<Alumni[], { searchTerm: string; }>({
+    exploreAlumni: builder.query<Alumni[], { searchTerm: string }>({
       query: ({ searchTerm }) => ({
         url: '/user/explore-alumni',
         params: {
-          searchTerm
+          searchTerm,
         },
       }),
     }),
@@ -120,22 +121,25 @@ export const userApi = createApi({
       }),
       providesTags: ['User'],
     }),
-    getMyConnections: builder.query<ConnectionResponse[], {
-      status: string
-    }>({
+    getMyConnections: builder.query<
+      ConnectionResponse[],
+      {
+        status: string;
+      }
+    >({
       query: ({ status }) => ({
         url: '/connection/my-connections',
-        params: { status }  
+        params: { status },
       }),
       providesTags: ['User'],
-    })
+    }),
   }),
 });
 
-export const { 
+export const {
   useGetUserProfileQuery,
-  useExploreAlumniQuery, 
-  useGetAlumniByIdQuery, 
+  useExploreAlumniQuery,
+  useGetAlumniByIdQuery,
   useUpdateProfileMutation,
   useSendConnectionRequestMutation,
   useAcceptConnectionMutation,

@@ -1,4 +1,4 @@
-import {  UserRegisterData } from '@/app/interface';
+import { UserRegisterData } from '@/app/interface';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { setUser } from '../features/auth-slice';
 
@@ -7,16 +7,15 @@ export interface User {
   name: string;
   email: string;
   username: string;
-  role: 'user' | 'admin'; 
+  role: 'user' | 'admin';
   isVerified: boolean;
 }
 
 interface OTPVerifyResponse {
-  status: 'success' | 'error'; 
+  status: 'success' | 'error';
   message: string;
   user: User;
 }
-
 
 export const authApi = createApi({
   reducerPath: 'authApi',
@@ -32,22 +31,22 @@ export const authApi = createApi({
         body: data,
       }),
     }),
-      
-      verifyOtp: builder.mutation<OTPVerifyResponse,{email?:string,otp?:string}>({
+
+    verifyOtp: builder.mutation<OTPVerifyResponse, { email?: string; otp?: string }>({
       query: (data) => ({
         url: '/auth/verify-otp',
         method: 'POST',
         body: data,
-      })
+      }),
     }),
-      resendOtp: builder.mutation<any,{email:string}>({
+    resendOtp: builder.mutation<any, { email: string }>({
       query: (data) => ({
         url: '/auth/resend-otp',
         method: 'POST',
         body: data,
-      })
+      }),
     }),
-      // 
+    //
 
     login: builder.mutation({
       query: (data) => ({
@@ -57,7 +56,6 @@ export const authApi = createApi({
       }),
     }),
 
-
     logout: builder.mutation({
       query: () => ({
         url: '/auth/logout',
@@ -66,10 +64,10 @@ export const authApi = createApi({
   }),
 });
 
-export const { 
-  useRegisterMutation, 
-  useLoginMutation, 
+export const {
+  useRegisterMutation,
+  useLoginMutation,
   useLogoutMutation,
   useVerifyOtpMutation,
-  useResendOtpMutation
+  useResendOtpMutation,
 } = authApi;

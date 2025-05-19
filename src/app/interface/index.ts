@@ -6,6 +6,5 @@ export interface UserRegisterData {
   linkedin: string;
   company: string;
   position: string;
-  graduationYear:number;
+  graduationYear: number;
 }
-

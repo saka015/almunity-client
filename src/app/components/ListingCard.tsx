@@ -28,7 +28,7 @@ export default function ListingCard({
   return (
     <Card className="bg-slate-800 text-white border-cyan-500 hover:shadow-cyan-500/30 hover:shadow-lg transition duration-300">
       <CardContent className="flex flex-col h-full justify-between p-6 space-y-4">
-        <div className='flex flex-col'>
+        <div className="flex flex-col">
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-semibold text-cyan-500 overflow-hidden ">{title}</h2>
             <Badge className={`capitalize ${status === 'active' ? 'bg-cyan-600' : 'bg-slate-600'}`}>

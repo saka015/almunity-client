@@ -65,30 +65,42 @@ export const taskApi = createApi({
         },
       }),
     }),
-      getTaskById: builder.query<any, string>({
+    getTaskById: builder.query<any, string>({
       query: (id) => ({
         url: `/task/${id}`,
       }),
-      }),
-      getMyAppliedJobs: builder.query<any, void>({
+    }),
+    getMyAppliedJobs: builder.query<any, void>({
       query: () => ({
         url: `/task/get-applied-jobs`,
       }),
-      }),
-      
-    applyToTaskById: builder.mutation<any, {
-      taskId: string, formData: {
-        title: string,
-        description:string,
-        email:string
-    }}>({
-      query: ({taskId,formData}) => ({
+    }),
+
+    applyToTaskById: builder.mutation<
+      any,
+      {
+        taskId: string;
+        formData: {
+          title: string;
+          description: string;
+          email: string;
+        };
+      }
+    >({
+      query: ({ taskId, formData }) => ({
         url: `/task/${taskId}/apply`,
         method: 'POST',
-        body:formData 
+        body: formData,
       }),
     }),
   }),
 });
 
-export const { useCreateTaskMutation, useGetMyTasksQuery,useGetAllTasksQuery,useGetTaskByIdQuery,useApplyToTaskByIdMutation,useGetMyAppliedJobsQuery } = taskApi;
+export const {
+  useCreateTaskMutation,
+  useGetMyTasksQuery,
+  useGetAllTasksQuery,
+  useGetTaskByIdQuery,
+  useApplyToTaskByIdMutation,
+  useGetMyAppliedJobsQuery,
+} = taskApi;

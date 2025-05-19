@@ -28,7 +28,7 @@ export default function Register() {
     username: '',
     linkedin: '',
     position: '',
-    company:'',
+    company: '',
     graduationYear: new Date().getFullYear(),
   });
   const [loading, setLoading] = useState(false);
@@ -39,24 +39,26 @@ export default function Register() {
     e.preventDefault();
 
     if (form.username.length < 5) {
-      toast.error("Username must be at least 5 characters");
+      toast.error('Username must be at least 5 characters');
       return;
     }
 
     const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     if (!emailRegex.test(form.email)) {
-      toast.error("Please enter a valid email");
+      toast.error('Please enter a valid email');
       return;
     }
 
     if (form.password.length < 6) {
-      toast.error("Password must be at least 6 characters");
+      toast.error('Password must be at least 6 characters');
       return;
     }
 
     const linkedinRegex = /^(https?:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9_-]{3,100}\/?$/;
     if (!linkedinRegex.test(form.linkedin)) {
-      toast.error("Please enter a valid LinkedIn profile URL (e.g. https://www.linkedin.com/in/username/)");
+      toast.error(
+        'Please enter a valid LinkedIn profile URL (e.g. https://www.linkedin.com/in/username/)',
+      );
       return;
     }
 
@@ -64,8 +66,10 @@ export default function Register() {
     try {
       const response = await register(form).unwrap();
       toast.success('Registration successful');
-      localStorage.setItem("useremail_registration", form.email);
-      router.push("/otp");
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('useremail_registration', form.email);
+      }
+      router.push('/otp');
     } catch (error: any) {
       const errorMessage = error?.data?.message || 'Registration failed. Please try again.';
       toast.error(errorMessage);
@@ -81,9 +85,7 @@ export default function Register() {
           <h1 className="text-3xl font-bold text-center bg-gradient-to-r from-sky-400 to-cyan-300 bg-clip-text text-transparent">
             Create Account
           </h1>
-          <p className="text-sky-200/80 text-center">
-            Join Alumnity and connect with your network
-          </p>
+          <p className="text-sky-200/80 text-center">Join Alumnity and connect with your network</p>
         </div>
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-4">
@@ -178,10 +180,13 @@ export default function Register() {
                 Privacy Policy
               </Link>
             </p>
-            
+
             <p className="text-sky-200/80">
               Already have an account?{' '}
-              <Link href="/login" className="text-cyan-400 hover:text-cyan-300 font-medium transition-colors">
+              <Link
+                href="/login"
+                className="text-cyan-400 hover:text-cyan-300 font-medium transition-colors"
+              >
                 Sign in
               </Link>
             </p>

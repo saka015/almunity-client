@@ -30,11 +30,11 @@ export const chatApi = createApi({
       }),
       providesTags: ['Messages'],
       transformResponse: (response: any) => {
-        console.log("Received messages:", response);
+        console.log('Received messages:', response);
         return response || [];
-      }
+      },
     }),
   }),
 });
 
-export const { useGetMessagesQuery } = chatApi; 
+export const { useGetMessagesQuery } = chatApi;
