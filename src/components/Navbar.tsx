@@ -37,7 +37,7 @@ export default function Navbar() {
           <span className="text-4xl font-raleway font-bold text-white">Alumnity</span>
         </div>
 
-        <Button onClick={handleLogout}>Logout</Button>
+        {/* <Button onClick={handleLogout}>Logout</Button> */}
       </div>
     </nav>
   );

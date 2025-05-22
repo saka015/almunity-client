@@ -11,13 +11,16 @@ import { HiMenu } from 'react-icons/hi';
 import { LuArrowLeftToLine } from 'react-icons/lu';
 import { Button } from '@/components/ui/button';
 import { CiLogout } from 'react-icons/ci';
+import { AiOutlineProduct } from 'react-icons/ai';
+import { FaTasks } from 'react-icons/fa';
 
 const sidebarNav = [
   { href: '/dashboard/explore-alumni', icon: <IoRocketOutline size={24} />, title: 'Explore' },
   { href: '/dashboard/user-profile', icon: <CiUser size={24} />, title: 'Profile' },
-  { href: '/dashboard/tasks', icon: <CiUser size={24} />, title: 'Tasks' },
+  { href: '/dashboard/tasks', icon: <FaTasks size={24} />, title: 'Tasks' },
   { href: '/dashboard/connections', icon: <BsPeople size={24} />, title: 'Connections' },
   { href: '/dashboard/chat', icon: <IoChatbubbleEllipsesOutline size={24} />, title: 'Chat' },
+  { href: '/dashboard/products', icon: <AiOutlineProduct size={24} />, title: 'Products' },
 ];
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -81,8 +84,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           {/* Logout button */}
           <Button
             // onClick={handleLogout}
-            className={`flex !font-sans font-light w-fit text-left  items-center gap-3 rounded p-2 pr-3 py-5 text-lg transition-colors border  border-cyan-700 
-    hover:bg-slate-800 text-slate-400 bg-transparent border-dotted 
+            className={`flex !font-sans font-light w-fit text-left  items-center gap-3 rounded p-2 pr-3 py-5 text-lg transition-colors    
+    hover:bg-slate-800 text-slate-400 shadow-md bg-slate-800/60 
     ${isOpen ? 'min-w-40' : ''}`}
           >
             <span>

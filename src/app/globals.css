@@ -1,8 +1,6 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
-
 @custom-variant dark (&:is(.dark *));
-
 @theme inline {
   --font-display: 'dm-serif-display';
   --font-inter: 'inter';
@@ -147,4 +145,8 @@ button {
 
 body {
   /* font-family: 'Raleway'; */
+}
+
+input {
+  cursor: pointer;
 }
