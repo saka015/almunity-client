@@ -24,7 +24,6 @@ export const store = configureStore({
       .concat(taskApi.middleware)
       .concat(productApi.middleware)
       .concat(chatApi.middleware),
-  
 });
 
 setupListeners(store.dispatch);

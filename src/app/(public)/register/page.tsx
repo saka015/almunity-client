@@ -136,7 +136,7 @@ export default function Register() {
                 className="flex-1  h-12 bg-white hover:opacity-90 hover:border-emerald-900 text-emerald-900 font-medium text-lg rounded-none transition-all duration-200 transform hover:text-white"
                 disabled={loading}
               >
- Google <FcGoogle />
+                Google <FcGoogle />
               </Button>
               <Button
                 type="submit"

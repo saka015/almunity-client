@@ -30,14 +30,28 @@ export const productApi = createApi({
     credentials: 'include',
   }),
   endpoints: (builder) => ({
-    createProduct: builder.mutation<Product, Omit<Product, 'createdBy' | 'createdUsername' | 'paymentStatus' | '_id'>>({
+    createProduct: builder.mutation<
+      Product,
+      Omit<Product, 'createdBy' | 'createdUsername' | 'paymentStatus' | '_id'>
+    >({
       query: (productData) => ({
         url: '/product/create-product',
         method: 'POST',
         body: productData,
       }),
     }),
-    getAllProducts: builder.query<{ products: Product[]; pagination: { currentPage: number; totalPages: number; totalItems: number; itemsPerPage: number } }, ProductQueryParams>({
+    getAllProducts: builder.query<
+      {
+        products: Product[];
+        pagination: {
+          currentPage: number;
+          totalPages: number;
+          totalItems: number;
+          itemsPerPage: number;
+        };
+      },
+      ProductQueryParams
+    >({
       query: (params) => ({
         url: '/product/all-products',
         params: {
@@ -47,36 +61,37 @@ export const productApi = createApi({
         },
       }),
     }),
-      getProductById: builder.query<any, string>({
+    getProductById: builder.query<any, string>({
       query: (id) => ({
         url: `/product/${id}`,
       }),
-      }),
-        sendPaymentOtp: builder.mutation<any,void>({
+    }),
+    sendPaymentOtp: builder.mutation<any, void>({
       query: () => ({
         url: '/product/send-payment-otp',
         method: 'POST',
       }),
     }),
-      verifyPaymentOtp: builder.mutation<any, {
-  otp: string;
-  productId: string;
-  bookedDate: string; 
-  bookedTime: number;
-}>({
-  query: ({ otp, productId, bookedDate, bookedTime }) => ({
-    url: '/product/verify-payment-otp',
-    method: 'POST',
-    body: {
-      otp,
-      productId,
-      bookedDate,
-      bookedTime,
-    },
-  }),
-}),
-
-
+    verifyPaymentOtp: builder.mutation<
+      any,
+      {
+        otp: string;
+        productId: string;
+        bookedDate: string;
+        bookedTime: number;
+      }
+    >({
+      query: ({ otp, productId, bookedDate, bookedTime }) => ({
+        url: '/product/verify-payment-otp',
+        method: 'POST',
+        body: {
+          otp,
+          productId,
+          bookedDate,
+          bookedTime,
+        },
+      }),
+    }),
   }),
 });
 
@@ -85,5 +100,5 @@ export const {
   useGetAllProductsQuery,
   useGetProductByIdQuery,
   useSendPaymentOtpMutation,
-  useVerifyPaymentOtpMutation
+  useVerifyPaymentOtpMutation,
 } = productApi;
