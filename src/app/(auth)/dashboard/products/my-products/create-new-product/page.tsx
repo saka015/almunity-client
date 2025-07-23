@@ -30,7 +30,7 @@ export default function CreateNewProduct() {
     title: '',
     description: '',
     price: '',
-    duration: '30',
+    duration: '',
     meetLink: '',
     productType: 'session',
   });
@@ -64,7 +64,7 @@ export default function CreateNewProduct() {
         title: '',
         description: '',
         price: '',
-        duration: '30',
+        duration: '',
         meetLink: '',
         productType: 'session',
       });
@@ -86,6 +86,20 @@ export default function CreateNewProduct() {
       className="mx-auto container max-w-2xl space-y-6 bg-slate-900 p-6 rounded-2xl shadow-xl text-white"
     >
       <h2 className="text-2xl font-bold text-cyan-400">Create a Product</h2>
+      <div className="space-y-2">
+        <Label htmlFor="productType">Product Type</Label>
+        <select
+          id="productType"
+          name="productType"
+          value={formData.productType}
+          onChange={handleChange}
+          required
+          className="w-full bg-slate-800 text-white border border-cyan-500 rounded-md p-2"
+        >
+          <option value="session">Session</option>
+          <option value="product">Product</option>
+        </select>
+      </div>
 
       <div className="space-y-2">
         <Label htmlFor="title">Title</Label>
@@ -123,62 +137,52 @@ export default function CreateNewProduct() {
         />
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="duration">Duration</Label>
-        <select
-          id="duration"
-          name="duration"
-          value={formData.duration}
-          onChange={handleChange}
-          className="w-full bg-slate-800 text-white border border-cyan-500 rounded-md p-2"
-        >
-          <option value="15">15 minutes</option>
-          <option value="30">30 minutes</option>
-          <option value="45">45 minutes</option>
-        </select>
-      </div>
+      {formData.productType !== 'product' && (
+        <>
+          <div className="space-y-2">
+            <Label htmlFor="duration">Duration</Label>
+            <select
+              id="duration"
+              name="duration"
+              value={formData.duration}
+              onChange={handleChange}
+              className="w-full bg-slate-800 text-white border border-cyan-500 rounded-md p-2"
+            >
+              <option value="15">15 minutes</option>
+              <option value="30">30 minutes</option>
+              <option value="45">45 minutes</option>
+              <option value="60">60 minutes</option>
+            </select>
+          </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="meetLink">Meeting Link</Label>
-        <Input
-          id="meetLink"
-          name="meetLink"
-          type="url"
-          value={formData.meetLink}
-          onChange={handleChange}
-          className="bg-slate-800 text-white border-cyan-500"
-        />
-      </div>
+          <div className="space-y-2">
+            <Label htmlFor="meetLink">Meeting Link</Label>
+            <Input
+              id="meetLink"
+              name="meetLink"
+              type="url"
+              value={formData.meetLink}
+              onChange={handleChange}
+              className="bg-slate-800 text-white border-cyan-500"
+            />
+          </div>
 
-      <div className="space-y-2 max-w-fit w-fit">
-        <Label>Available Dates</Label>
-        <Calendar
-          mode="multiple"
-          selected={availableDates}
-          onSelect={(dates) => dates && setAvailableDates(dates)}
-          className="rounded-md border bg-slate-800 text-white border-cyan-500 "
-        />
-        <p className="text-sm text-slate-400 max-w-64">
-          {availableDates.length
-            ? availableDates.map((d) => format(d, 'PPP')).join(', ')
-            : 'No dates selected'}
-        </p>
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="productType">Product Type</Label>
-        <select
-          id="productType"
-          name="productType"
-          value={formData.productType}
-          onChange={handleChange}
-          required
-          className="w-full bg-slate-800 text-white border border-cyan-500 rounded-md p-2"
-        >
-          <option value="session">Session</option>
-          <option value="product">Product</option>
-        </select>
-      </div>
+          <div className="space-y-2 max-w-fit w-fit">
+            <Label>Available Dates</Label>
+            <Calendar
+              mode="multiple"
+              selected={availableDates}
+              onSelect={(dates) => dates && setAvailableDates(dates)}
+              className="rounded-md border bg-slate-800 text-white border-cyan-500 "
+            />
+            <p className="text-sm text-slate-400 max-w-64">
+              {availableDates.length
+                ? availableDates.map((d) => format(d, 'PPP')).join(', ')
+                : 'No dates selected'}
+            </p>
+          </div>
+        </>
+      )}
 
       {formData.productType === 'product' && (
         <div className="space-y-2">

@@ -1,4 +1,4 @@
-import { UserRegisterData } from '@/app/interface';
+import { UserRegisterData, SimpleUserRegisterData } from '@/app/interface';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { setUser } from '../features/auth-slice';
 
@@ -28,7 +28,7 @@ export const authApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-    register: builder.mutation<any, UserRegisterData>({
+    register: builder.mutation<any, SimpleUserRegisterData>({
       query: (data) => ({
         url: '/auth/register',
         method: 'POST',

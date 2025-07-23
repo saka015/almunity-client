@@ -8,3 +8,10 @@ export interface UserRegisterData {
   position: string;
   graduationYear: number;
 }
+
+export interface SimpleUserRegisterData {
+  name: string;
+  email: string;
+  password: string;
+  username: string;
+}

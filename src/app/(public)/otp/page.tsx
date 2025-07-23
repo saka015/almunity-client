@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { setUser } from '@/redux/features/auth-slice';
 import { UserProfile } from '@/redux/api/user';
+import Image from 'next/image';
 
 const Page = () => {
   const router = useRouter();
@@ -92,60 +93,67 @@ const Page = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 pb-44">
-      <div className="w-full max-w-md bg-slate-800/50 backdrop-blur-sm shadow-xl p-8 rounded-lg">
-        <div className="space-y-6 text-center">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-sky-400 to-cyan-300 bg-clip-text text-transparent">
-            Verify Your Email
-          </h1>
-          <p className="text-sky-200/80">Please enter the verification code sent to your email</p>
-
-          <div className="my-8">
-            <InputOTP maxLength={6} value={otp} onChange={handleOtpChange} className="gap-2">
-              <InputOTPGroup className="gap-2">
-                <InputOTPSlot
-                  index={0}
-                  className="bg-slate-900/50 border-sky-200/20 text-sky-100 w-12 h-12"
-                />
-                <InputOTPSlot
-                  index={1}
-                  className="bg-slate-900/50 border-sky-200/20 text-sky-100 w-12 h-12"
-                />
-                <InputOTPSlot
-                  index={2}
-                  className="bg-slate-900/50 border-sky-200/20 text-sky-100 w-12 h-12"
-                />
-                <InputOTPSlot
-                  index={3}
-                  className="bg-slate-900/50 border-sky-200/20 text-sky-100 w-12 h-12"
-                />
-                <InputOTPSlot
-                  index={4}
-                  className="bg-slate-900/50 border-sky-200/20 text-sky-100 w-12 h-12"
-                />
-                <InputOTPSlot
-                  index={5}
-                  className="bg-slate-900/50 border-sky-200/20 text-sky-100 w-12 h-12"
-                />
-              </InputOTPGroup>
-            </InputOTP>
+    <div className="flex items-center justify-center h-screen p-4">
+      <div className="min-w-5xl 2xl:min-w-7xl max-w-7xl min-h-[70vh] bg-teal-950 shadow-xl flex overflow-hidden">
+        <div className="min-w-1/2 relative">
+          <Image src="/otp.avif" alt="otp" fill className="object-cover" />
+        </div>
+        <div className="w-1/2 p-5 flex flex-col justify-center">
+          <div className="space-y-3">
+            <h1 className="text-center text-4xl text-white font-bold">Verify Your Email</h1>
+            <p className="text-sky-200/80 text-center">
+              Please enter the verification code sent to your email
+            </p>
           </div>
 
-          <div className="flex gap-4 justify-center">
-            <Button
-              className="bg-slate-700 hover:bg-slate-600 text-sky-200 border-sky-200/20 transition-all duration-200"
-              onClick={handleResendOtp}
-            >
-              Resend OTP
-            </Button>
+          <div className="mt-8 space-y-6 px-12">
+            <div className="flex justify-center">
+              <InputOTP maxLength={6} value={otp} onChange={handleOtpChange} className="gap-3">
+                <InputOTPGroup className="gap-3">
+                  <InputOTPSlot
+                    index={0}
+                    className="bg-white border-emerald-200 text-emerald-900 w-14 h-14 text-xl font-bold rounded-none"
+                  />
+                  <InputOTPSlot
+                    index={1}
+                    className="bg-white border-emerald-200 text-emerald-900 w-14 h-14 text-xl font-bold rounded-none"
+                  />
+                  <InputOTPSlot
+                    index={2}
+                    className="bg-white border-emerald-200 text-emerald-900 w-14 h-14 text-xl font-bold rounded-none"
+                  />
+                  <InputOTPSlot
+                    index={3}
+                    className="bg-white border-emerald-200 text-emerald-900 w-14 h-14 text-xl font-bold rounded-none"
+                  />
+                  <InputOTPSlot
+                    index={4}
+                    className="bg-white border-emerald-200 text-emerald-900 w-14 h-14 text-xl font-bold rounded-none"
+                  />
+                  <InputOTPSlot
+                    index={5}
+                    className="bg-white border-emerald-200 text-emerald-900 w-14 h-14 text-xl font-bold rounded-none"
+                  />
+                </InputOTPGroup>
+              </InputOTP>
+            </div>
 
-            <Button
-              className="bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-600 hover:to-sky-600 text-white font-medium transition-all duration-200"
-              onClick={handleVerify}
-              disabled={otp.length !== 6}
-            >
-              Verify OTP
-            </Button>
+            <div className="flex gap-4">
+              <Button
+                className="flex-1 h-12 bg-white hover:opacity-90 hover:border-emerald-900 text-emerald-900 font-medium text-lg rounded-none transition-all duration-200 transform hover:text-white"
+                onClick={handleResendOtp}
+              >
+                Resend OTP
+              </Button>
+
+              <Button
+                className="flex-1 h-12 bg-emerald-800 hover:opacity-90 hover:border-emerald-900 text-white font-medium text-lg rounded-none transition-all duration-200 transform hover:text-white"
+                onClick={handleVerify}
+                disabled={otp.length !== 6}
+              >
+                Verify OTP
+              </Button>
+            </div>
           </div>
         </div>
       </div>

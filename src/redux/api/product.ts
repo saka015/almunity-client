@@ -47,10 +47,43 @@ export const productApi = createApi({
         },
       }),
     }),
+      getProductById: builder.query<any, string>({
+      query: (id) => ({
+        url: `/product/${id}`,
+      }),
+      }),
+        sendPaymentOtp: builder.mutation<any,void>({
+      query: () => ({
+        url: '/product/send-payment-otp',
+        method: 'POST',
+      }),
+    }),
+      verifyPaymentOtp: builder.mutation<any, {
+  otp: string;
+  productId: string;
+  bookedDate: string; 
+  bookedTime: number;
+}>({
+  query: ({ otp, productId, bookedDate, bookedTime }) => ({
+    url: '/product/verify-payment-otp',
+    method: 'POST',
+    body: {
+      otp,
+      productId,
+      bookedDate,
+      bookedTime,
+    },
+  }),
+}),
+
+
   }),
 });
 
 export const {
   useCreateProductMutation,
-  useGetAllProductsQuery
+  useGetAllProductsQuery,
+  useGetProductByIdQuery,
+  useSendPaymentOtpMutation,
+  useVerifyPaymentOtpMutation
 } = productApi;

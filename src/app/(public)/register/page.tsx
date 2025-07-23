@@ -1,37 +1,29 @@
 'use client';
-
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRegisterMutation } from '@/redux/api/auth-api';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
 import Link from 'next/link';
 import { toast } from 'react-hot-toast';
-import { UserRegisterData } from '@/app/interface';
+import { SimpleUserRegisterData } from '@/app/interface';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import { Eye, EyeOff } from 'lucide-react';
+import { FcGoogle } from 'react-icons/fc';
+import { FaGithub } from 'react-icons/fa6';
 
 export default function Register() {
   const dispatch = useDispatch();
   const router = useRouter();
-  const [form, setForm] = useState<UserRegisterData>({
+  const [form, setForm] = useState<SimpleUserRegisterData>({
     name: '',
     email: '',
     password: '',
     username: '',
-    linkedin: '',
-    position: '',
-    company: '',
-    graduationYear: new Date().getFullYear(),
   });
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const [register] = useRegisterMutation();
 
@@ -54,14 +46,6 @@ export default function Register() {
       return;
     }
 
-    const linkedinRegex = /^(https?:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9_-]{3,100}\/?$/;
-    if (!linkedinRegex.test(form.linkedin)) {
-      toast.error(
-        'Please enter a valid LinkedIn profile URL (e.g. https://www.linkedin.com/in/username/)',
-      );
-      return;
-    }
-
     setLoading(true);
     try {
       const response = await register(form).unwrap();
@@ -79,119 +63,120 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 pb-44">
-      <div className="w-full max-w-md bg-slate-800/50 backdrop-blur-sm shadow-xl p-8 rounded-lg">
-        <div className="space-y-3">
-          <h1 className="text-3xl font-bold text-center bg-gradient-to-r from-sky-400 to-cyan-300 bg-clip-text text-transparent">
-            Create Account
-          </h1>
-          <p className="text-sky-200/80 text-center">Join Alumnity and connect with your network</p>
+    <div className=" flex items-center justify-center h-screen p-4 ">
+      <div className="min-w-5xl 2xl:min-w-7xl max-w-7xl min-h-[70vh] bg-teal-950 shadow-xl flex overflow-hidden">
+        <div className="min-w-1/2 relative">
+          <Image src="/login_pic.avif" alt="register" fill className="object-cover" />
         </div>
-
-        <form onSubmit={handleSubmit} className="mt-8 space-y-4">
+        <div className="w-1/2 p-5 flex flex-col justify-center">
           <div className="space-y-3">
-            <Input
-              type="text"
-              placeholder="Username"
-              value={form.username}
-              onChange={(e) => setForm({ ...form, username: e.target.value })}
-              className="bg-slate-900/50 border-sky-200/20 text-sky-100 placeholder:text-sky-400/50 focus:border-cyan-400 focus:ring-cyan-400/20 h-12"
-              required
-              minLength={5}
-            />
-            <Input
-              type="text"
-              placeholder="Full Name"
-              value={form.name}
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className="bg-slate-900/50 border-sky-200/20 text-sky-100 placeholder:text-sky-400/50 focus:border-cyan-400 focus:ring-cyan-400/20 h-12"
-              required
-            />
-            <Input
-              type="email"
-              placeholder="Email"
-              value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
-              className="bg-slate-900/50 border-sky-200/20 text-sky-100 placeholder:text-sky-400/50 focus:border-cyan-400 focus:ring-cyan-400/20 h-12"
-              required
-            />
-            <Input
-              type="url"
-              placeholder="LinkedIn Profile URL"
-              value={form.linkedin}
-              onChange={(e) => setForm({ ...form, linkedin: e.target.value })}
-              className="bg-slate-900/50 border-sky-200/20 text-sky-100 placeholder:text-sky-400/50 focus:border-cyan-400 focus:ring-cyan-400/20 h-12"
-              required
-              pattern="^(https?:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9_-]{3,100}\/?$"
-            />
-            <Input
-              type="text"
-              placeholder="Company/College"
-              value={form.company}
-              onChange={(e) => setForm({ ...form, company: e.target.value })}
-              className="bg-slate-900/50 border-sky-200/20 text-sky-100 placeholder:text-sky-400/50 focus:border-cyan-400 focus:ring-cyan-400/20 h-12"
-              required
-              pattern="^(https?:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9_-]{3,100}\/?$"
-            />
-            <Input
-              type="text"
-              placeholder="Position (e.g. SDE , if you are student, fill Student)"
-              value={form.position}
-              onChange={(e) => setForm({ ...form, position: e.target.value })}
-              className="bg-slate-900/50 border-sky-200/20 text-sky-100 placeholder:text-sky-400/50 focus:border-cyan-400 focus:ring-cyan-400/20 h-12"
-              required
-              pattern="^(https?:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9_-]{3,100}\/?$"
-            />
-            <Input
-              type="number"
-              placeholder="Graduation Year (e.g. 2025)"
-              value={form.graduationYear || ''}
-              onChange={(e) => setForm({ ...form, graduationYear: Number(e.target.value) })}
-              className="bg-slate-900/50 border-sky-200/20 text-sky-100 placeholder:text-sky-400/50 focus:border-cyan-400 focus:ring-cyan-400/20 h-12"
-              required
-            />
-            <Input
-              type="password"
-              placeholder="Password"
-              value={form.password}
-              onChange={(e) => setForm({ ...form, password: e.target.value })}
-              className="bg-slate-900/50 border-sky-200/20 text-sky-100 placeholder:text-sky-400/50 focus:border-cyan-400 focus:ring-cyan-400/20 h-12"
-              required
-              minLength={6}
-            />
+            <h1 className="text-center text-4xl text-white font-bold">Create Account</h1>
+            <p className="text-sky-200/80 text-center">
+              Join Alumnity and connect with your network
+            </p>
           </div>
 
-          <Button
-            type="submit"
-            className="w-full h-12 bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-600 hover:to-sky-600 text-white font-medium text-lg rounded-lg transition-all duration-200 transform hover:scale-[1.02]"
-            disabled={loading}
-          >
-            {loading ? 'Creating account...' : 'Create Account'}
-          </Button>
+          <form onSubmit={handleSubmit} className="mt-8 space-y-4 px-12">
+            <div className="space-y-3">
+              <Input
+                type="text"
+                placeholder="Username"
+                value={form.username}
+                onChange={(e) => setForm({ ...form, username: e.target.value })}
+                className="bg-white py-6 rounded-none font-semibold text-lg text-emerald-900"
+                required
+                minLength={5}
+              />
+              <Input
+                type="text"
+                placeholder="Full Name"
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                className="bg-white py-6 rounded-none font-semibold text-lg text-emerald-900"
+                required
+              />
+              <Input
+                type="email"
+                placeholder="Email"
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                className="bg-white py-6 rounded-none font-semibold text-lg text-emerald-900"
+                required
+              />
+              <div className="relative">
+                <Input
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Password"
+                  value={form.password}
+                  onChange={(e) => setForm({ ...form, password: e.target.value })}
+                  className="bg-white py-6 rounded-none font-semibold text-lg text-emerald-900 pr-12"
+                  required
+                  minLength={6}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-emerald-900 hover:text-emerald-700 transition-colors"
+                >
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+              </div>
+            </div>
 
-          <div className="space-y-4 text-center pt-4">
-            <p className="text-sm text-sky-200/60">
-              By registering, you agree to our{' '}
-              <Link href="#" className="text-cyan-400 hover:text-cyan-300 transition-colors">
-                Terms of Service
-              </Link>{' '}
-              and{' '}
-              <Link href="#" className="text-cyan-400 hover:text-cyan-300 transition-colors">
-                Privacy Policy
-              </Link>
-            </p>
-
-            <p className="text-sky-200/80">
-              Already have an account?{' '}
-              <Link
-                href="/login"
-                className="text-cyan-400 hover:text-cyan-300 font-medium transition-colors"
+            <Button
+              type="submit"
+              className="w-full h-12 bg-emerald-800 hover:opacity-90 hover:border-emerald-900 text-white font-medium text-lg rounded-none transition-all duration-200 transform hover:text-white"
+              disabled={loading}
+            >
+              {loading ? 'Creating account...' : 'Continue'}
+            </Button>
+            <div className="flex gap-2">
+              <Button
+                type="submit"
+                className="flex-1  h-12 bg-white hover:opacity-90 hover:border-emerald-900 text-emerald-900 font-medium text-lg rounded-none transition-all duration-200 transform hover:text-white"
+                disabled={loading}
               >
-                Sign in
-              </Link>
-            </p>
-          </div>
-        </form>
+ Google <FcGoogle />
+              </Button>
+              <Button
+                type="submit"
+                className="flex-1 h-12 bg-white hover:opacity-90 hover:border-emerald-900 text-emerald-900 font-medium text-lg rounded-none transition-all duration-200 transform hover:text-white"
+                disabled={loading}
+              >
+                Github <FaGithub />
+              </Button>
+            </div>
+
+            <div className="space-y-2 text-center pt-4">
+              <p className="text-sm text-white">
+                By registering, you agree to our{' '}
+                <Link
+                  href="#"
+                  className="text-emerald-400 hover:text-emerald-300 transition-colors"
+                >
+                  Terms of Service
+                </Link>{' '}
+                and{' '}
+                <Link
+                  href="#"
+                  className="text-emerald-400 hover:text-emerald-300 transition-colors"
+                >
+                  Privacy Policy
+                </Link>
+              </p>
+
+              <p className="text-white">
+                Already have an account?{' '}
+                <Link
+                  href="/login"
+                  className="text-emerald-400 hover:text-emerald-300 font-medium transition-colors"
+                >
+                  Sign in
+                </Link>
+              </p>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
