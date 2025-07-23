@@ -16,6 +16,7 @@ export default function Navbar() {
       }
     };
 
+    // test
     window.addEventListener('scroll', handleScroll);
 
     // Call once to set initial state
