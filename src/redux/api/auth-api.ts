@@ -17,7 +17,7 @@ interface OTPVerifyResponse {
   user: User;
 }
 
-// test
+
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
