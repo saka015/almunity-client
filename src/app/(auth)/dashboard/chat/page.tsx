@@ -136,7 +136,7 @@ export default function ChatPage() {
           </div>
         </div>
 
-        <div className="flex-1 bg-emerald-300 border border-emerald-700 rounded-lg">
+        <div className="flex-1  border border-emerald-700 rounded-lg">
           {selectedUser ? (
             <ChatBox receiverId={selectedUser.id} receiverName={selectedUser.name} />
           ) : (

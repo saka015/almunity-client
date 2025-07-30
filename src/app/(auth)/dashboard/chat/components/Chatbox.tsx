@@ -56,6 +56,22 @@ const ChatBox = ({ receiverId, receiverName }: ChatBoxProps) => {
       ) {
         console.log('Adding message to chat');
         setChatMessages((prev) => {
+          // Check if message already exists to prevent duplicates
+          const messageExists = prev.some(
+            (msg) =>
+              msg._id === data._id ||
+              (msg.message === data.message &&
+                msg.sender._id === data.sender._id &&
+                msg.receiver._id === data.receiver._id &&
+                Math.abs(new Date(msg.timestamp).getTime() - new Date(data.timestamp).getTime()) <
+                  5000),
+          );
+
+          if (messageExists) {
+            console.log('Message already exists, skipping');
+            return prev;
+          }
+
           const newMessages = [...prev, data];
           console.log('Updated chat messages:', newMessages);
           return newMessages;
