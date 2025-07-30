@@ -1,13 +1,10 @@
-'use client';
-
 import { Geist, Geist_Mono } from 'next/font/google';
 import { Raleway } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
-import { Provider } from 'react-redux';
-import { store } from '@/redux/store';
 import { Toaster } from 'react-hot-toast';
-import { AuthProvider } from '@/providers/AuthProvider';
+import { metadata } from './metadata';
+import ClientProviders from '@/components/ClientProviders';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -24,22 +21,21 @@ const raleway = Raleway({
   subsets: ['latin'],
 });
 
+export { metadata };
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <Provider store={store}>
-      <AuthProvider>
-        <html lang="en" data-arp="">
-          <body className="antialiased bg-gradient-to-br from-slatemin-h-screen">
-            <Toaster position="top-center" reverseOrder={false} />
-            {/* <Navbar /> */}
-            {children}
-          </body>
-        </html>
-      </AuthProvider>
-    </Provider>
+    <html lang="en" data-arp="">
+      <body className="antialiased bg-gradient-to-br from-emeraldmin-h-screen">
+        <ClientProviders>
+          <Toaster position="top-center" reverseOrder={false} />
+          {children}
+        </ClientProviders>
+      </body>
+    </html>
   );
 }

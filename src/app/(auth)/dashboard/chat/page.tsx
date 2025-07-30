@@ -65,16 +65,16 @@ export default function ChatPage() {
 
   return (
     <div className="container mx-auto">
-      <h1 className="text-3xl font-bold text-cyan-100 mb-6">Conversations</h1>
+      <h1 className="text-3xl font-bold text-emerald-100 mb-6">Conversations</h1>
 
       <div className="flex gap-4 h-[calc(100vh-200px)]">
-        <div className="w-1/4 border rounded-lg overflow-hidden flex flex-col bg-slate-800 border-slate-700">
-          <div className="p-3 border-b border-slate-700">
+        <div className="w-1/4 border rounded-lg overflow-hidden flex flex-col bg-emerald-800 border-emerald-700">
+          <div className="p-3 border-b border-emerald-700">
             <div className="relative">
               <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-500" />
               <Input
                 placeholder="Search connections..."
-                className="pl-8 bg-slate-700 border-slate-600 text-slate-200"
+                className="pl-8 bg-emerald-700 border-emerald-600 text-emerald-200"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -83,7 +83,7 @@ export default function ChatPage() {
 
           <div className="flex-1 overflow-y-auto">
             {isLoading ? (
-              <div className="p-4 text-center text-slate-400">Loading connections...</div>
+              <div className="p-4 text-center text-emerald-400">Loading connections...</div>
             ) : filteredConnections?.length === 0 ? (
               <div className="p-4 text-center text-gray-500">
                 {searchQuery ? 'No connections match your search' : 'No connections yet'}
@@ -108,17 +108,17 @@ export default function ChatPage() {
                           name: otherUser.name,
                         })
                       }
-                      className={`flex items-center gap-3 p-3 cursor-pointer hover:bg-slate-900 text-slate-200 
-                        ${selectedUser?.id === otherUser._id ? 'bg-slate-900' : ''}`}
+                      className={`flex items-center gap-3 p-3 cursor-pointer hover:bg-emerald-900 text-emerald-200 
+                        ${selectedUser?.id === otherUser._id ? 'bg-emerald-900' : ''}`}
                     >
                       <Avatar>
-                        <AvatarFallback className="bg-slate-700 text-slate-200">
+                        <AvatarFallback className="bg-emerald-700 text-emerald-200">
                           {getInitials(otherUser.name)}
                         </AvatarFallback>
                       </Avatar>
                       <div>
                         <h3 className="font-medium">{otherUser.name}</h3>
-                        <p className="text-sm text-slate-400">@{otherUser.username}</p>
+                        <p className="text-sm text-emerald-400">@{otherUser.username}</p>
                       </div>
                     </div>
                   );
@@ -128,12 +128,12 @@ export default function ChatPage() {
           </div>
         </div>
 
-        <div className="flex-1 bg-slate-800 border border-slate-700 rounded-lg">
+        <div className="flex-1 bg-emerald-800 border border-emerald-700 rounded-lg">
           {selectedUser ? (
             <ChatBox receiverId={selectedUser.id} receiverName={selectedUser.name} />
           ) : (
             <div className="h-full flex items-center justify-center">
-              <div className="text-center text-slate-400">
+              <div className="text-center text-emerald-400">
                 <p className="mb-2">Select a connection to start chatting</p>
                 {connections?.length === 0 && !isLoading && (
                   <p className="text-sm">You need to connect with other alumni first</p>

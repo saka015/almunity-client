@@ -84,24 +84,24 @@ const BookingModal: React.FC<BookingModalProps> = ({
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
           <Button
-            className="bg-cyan-800 hover:bg-cyan-700 text-white w-full rounded p-4 outline-none font-sans"
+            className="bg-emerald-800 hover:bg-emerald-700 text-white w-full rounded p-4 outline-none font-sans"
             onClick={() => setIsOpen(true)}
             disabled={hasUserBooked}
           >
             {hasUserBooked ? 'Already Booked' : 'Book now'}
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-md flex flex-col bg-slate-800 border-gray-600 text-white">
+        <DialogContent className="sm:max-w-md flex flex-col bg-emerald-800 border-gray-600 text-white">
           <DialogHeader>
             <DialogTitle>Complete Payment</DialogTitle>
             <DialogDescription>Fill in the details to proceed with payments.</DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <h1>
-              Product Name : <span className="text-cyan-500 font-semibold">{title}</span>
+              Product Name : <span className="text-emerald-500 font-semibold">{title}</span>
             </h1>
             <h1>
-              Pay : <span className="text-cyan-500 font-semibold">₹{price}</span>
+              Pay : <span className="text-emerald-500 font-semibold">₹{price}</span>
             </h1>
             {!otpBox && (
               <div className="space-y-4">
@@ -112,7 +112,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
                   <select
                     value={selectedDate}
                     onChange={(e) => setSelectedDate(e.target.value)}
-                    className="w-full bg-slate-900/50 border border-sky-200/20 text-sky-100 rounded p-2"
+                    className="w-full bg-emerald-900/50 border border-sky-200/20 text-sky-100 rounded p-2"
                   >
                     <option value="">Select a date</option>
                     {availableDates.map((date) => (
@@ -129,7 +129,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
                   <select
                     value={selectedTime}
                     onChange={(e) => setSelectedTime(e.target.value)}
-                    className="w-full bg-slate-900/50 border border-sky-200/20 text-sky-100 rounded p-2"
+                    className="w-full bg-emerald-900/50 border border-sky-200/20 text-sky-100 rounded p-2"
                   >
                     <option value="">Select a time</option>
                     <option value="18">6 PM</option>
@@ -149,27 +149,27 @@ const BookingModal: React.FC<BookingModalProps> = ({
                     <InputOTPGroup className="gap-2">
                       <InputOTPSlot
                         index={0}
-                        className="bg-slate-900/50 border-sky-200/20 text-sky-100 w-12 h-12"
+                        className="bg-emerald-900/50 border-sky-200/20 text-sky-100 w-12 h-12"
                       />
                       <InputOTPSlot
                         index={1}
-                        className="bg-slate-900/50 border-sky-200/20 text-sky-100 w-12 h-12"
+                        className="bg-emerald-900/50 border-sky-200/20 text-sky-100 w-12 h-12"
                       />
                       <InputOTPSlot
                         index={2}
-                        className="bg-slate-900/50 border-sky-200/20 text-sky-100 w-12 h-12"
+                        className="bg-emerald-900/50 border-sky-200/20 text-sky-100 w-12 h-12"
                       />
                       <InputOTPSlot
                         index={3}
-                        className="bg-slate-900/50 border-sky-200/20 text-sky-100 w-12 h-12"
+                        className="bg-emerald-900/50 border-sky-200/20 text-sky-100 w-12 h-12"
                       />
                       <InputOTPSlot
                         index={4}
-                        className="bg-slate-900/50 border-sky-200/20 text-sky-100 w-12 h-12"
+                        className="bg-emerald-900/50 border-sky-200/20 text-sky-100 w-12 h-12"
                       />
                       <InputOTPSlot
                         index={5}
-                        className="bg-slate-900/50 border-sky-200/20 text-sky-100 w-12 h-12"
+                        className="bg-emerald-900/50 border-sky-200/20 text-sky-100 w-12 h-12"
                       />
                     </InputOTPGroup>
                   </InputOTP>
@@ -178,7 +178,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
               {!otpBox && (
                 <Button
                   onClick={handleSendotp}
-                  className="w-full bg-cyan-700 text-white hover:bg-cyan-500"
+                  className="w-full bg-emerald-700 text-white hover:bg-emerald-500"
                 >
                   Send OTP to your email
                 </Button>
@@ -186,7 +186,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
               {otpBox && (
                 <Button
                   onClick={handleVerifyOtp}
-                  className="w-full bg-cyan-700 text-white hover:bg-cyan-500"
+                  className="w-full bg-emerald-700 text-white hover:bg-emerald-500"
                   disabled={isLoading}
                 >
                   {isLoading ? 'Processing Payment...' : 'Complete Payment!'}

@@ -34,11 +34,11 @@ const AllTasks = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search a task..."
-          className="border border-gray-500 bg-slate-700 text-white max-w-sm rounded p-[6px] px-3 outline-none"
+          className="border border-gray-500 bg-emerald-700 text-white max-w-sm rounded p-[6px] px-3 outline-none"
         />
         <button
           onClick={() => refetch()}
-          className="bg-slate-600 hover:bg-slate-700 text-white px-4 py-2 rounded"
+          className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded"
         >
           Refresh
         </button>

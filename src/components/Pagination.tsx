@@ -13,17 +13,17 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
       <Button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="bg-slate-700 text-white"
+        className="bg-emerald-700 text-white"
       >
         Previous
       </Button>
-      <span className="flex items-center px-4 py-2 bg-slate-700 rounded text-white">
+      <span className="flex items-center px-4 py-2 bg-emerald-700 rounded text-white">
         Page {currentPage} of {totalPages}
       </span>
       <Button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="bg-slate-700 text-white"
+        className="bg-emerald-700 text-white"
       >
         Next
       </Button>

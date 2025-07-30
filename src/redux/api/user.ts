@@ -65,10 +65,10 @@ export type UpdateProfileData = Partial<
 export const userApi = createApi({
   reducerPath: 'userApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_BASE_API_URL || 'http://localhost:5000',
+    baseUrl: process.env.NEXT_PUBLIC_BASE_API_URL || 'http://localhost:5000/api/v1',
     credentials: 'include',
   }),
-  tagTypes: ['User'],
+  tagTypes: ['User', 'Connection'],
   endpoints: (builder) => ({
     getUserProfile: builder.query<UserProfile, void>({
       query: () => ({
@@ -105,21 +105,20 @@ export const userApi = createApi({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['User'],
+      invalidatesTags: ['User', 'Connection'],
     }),
-    acceptConnection: builder.mutation<void, { senderId: string }>({
+    acceptConnection: builder.mutation<void, { connectionId: string }>({
       query: (data) => ({
-        url: '/connection/accept',
+        url: `/connection/${data.connectionId}/accept`,
         method: 'POST',
-        body: data,
       }),
-      invalidatesTags: ['User'],
+      invalidatesTags: ['User', 'Connection'],
     }),
     getConnectionStatus: builder.query<ConnectionStatusResponse, string>({
       query: (userId) => ({
         url: `/connection/status/${userId}`,
       }),
-      providesTags: ['User'],
+      providesTags: (result, error, userId) => [{ type: 'Connection', id: userId }],
     }),
     getMyConnections: builder.query<
       ConnectionResponse[],
@@ -131,7 +130,13 @@ export const userApi = createApi({
         url: '/connection/my-connections',
         params: { status },
       }),
-      providesTags: ['User'],
+      providesTags: ['Connection'],
+    }),
+    getPendingConnections: builder.query<ConnectionResponse[], void>({
+      query: () => ({
+        url: '/connection/pending',
+      }),
+      providesTags: ['Connection'],
     }),
   }),
 });
@@ -145,4 +150,5 @@ export const {
   useAcceptConnectionMutation,
   useGetConnectionStatusQuery,
   useGetMyConnectionsQuery,
+  useGetPendingConnectionsQuery,
 } = userApi;

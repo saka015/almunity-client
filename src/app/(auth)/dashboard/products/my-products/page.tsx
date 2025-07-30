@@ -6,7 +6,7 @@ const page = () => {
     <div>
       <Link
         href={'/dashboard/products/my-products/create-new-product'}
-        className="bg-cyan-600 text-white px-4 py-2 rounded-lg hover:bg-cyan-700 transition-colors"
+        className="bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 transition-colors"
       >
         Add New Product
       </Link>

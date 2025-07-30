@@ -63,27 +63,29 @@ export default function Register() {
   };
 
   return (
-    <div className=" flex items-center justify-center h-screen p-4 ">
-      <div className="min-w-5xl 2xl:min-w-7xl max-w-7xl min-h-[70vh] bg-teal-950 shadow-xl flex overflow-hidden">
-        <div className="min-w-1/2 relative">
+    <div className="flex items-center justify-center min-h-screen p-2 sm:p-4">
+      <div className="w-full max-w-7xl min-h-[70vh] bg-teal-950 shadow-xl flex flex-col lg:flex-row overflow-hidden rounded-none">
+        <div className="hidden lg:flex lg:w-1/2 relative min-h-[300px] lg:min-h-full">
           <Image src="/login_pic.avif" alt="register" fill className="object-cover" />
         </div>
-        <div className="w-1/2 p-5 flex flex-col justify-center">
-          <div className="space-y-3">
-            <h1 className="text-center text-4xl text-white font-bold">Create Account</h1>
-            <p className="text-sky-200/80 text-center">
+        <div className="w-full lg:w-1/2 p-4 sm:p-6 lg:p-8 flex flex-col justify-center">
+          <div className="space-y-2 sm:space-y-3">
+            <h1 className="text-center text-2xl sm:text-3xl lg:text-4xl text-white font-bold">
+              Create Account
+            </h1>
+            <p className="text-sky-200/80 text-center text-sm sm:text-base">
               Join Alumnity and connect with your network
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="mt-8 space-y-4 px-12">
-            <div className="space-y-3">
+          <form onSubmit={handleSubmit} className="mt-6 sm:mt-8 space-y-4 px-4 sm:px-8 lg:px-12">
+            <div className="space-y-3 sm:space-y-4">
               <Input
                 type="text"
                 placeholder="Username"
                 value={form.username}
                 onChange={(e) => setForm({ ...form, username: e.target.value })}
-                className="bg-white py-6 rounded-none font-semibold text-lg text-emerald-900"
+                className="bg-white py-4 sm:py-5 lg:py-6 rounded-none font-semibold text-base sm:text-lg text-emerald-900"
                 required
                 minLength={5}
               />
@@ -92,7 +94,7 @@ export default function Register() {
                 placeholder="Full Name"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="bg-white py-6 rounded-none font-semibold text-lg text-emerald-900"
+                className="bg-white py-4 sm:py-5 lg:py-6 rounded-none font-semibold text-base sm:text-lg text-emerald-900"
                 required
               />
               <Input
@@ -100,7 +102,7 @@ export default function Register() {
                 placeholder="Email"
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
-                className="bg-white py-6 rounded-none font-semibold text-lg text-emerald-900"
+                className="bg-white py-4 sm:py-5 lg:py-6 rounded-none font-semibold text-base sm:text-lg text-emerald-900"
                 required
               />
               <div className="relative">
@@ -109,46 +111,52 @@ export default function Register() {
                   placeholder="Password"
                   value={form.password}
                   onChange={(e) => setForm({ ...form, password: e.target.value })}
-                  className="bg-white py-6 rounded-none font-semibold text-lg text-emerald-900 pr-12"
+                  className="bg-white py-4 sm:py-5 lg:py-6 rounded-none font-semibold text-base sm:text-lg text-emerald-900 pr-12"
                   required
                   minLength={6}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-emerald-900 hover:text-emerald-700 transition-colors"
+                  className="absolute right-3 top-1/2 transform -tranemerald-y-1/2 text-emerald-900 hover:text-emerald-700 transition-colors"
                 >
-                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  {showPassword ? (
+                    <EyeOff size={18} className="sm:w-5 sm:h-5" />
+                  ) : (
+                    <Eye size={18} className="sm:w-5 sm:h-5" />
+                  )}
                 </button>
               </div>
             </div>
 
             <Button
               type="submit"
-              className="w-full h-12 bg-emerald-800 hover:opacity-90 hover:border-emerald-900 text-white font-medium text-lg rounded-none transition-all duration-200 transform hover:text-white"
+              className="w-full h-10 sm:h-12 bg-emerald-800 hover:opacity-90 hover:border-emerald-900 text-white font-medium text-base sm:text-lg rounded-none transition-all duration-200 transform hover:text-white"
               disabled={loading}
             >
               {loading ? 'Creating account...' : 'Continue'}
             </Button>
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
               <Button
-                type="submit"
-                className="flex-1  h-12 bg-white hover:opacity-90 hover:border-emerald-900 text-emerald-900 font-medium text-lg rounded-none transition-all duration-200 transform hover:text-white"
+                type="button"
+                className="flex-1 h-10 sm:h-12 bg-white hover:opacity-90 hover:border-emerald-900 text-emerald-900 font-medium text-sm sm:text-base rounded-none transition-all duration-200 transform hover:text-white flex items-center justify-center gap-2"
                 disabled={loading}
               >
-                Google <FcGoogle />
+                <FcGoogle className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="hidden sm:inline">Google</span>
               </Button>
               <Button
-                type="submit"
-                className="flex-1 h-12 bg-white hover:opacity-90 hover:border-emerald-900 text-emerald-900 font-medium text-lg rounded-none transition-all duration-200 transform hover:text-white"
+                type="button"
+                className="flex-1 h-10 sm:h-12 bg-white hover:opacity-90 hover:border-emerald-900 text-emerald-900 font-medium text-sm sm:text-base rounded-none transition-all duration-200 transform hover:text-white flex items-center justify-center gap-2"
                 disabled={loading}
               >
-                Github <FaGithub />
+                <FaGithub className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="hidden sm:inline">Github</span>
               </Button>
             </div>
 
             <div className="space-y-2 text-center pt-4">
-              <p className="text-sm text-white">
+              <p className="text-sm sm:text-base text-white">
                 By registering, you agree to our{' '}
                 <Link
                   href="#"
@@ -165,7 +173,7 @@ export default function Register() {
                 </Link>
               </p>
 
-              <p className="text-white">
+              <p className="text-white text-sm sm:text-base">
                 Already have an account?{' '}
                 <Link
                   href="/login"

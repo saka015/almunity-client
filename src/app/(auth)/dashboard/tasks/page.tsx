@@ -9,11 +9,11 @@ const Page = () => {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="bg-slate-100 w-fit inline-flex rounded overflow-hidden">
+      <div className="bg-emerald-100 w-fit inline-flex rounded overflow-hidden">
         <button
           onClick={() => setMyTasks(!myTasks)}
           className={`p-2 px-6 font-sans transition-colors ${
-            !myTasks ? 'bg-slate-500 text-white' : 'hover:bg-slate-200'
+            !myTasks ? 'bg-emerald-500 text-white' : 'hover:bg-emerald-200'
           }`}
         >
           Explore Tasks
@@ -21,7 +21,7 @@ const Page = () => {
         <button
           onClick={() => setMyTasks(!myTasks)}
           className={`p-2 px-6 font-sans transition-colors ${
-            myTasks ? 'bg-slate-500 text-white' : 'hover:bg-slate-200'
+            myTasks ? 'bg-emerald-500 text-white' : 'hover:bg-emerald-200'
           }`}
         >
           My Tasks

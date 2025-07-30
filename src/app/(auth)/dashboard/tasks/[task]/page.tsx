@@ -58,40 +58,40 @@ export default function TaskPage() {
   };
 
   return (
-    <main className="min-h-screen p-6 text-slate-900">
-      <div className="w-full flex items-center justify-between border-b border-slate-600 text-slate-200 pb-4">
+    <main className="min-h-screen p-6 text-emerald-900">
+      <div className="w-full flex items-center justify-between border-b border-emerald-600 text-emerald-200 pb-4">
         <p className="text-3xl">{task.title}</p>
         <p className="text-base">
           Posted by{' '}
           <Link
             href={`/dashboard/explore-alumni/${task.createdUsername}`}
-            className="text-cyan-600"
+            className="text-emerald-600"
           >
             {task.createdUsername}
           </Link>
         </p>
       </div>
       <div className="mt-8 flex flex-col md:flex-row gap-3 w-full md:min-h-[600px]">
-        <div className="w-full md:w-2/3 border-b mb-4 md:border-b-0 md:border-r border-slate-600 pr-0 md:pr-4">
-          <pre className="whitespace-pre-wrap text-slate-200">{task.description}</pre>
+        <div className="w-full md:w-2/3 border-b mb-4 md:border-b-0 md:border-r border-emerald-600 pr-0 md:pr-4">
+          <pre className="whitespace-pre-wrap text-emerald-200">{task.description}</pre>
         </div>
         <div className="w-full md:w-1/3 md:pl-4">
-          <div className="flex pb-4 text-slate-400">
-            Price <span className="font-semibold ml-3 text-cyan-600">₹{task?.price}</span>
+          <div className="flex pb-4 text-emerald-400">
+            Price <span className="font-semibold ml-3 text-emerald-600">₹{task?.price}</span>
           </div>
 
           {task.createdBy === currentUser?._id ? (
             <div className="mt-1">
-              <h1 className="text-slate-400 text-xl mb-2">Applicants</h1>
+              <h1 className="text-emerald-400 text-xl mb-2">Applicants</h1>
               {task?.applicants?.length === 0 && (
-                <p className="text-slate-300 ">No applicants yet!</p>
+                <p className="text-emerald-300 ">No applicants yet!</p>
               )}
               {task?.applicants?.map((applicant: any, index: number) => (
                 <div
                   key={index}
-                  className="text-slate-300 py-1 border-b border-slate-700 last:border-b-0"
+                  className="text-emerald-300 py-1 border-b border-emerald-700 last:border-b-0"
                 >
-                  <div className="bg-slate-700 p-3  rounded-sm border border-cyan-800">
+                  <div className="bg-emerald-700 p-3  rounded-sm border border-emerald-800">
                     <div className="w-full flex justify-between">
                       <h1 className=" text-white">
                         {' '}
@@ -101,7 +101,7 @@ export default function TaskPage() {
                       <Link href={`/dashboard/explore-alumni/${applicant?.user?.username}`}>
                         <h1 className=" hover:underline cursor-pointer text-white text-sm flex items-center gap-1">
                           Visit Profile
-                          <IoMdArrowUp className="rotate-45 bg-white rounded-full text-slate-800 hover:text-lg transition-all cursor-pointer" />
+                          <IoMdArrowUp className="rotate-45 bg-white rounded-full text-emerald-800 hover:text-lg transition-all cursor-pointer" />
                         </h1>
                       </Link>
                     </div>
@@ -114,13 +114,13 @@ export default function TaskPage() {
             </div>
           ) : (
             <form onSubmit={handleApply} className="grid gap-4 py-4">
-              <h2 className="text-xl text-slate-300 mb-2">Apply for this Task</h2>
+              <h2 className="text-xl text-emerald-300 mb-2">Apply for this Task</h2>
               <div className="flex flex-col gap-4">
                 <Input
                   id="title"
                   type="text"
                   placeholder="Portfolio/GitHub link (optional)"
-                  className="col-span-3 bg-slate-700 text-white border-gray-600 placeholder-slate-400"
+                  className="col-span-3 bg-emerald-700 text-white border-gray-600 placeholder-emerald-400"
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                 />
@@ -129,19 +129,23 @@ export default function TaskPage() {
                   type="email"
                   placeholder="Your Email *"
                   required
-                  className="col-span-3 bg-slate-700 text-white border-gray-600 placeholder-slate-400"
+                  className="col-span-3 bg-emerald-700 text-white border-gray-600 placeholder-emerald-400"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 />
                 <Textarea
                   id="desc"
                   placeholder="Why are you a good fit? *"
-                  className="col-span-3 bg-slate-700 text-white border-gray-600 placeholder-slate-400"
+                  className="col-span-3 bg-emerald-700 text-white border-gray-600 placeholder-emerald-400"
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 />
               </div>
-              <Button type="submit" className="bg-cyan-800 hover:bg-cyan-700" disabled={isApplying}>
+              <Button
+                type="submit"
+                className="bg-emerald-800 hover:bg-emerald-700"
+                disabled={isApplying}
+              >
                 {isApplying ? <Loader /> : 'Apply Now'}
               </Button>
             </form>

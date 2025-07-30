@@ -54,17 +54,17 @@ const ProductsPage = () => {
         {productData?.products?.map((product: Product) => (
           <div
             key={product._id}
-            className="bg-slate-900 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow border border-slate-800 hover:border-cyan-600"
+            className="bg-emerald-900 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow border border-emerald-800 hover:border-emerald-600"
           >
             <div className="p-4">
               <h3 className="font-semibold text-lg mb-2 text-white">{product.title}</h3>
-              <p className="text-slate-300 mb-4 line-clamp-2">{product.description}</p>
+              <p className="text-emerald-300 mb-4 line-clamp-2">{product.description}</p>
               <div className="flex flex-col space-y-2">
                 <div className="flex justify-between items-center">
-                  <span className="text-lg font-bold text-cyan-400">₹{product.price}</span>
-                  <span className="text-sm text-slate-400">{product.duration} mins</span>
+                  <span className="text-lg font-bold text-emerald-400">₹{product.price}</span>
+                  <span className="text-sm text-emerald-400">{product.duration} mins</span>
                 </div>
-                <div className="flex justify-between items-center text-sm text-slate-400">
+                <div className="flex justify-between items-center text-sm text-emerald-400">
                   <span>By {product.createdUsername}</span>
 
                   <span
@@ -77,7 +77,7 @@ const ProductsPage = () => {
                 </div>
                 <Link
                   href={`/dashboard/products/all-products/${product.createdUsername}/${toKebabCase(product.title)}/${product._id}`}
-                  className="flex justify-center w-full bg-cyan-700 hover:bg-cyan-800 text-white py-2 rounded-md transition-colors"
+                  className="flex justify-center w-full bg-emerald-700 hover:bg-emerald-800 text-white py-2 rounded-md transition-colors"
                 >
                   View Details
                 </Link>
@@ -88,7 +88,7 @@ const ProductsPage = () => {
       </div>
 
       {productData?.products?.length === 0 && (
-        <div className="text-center text-slate-400 py-8">No products found</div>
+        <div className="text-center text-emerald-400 py-8">No products found</div>
       )}
     </div>
   );

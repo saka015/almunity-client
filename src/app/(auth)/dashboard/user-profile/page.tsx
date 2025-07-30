@@ -86,27 +86,27 @@ const UserProfilePage = () => {
   console.log('data>jobs', data);
 
   return (
-    <div className="container min-h-screen mx-auto">
-      <Card className="overflow-hidden rounded-lg">
-        <div className="relative h-48 bg-gradient-to-r from-slate-500 to-cyan-800">
+    <div className="min-h-screen">
+      <div className="overflow-hidden rounded-none">
+        <div className="relative h-48 bg-gradient-to-r from-teal-500 to-emerald-800">
           <div className="absolute -bottom-16 left-6">
-            <div className="rounded-full border-4 border-white bg-slate-500 overflow-hidden">
+            <div className="rounded-full border-4 border-white bg-emerald-500 overflow-hidden">
               <Avatar className="w-28 h-28">
-                <AvatarFallback className="bg-slate-700 text-slate-200 text-4xl ">
+                <AvatarFallback className="bg-emerald-700 text-emerald-200 text-4xl ">
                   {getInitials(profile.name)}
                 </AvatarFallback>
               </Avatar>
             </div>
           </div>
         </div>
-        <div className="w-full justify-end items-end right-4 flex px-6 py-2 bg-slate-50">
+        <div className="w-full justify-end items-end right-4 flex px-6 py-2 bg-emerald-50">
           {isEditing ? (
             <div className="space-x-2">
               <Button variant="outline" onClick={() => setIsEditing(false)}>
                 Cancel
               </Button>
               <Button
-                className="rounded bg-gradient-to-r from-slate-500 to-cyan-800"
+                className="rounded bg-gradient-to-r from-emerald-500 to-emerald-800"
                 onClick={handleSubmit}
               >
                 Save Changes
@@ -114,7 +114,7 @@ const UserProfilePage = () => {
             </div>
           ) : (
             <Button
-              className="rounded bg-gradient-to-r from-slate-500 to-cyan-800"
+              className="rounded bg-gradient-to-r from-emerald-500 to-emerald-800"
               onClick={() => setIsEditing(true)}
             >
               Edit Profile
@@ -122,7 +122,7 @@ const UserProfilePage = () => {
           )}
         </div>
 
-        <CardContent className="bg-slate-50">
+        <div className="bg-emerald-50 px-6">
           <div className="space-y-4 pt-10">
             <div>
               <div className="flex gap-1 items-end">
@@ -206,7 +206,7 @@ const UserProfilePage = () => {
                 )}
                 <p className="text-gray-600 ">
                   Verification Status:{' '}
-                  <span className="bg-green-600 text-white px-1 rounded-3xl">
+                  <span className="text-green-600 px-1 rounded-3xl">
                     {profile.isVerified ? 'Verified' : 'Not Verified'}
                   </span>
                 </p>
@@ -233,12 +233,12 @@ const UserProfilePage = () => {
               <p className="text-gray-600">{new Date(profile.createdAt).toLocaleDateString()}</p>
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
-      <div className="overflow-x-auto rounded-lg shadow-md mt-2">
-        <table className="min-w-full divide-y divide-slate-600 bg-slate-800 text-white">
-          <thead className="bg-cyan-700">
+      <div className="overflow-x-auto shadow-md mt-2">
+        <table className="min-w-full divide-y divide-emerald-600 bg-teal-800 text-white">
+          <thead className="bg-teal-900">
             <tr>
               <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                 Title
@@ -255,12 +255,12 @@ const UserProfilePage = () => {
               <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"></th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-600">
+          <tbody className="divide-y divide-emerald-600">
             {data?.map((task: any) => (
-              <tr key={task._id} className="hover:bg-slate-700 transition">
+              <tr key={task._id} className="hover:bg-emerald-700 transition">
                 <td className="px-6 py-4">{task.title}</td>
                 <td className="px-6 py-4">
-                  <span className="inline-flex px-2 py-1 text-sm font-semibold rounded bg-cyan-600 text-white capitalize">
+                  <span className="inline-flex px-2 py-1 text-sm font-semibold rounded bg-emerald-600 text-white capitalize">
                     {task.status}
                   </span>
                 </td>

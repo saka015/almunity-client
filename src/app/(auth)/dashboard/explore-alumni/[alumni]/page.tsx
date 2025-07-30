@@ -43,13 +43,13 @@ const AlumniDetailsPage = () => {
   };
 
   return (
-    <div className="container mx-auto">
-      <Card className="overflow-hidden rounded">
-        <div className="relative h-48 bg-gradient-to-r from-slate-500 to-cyan-800">
+    <div className="w-full">
+      <Card className="overflow-hidden border-none shadow-none rounded-none">
+        <div className="relative h-48 bg-gradient-to-r from-emerald-500 to-teal-800">
           <div className="absolute -bottom-16 left-6">
             <div className="rounded-full border-4 border-white bg-white overflow-hidden">
               <Avatar className="w-28 h-28">
-                <AvatarFallback className="bg-slate-700 text-slate-200 text-4xl ">
+                <AvatarFallback className="bg-emerald-700 text-emerald-200 text-4xl ">
                   {getInitials(alumni.name)}
                 </AvatarFallback>
               </Avatar>
@@ -61,7 +61,7 @@ const AlumniDetailsPage = () => {
           <ConnectionButton userId={alumni._id} />
         </div>
 
-        <CardContent className="pt-6">
+        <CardContent className="pt-6 border-b border-emerald-700">
           <div className="space-y-4">
             <div>
               <h1 className="text-3xl font-bold">
