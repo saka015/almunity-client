@@ -30,6 +30,19 @@ const Page = () => {
 
   console.log('alum', alumni);
 
+  if (alumni?.length === 0) {
+    return (
+      <div className="flex min-h-screen w-full flex-col ">
+        <div className="p-7 border-b border-teal-800">
+          <h1 className="text-4xl font-bold text-teal-800">Explore Alumni</h1>
+        </div>
+        <div className="p-7 flex flex-col items-start gap-6">
+          <div className="text-red-500">No alumni found. Please re-check you graduation year.</div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex min-h-screen w-full flex-col ">
       <div className="p-7 border-b border-teal-800">

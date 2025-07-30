@@ -68,13 +68,13 @@ export default function ChatPage() {
       <h1 className="text-3xl font-bold text-emerald-100 mb-6">Conversations</h1>
 
       <div className="flex gap-4 h-[calc(100vh-200px)]">
-        <div className="w-1/4 border rounded-lg overflow-hidden flex flex-col bg-emerald-800 border-emerald-700">
+        <div className="w-1/4 border rounded-lg overflow-hidden flex flex-col bg-emerald-100 border-emerald-700">
           <div className="p-3 border-b border-emerald-700">
             <div className="relative">
               <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-500" />
               <Input
                 placeholder="Search connections..."
-                className="pl-8 bg-emerald-700 border-emerald-600 text-emerald-200"
+                className="pl-8 bg-emerald-100 text-emerald-600 border-none shadow-none"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -108,7 +108,7 @@ export default function ChatPage() {
                           name: otherUser.name,
                         })
                       }
-                      className={`flex items-center gap-3 p-3 cursor-pointer hover:bg-emerald-900 text-emerald-200 
+                      className={`flex items-center gap-3 p-3 cursor-pointer hover:bg-teal-700 text-emerald-200 
                         ${selectedUser?.id === otherUser._id ? 'bg-emerald-900' : ''}`}
                     >
                       <Avatar>
@@ -117,7 +117,15 @@ export default function ChatPage() {
                         </AvatarFallback>
                       </Avatar>
                       <div>
-                        <h3 className="font-medium">{otherUser.name}</h3>
+                        <h3
+                          className={`font-medium  ${
+                            selectedUser?.id === otherUser._id
+                              ? 'text-emerald-200'
+                              : 'text-emerald-900'
+                          }`}
+                        >
+                          {otherUser.name}
+                        </h3>
                         <p className="text-sm text-emerald-400">@{otherUser.username}</p>
                       </div>
                     </div>
@@ -128,7 +136,7 @@ export default function ChatPage() {
           </div>
         </div>
 
-        <div className="flex-1 bg-emerald-800 border border-emerald-700 rounded-lg">
+        <div className="flex-1 bg-emerald-300 border border-emerald-700 rounded-lg">
           {selectedUser ? (
             <ChatBox receiverId={selectedUser.id} receiverName={selectedUser.name} />
           ) : (

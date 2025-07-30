@@ -46,12 +46,22 @@ const ChatBox = ({ receiverId, receiverName }: ChatBoxProps) => {
   // Listen for incoming messages
   useEffect(() => {
     const handleReceiveMessage = (data: Message) => {
-      console.log('Received message:', data);
+      console.log('Received message via socket:', data);
+      console.log('Current user ID:', currentUser?._id);
+      console.log('Receiver ID:', receiverId);
+
       if (
         (data.sender._id === currentUser?._id && data.receiver._id === receiverId) ||
         (data.sender._id === receiverId && data.receiver._id === currentUser?._id)
       ) {
-        setChatMessages((prev) => [...prev, data]);
+        console.log('Adding message to chat');
+        setChatMessages((prev) => {
+          const newMessages = [...prev, data];
+          console.log('Updated chat messages:', newMessages);
+          return newMessages;
+        });
+      } else {
+        console.log('Message not for this chat');
       }
     };
 
@@ -78,7 +88,7 @@ const ChatBox = ({ receiverId, receiverName }: ChatBoxProps) => {
       message: message.trim(),
     };
 
-    console.log('Sending message:', messageData);
+    console.log('Sending message via socket:', messageData);
     socket.emit('send_message', messageData);
 
     // Add optimistic message to UI
@@ -87,7 +97,7 @@ const ChatBox = ({ receiverId, receiverName }: ChatBoxProps) => {
       sender: {
         _id: currentUser._id,
         name: currentUser.name || 'You',
-        username: '',
+        username: currentUser.username || '',
       },
       receiver: {
         _id: receiverId,
@@ -128,13 +138,13 @@ const ChatBox = ({ receiverId, receiverName }: ChatBoxProps) => {
 
   return (
     <div className="flex flex-col h-full rounded-lg overflow-hidden">
-      <div className="px-4 py-3 bg-emerald-900 border-b border-emerald-700">
+      <div className="px-4 py-3 bg-teal-900 border-b border-emerald-700">
         <h3 className="font-medium text-emerald-200">{receiverName}</h3>
       </div>
 
       <div
         ref={chatContainerRef}
-        className="flex-1 p-4 overflow-y-auto flex flex-col space-y-4 bg-emerald-800"
+        className="flex-1 p-4 overflow-y-auto flex flex-col space-y-4 bg-emerald-50"
       >
         {chatMessages.length === 0 ? (
           <div className="text-center text-emerald-400 my-auto">
@@ -172,14 +182,14 @@ const ChatBox = ({ receiverId, receiverName }: ChatBoxProps) => {
         )}
       </div>
 
-      <div className="p-3 border-t border-emerald-700 bg-emerald-900">
+      <div className="p-3 border-t border-emerald-700 bg-teal-900">
         <div className="flex items-center space-x-2">
           <Input
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Type a message..."
-            className="flex-1 text-white bg-emerald-800 border-emerald-700"
+            className="flex-1 text-emerald-900 bg-emerald-50 p-7 border-emerald-700"
           />
           <Button
             onClick={sendMessage}
@@ -187,7 +197,7 @@ const ChatBox = ({ receiverId, receiverName }: ChatBoxProps) => {
             size="icon"
             className="bg-emerald-600 hover:bg-emerald-700"
           >
-            <Send className="h-4 w-4" />
+            <Send className="h-8 w-8" />
           </Button>
         </div>
       </div>

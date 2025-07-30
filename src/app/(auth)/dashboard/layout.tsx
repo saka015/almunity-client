@@ -14,7 +14,7 @@ const sidebarNav = [
   { href: '/dashboard/user-profile', icon: <CiUser size={24} />, title: 'Profile' },
   // { href: '/dashboard/tasks', icon: <FaTasks size={24} />, title: 'Tasks' },
   { href: '/dashboard/connections', icon: <BsPeople size={24} />, title: 'Connections' },
-  // { href: '/dashboard/chat', icon: <IoChatbubbleEllipsesOutline size={24} />, title: 'Chat' },
+  { href: '/dashboard/chat', icon: <IoChatbubbleEllipsesOutline size={24} />, title: 'Chat' },
   // { href: '/dashboard/products', icon: <AiOutlineProduct size={24} />, title: 'Products' },
 ];
 
