@@ -153,9 +153,9 @@ const ChatBox = ({ receiverId, receiverName }: ChatBoxProps) => {
   }
 
   return (
-    <div className="flex flex-col h-full rounded-lg overflow-hidden">
+    <div className="flex flex-col h-full overflow-hidden">
       <div className="px-4 py-3 bg-teal-900 border-b border-emerald-700">
-        <h3 className="font-medium text-emerald-200">{receiverName}</h3>
+        <h3 className="py-2 font-medium text-emerald-200">{receiverName}</h3>
       </div>
 
       <div
