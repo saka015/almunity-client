@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useLoginMutation } from '@/redux/api/auth-api';
@@ -13,7 +13,7 @@ import { Eye, EyeOff } from 'lucide-react';
 import { FcGoogle } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa6';
 
-export default function Login() {
+function LoginForm() {
   const dispatch = useDispatch();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -136,14 +136,6 @@ export default function Login() {
                 <FcGoogle className="w-4 h-4 sm:w-5 sm:h-5" />
                 <span className="hidden sm:inline">Google</span>
               </Button>
-              {/* <Button
-                type="button"
-                className="flex-1 h-10 sm:h-12 bg-white hover:opacity-90 hover:border-emerald-900 text-emerald-900 font-medium text-sm sm:text-base rounded-none transition-all duration-200 transform hover:text-white flex items-center justify-center gap-2"
-                disabled={isLoading}
-              >
-                <FaGithub className="w-4 h-4 sm:w-5 sm:h-5" />
-                <span className="hidden sm:inline">Github</span>
-              </Button> */}
             </div>
 
             <div className="space-y-2 text-center pt-4">
@@ -161,5 +153,15 @@ export default function Login() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function Login() {
+  return (
+    <Suspense
+      fallback={<div className="flex items-center justify-center min-h-screen">Loading...</div>}
+    >
+      <LoginForm />
+    </Suspense>
   );
 }
