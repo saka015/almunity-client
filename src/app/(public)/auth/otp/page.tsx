@@ -126,27 +126,27 @@ const Page = () => {
                 <InputOTPGroup className="gap-2 sm:gap-3">
                   <InputOTPSlot
                     index={0}
-                    className="bg-white border-emerald-200 text-emerald-900 w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 text-lg sm:text-xl font-bold rounded-none"
+                    className="bg-white border-teal-200 text-teal-900 w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 text-lg sm:text-xl font-bold rounded-none"
                   />
                   <InputOTPSlot
                     index={1}
-                    className="bg-white border-emerald-200 text-emerald-900 w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 text-lg sm:text-xl font-bold rounded-none"
+                    className="bg-white border-teal-200 text-teal-900 w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 text-lg sm:text-xl font-bold rounded-none"
                   />
                   <InputOTPSlot
                     index={2}
-                    className="bg-white border-emerald-200 text-emerald-900 w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 text-lg sm:text-xl font-bold rounded-none"
+                    className="bg-white border-teal-200 text-teal-900 w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 text-lg sm:text-xl font-bold rounded-none"
                   />
                   <InputOTPSlot
                     index={3}
-                    className="bg-white border-emerald-200 text-emerald-900 w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 text-lg sm:text-xl font-bold rounded-none"
+                    className="bg-white border-teal-200 text-teal-900 w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 text-lg sm:text-xl font-bold rounded-none"
                   />
                   <InputOTPSlot
                     index={4}
-                    className="bg-white border-emerald-200 text-emerald-900 w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 text-lg sm:text-xl font-bold rounded-none"
+                    className="bg-white border-teal-200 text-teal-900 w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 text-lg sm:text-xl font-bold rounded-none"
                   />
                   <InputOTPSlot
                     index={5}
-                    className="bg-white border-emerald-200 text-emerald-900 w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 text-lg sm:text-xl font-bold rounded-none"
+                    className="bg-white border-teal-200 text-teal-900 w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 text-lg sm:text-xl font-bold rounded-none"
                   />
                 </InputOTPGroup>
               </InputOTP>
@@ -154,14 +154,14 @@ const Page = () => {
 
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <Button
-                className="flex-1 h-10 sm:h-12 bg-white hover:opacity-90 hover:border-emerald-900 text-emerald-900 font-medium text-sm sm:text-base rounded-none transition-all duration-200 transform hover:text-white"
+                className="flex-1 h-10 sm:h-12 bg-white hover:opacity-90 hover:border-teal-900 text-teal-900 font-medium text-sm sm:text-base rounded-none transition-all duration-200 transform hover:text-white"
                 onClick={handleResendOtp}
               >
                 Resend OTP
               </Button>
 
               <Button
-                className="flex-1 h-10 sm:h-12 bg-emerald-800 hover:opacity-90 hover:border-emerald-900 text-white font-medium text-sm sm:text-base rounded-none transition-all duration-200 transform hover:text-white"
+                className="flex-1 h-10 sm:h-12 bg-teal-800 hover:opacity-90 hover:border-teal-900 text-white font-medium text-sm sm:text-base rounded-none transition-all duration-200 transform hover:text-white"
                 onClick={handleVerify}
                 disabled={otp.length !== 6}
               >

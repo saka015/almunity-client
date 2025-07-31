@@ -12,7 +12,6 @@ import { Button } from '@/components/ui/button';
 import { useLogoutMutation } from '@/redux/api/auth-api';
 import { toast } from 'react-hot-toast';
 
-
 const sidebarNav = [
   { href: '/dashboard/explore-alumni', icon: <IoRocketOutline size={24} />, title: 'Explore' },
   { href: '/dashboard/user-profile', icon: <CiUser size={24} />, title: 'Profile' },
@@ -41,24 +40,24 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   }, []);
   return (
     <div className="flex h-screen overflow-hidden bg-white">
-      <div className="hidden w-[12%] border-r border-emerald-700 p-5 xl:flex flex-col transition-all duration-300">
+      <div className="hidden w-[12%] border-r border-teal-700 p-5 xl:flex flex-col transition-all duration-300">
         <div className="flex items-center justify-between mb-12">
           <h1 className="flex gap-1 items-center text-teal-950 text-3xl font-bold">
-            <PiStudentLight className="font-bold text-5xl texdt-emerald-700" />
+            <PiStudentLight className="font-bold text-5xl texdt-teal-700" />
             Alumnity
           </h1>
         </div>
 
         <div className="flex flex-col justify-between h-full">
-          <div className="flex flex-col gap-y-3">
+          <div className="flex flex-col gap-y-2">
             {sidebarNav.map(({ href, title, icon }) => {
-              const isActive = pathname === href;
+              const isActive = pathname.startsWith(href);
               return (
                 <Link
                   key={href}
                   href={href}
-                  className={`flex w-full items-center gap-3 rounded p-2 text-lg transition-colors text-emerald-700 ${
-                    isActive ? ' bg-emerald-100 font-semibold' : ''
+                  className={`flex w-full items-center rounded-lg gap-3 px-5 py-3 !font-semibold text-xl transition-colors text-teal-700 ${
+                    isActive ? ' bg-teal-800 text-white !font-bold' : 'hover:bg-gray-100'
                   }`}
                 >
                   {icon}
@@ -69,16 +68,22 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           </div>
           <Button
             onClick={() => {
-              logout({}).unwrap().then(() => {
-                toast.success('Logged out successfully');
-                router.push('/');
-              }).catch((error) => {
-                toast.error('Failed to logout');
-              });
+              logout({})
+                .unwrap()
+                .then(() => {
+                  toast.success('Logged out successfully');
+                  router.push('/');
+                })
+                .catch((error) => {
+                  toast.error('Failed to logout');
+                });
             }}
-            variant='outline' className=' text-emerald-700 p-7 border-emerald-700'>Logout</Button>
+            variant="outline"
+            className=" text-teal-700 border-teal-700"
+          >
+            Logout
+          </Button>
         </div>
-
       </div>
 
       <div className=" bg-white flex-1 overflow-y-auto">{children}</div>

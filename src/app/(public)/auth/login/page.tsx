@@ -86,7 +86,7 @@ function LoginForm() {
                 placeholder="Email"
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
-                className="bg-white py-4 sm:py-5 lg:py-6 rounded-none font-semibold text-base sm:text-lg text-emerald-900"
+                className="bg-white py-4 sm:py-5 lg:py-6 rounded-none font-semibold text-base sm:text-lg text-teal-900"
                 required
               />
               <div className="relative">
@@ -95,13 +95,13 @@ function LoginForm() {
                   placeholder="Password"
                   value={form.password}
                   onChange={(e) => setForm({ ...form, password: e.target.value })}
-                  className="bg-white py-4 sm:py-5 lg:py-6 rounded-none font-semibold text-base sm:text-lg text-emerald-900 pr-12"
+                  className="bg-white py-4 sm:py-5 lg:py-6 rounded-none font-semibold text-base sm:text-lg text-teal-900 pr-12"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-emerald-900 hover:text-emerald-700 transition-colors"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-teal-900 hover:text-teal-700 transition-colors"
                 >
                   {showPassword ? (
                     <EyeOff size={18} className="sm:w-5 sm:h-5" />
@@ -112,7 +112,7 @@ function LoginForm() {
               </div>
               <Link
                 href="/auth/forgot-password"
-                className="float-right text-emerald-100 -mt-1 mb-2 hover:text-emerald-300 font-medium transition-colors"
+                className="float-right text-teal-100 -mt-1 mb-2 hover:text-teal-300 font-medium transition-colors"
               >
                 Forgot Password?
               </Link>
@@ -120,7 +120,7 @@ function LoginForm() {
 
             <Button
               type="submit"
-              className="w-full h-10 sm:h-12 bg-emerald-800 hover:opacity-90 hover:border-emerald-900 text-white font-medium text-base sm:text-lg rounded-none transition-all duration-200 transform hover:text-white"
+              className="w-full h-10 sm:h-12 bg-teal-800 hover:opacity-90 hover:border-teal-900 text-white font-medium text-base sm:text-lg rounded-none transition-all duration-200 transform hover:text-white"
               disabled={isLoading}
             >
               {isLoading ? 'Signing in...' : 'Continue with Email'}
@@ -130,7 +130,7 @@ function LoginForm() {
               <Button
                 type="button"
                 onClick={handleGoogleLogin}
-                className="flex-1 h-10 sm:h-12 bg-white hover:opacity-90 hover:border-emerald-900 text-emerald-900 font-medium text-sm sm:text-base rounded-none transition-all duration-200 transform hover:text-white flex items-center justify-center gap-2"
+                className="flex-1 h-10 sm:h-12 bg-white hover:opacity-90 hover:border-teal-900 text-teal-900 font-medium text-sm sm:text-base rounded-none transition-all duration-200 transform hover:text-white flex items-center justify-center gap-2"
                 disabled={isLoading}
               >
                 <FcGoogle className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -143,7 +143,7 @@ function LoginForm() {
                 Don't have an account?{' '}
                 <Link
                   href="/auth/register"
-                  className="text-emerald-400 hover:text-emerald-300 font-medium transition-colors"
+                  className="text-teal-400 hover:text-teal-300 font-medium transition-colors"
                 >
                   Sign up
                 </Link>

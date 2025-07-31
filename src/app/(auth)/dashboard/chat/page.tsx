@@ -161,15 +161,14 @@ export default function ChatPage() {
 
   return (
     <div className="">
-
       <div className="flex h-screen">
-        <div className="w-1/4 border-none rounded-none overflow-hidden flex flex-col bg-emerald-100">
-          <div className="p-3 border-b border-emerald-700">
+        <div className="w-1/4 border-none rounded-none overflow-hidden flex flex-col bg-teal-100">
+          <div className="p-3 border-b border-teal-700">
             <div className="relative">
               <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-500" />
               <Input
                 placeholder="Search connections..."
-                className="pl-8 bg-emerald-100 text-emerald-600 border-none shadow-none mt-1"
+                className="pl-8 bg-teal-100 text-teal-600 border-none shadow-none mt-1"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -178,7 +177,7 @@ export default function ChatPage() {
 
           <div className="flex-1 overflow-y-auto">
             {isLoading ? (
-              <div className="p-4 text-center text-emerald-400">Loading connections...</div>
+              <div className="p-4 text-center text-teal-400">Loading connections...</div>
             ) : sortedAndFilteredConnections?.length === 0 ? (
               <div className="p-4 text-center text-gray-500">
                 {searchQuery ? 'No connections match your search' : 'No connections yet'}
@@ -203,27 +202,25 @@ export default function ChatPage() {
                           name: otherUser.name,
                         })
                       }
-                      className={` flex items-center gap-3 p-3 cursor-pointer hover:bg-teal-700 text-emerald-200 
-                        ${selectedUser?.id === otherUser._id ? 'bg-emerald-900' : ''}`}
+                      className={` flex items-center gap-3 p-3 cursor-pointer hover:bg-teal-700 text-teal-200 
+                        ${selectedUser?.id === otherUser._id ? 'bg-teal-900' : ''}`}
                     >
                       <Avatar>
-                        <AvatarFallback className="bg-emerald-700 text-emerald-200">
+                        <AvatarFallback className="bg-teal-700 text-teal-200">
                           {getInitials(otherUser.name)}
                         </AvatarFallback>
                       </Avatar>
                       <div className="flex-1 min-w-0">
                         <h3
                           className={`font-medium truncate ${
-                            selectedUser?.id === otherUser._id
-                              ? 'text-emerald-200'
-                              : 'text-emerald-900'
+                            selectedUser?.id === otherUser._id ? 'text-teal-200' : 'text-teal-900'
                           }`}
                         >
                           {otherUser.name}
                         </h3>
-                        <p className="text-sm text-emerald-400 truncate">@{otherUser.username}</p>
+                        <p className="text-sm text-teal-400 truncate">@{otherUser.username}</p>
                         {recentMessages[otherUser._id] && (
-                          <p className="text-xs text-emerald-600 truncate mt-1">
+                          <p className="text-xs text-teal-600 truncate mt-1">
                             {recentMessages[otherUser._id].message}
                           </p>
                         )}
@@ -241,7 +238,7 @@ export default function ChatPage() {
             <ChatBox receiverId={selectedUser.id} receiverName={selectedUser.name} />
           ) : (
             <div className="h-full flex items-center justify-center">
-              <div className="text-center text-emerald-400">
+              <div className="text-center text-teal-400">
                 <p className="mb-2">Select a connection to start chatting</p>
                 {connections?.length === 0 && !isLoading && (
                   <p className="text-sm">You need to connect with other alumni first</p>

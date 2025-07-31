@@ -25,7 +25,7 @@ const ProductsPage = () => {
   });
 
   if (isLoading) {
-    return <Loader />
+    return <Loader />;
   }
 
   if (error) {
@@ -50,17 +50,17 @@ const ProductsPage = () => {
         {productData?.products?.map((product: Product) => (
           <div
             key={product._id}
-            className=" rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow border border-emerald-800 hover:border-emerald-600 flex flex-col"
+            className=" rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow border border-teal-800 hover:border-teal-600 flex flex-col"
           >
             <div className="p-4 flex flex-col flex-grow">
               <h3 className="font-semibold text-lg mb-2 text-teal-800">{product.title}</h3>
-              <p className="text-emerald-700 mb-4 line-clamp-2">{product.description}</p>
+              <p className="text-teal-700 mb-4 line-clamp-2">{product.description}</p>
               <div className="flex flex-col space-y-2 flex-grow">
                 <div className="flex justify-between items-center">
-                  <span className="text-lg font-bold text-emerald-400">₹{product.price}</span>
-                  <span className="text-sm text-emerald-400">{product.duration} mins</span>
+                  <span className="text-lg font-bold text-teal-400">₹{product.price}</span>
+                  <span className="text-sm text-teal-400">{product.duration} mins</span>
                 </div>
-                <div className="flex justify-between items-center text-sm text-emerald-400">
+                <div className="flex justify-between items-center text-sm text-teal-400">
                   {/* <span>By {product.createdUsername}</span> */}
 
                   <span
@@ -74,7 +74,7 @@ const ProductsPage = () => {
                 <div className="mt-auto pt-4">
                   <Link
                     href={`/dashboard/products/all-products/${product.createdUsername}/${toKebabCase(product.title)}/${product._id}`}
-                    className="flex justify-center w-full bg-emerald-700 hover:bg-emerald-800 text-white py-2 rounded-md transition-colors"
+                    className="flex justify-center w-full bg-teal-700 hover:bg-teal-800 text-white py-2 rounded-md transition-colors"
                   >
                     View Details
                   </Link>
@@ -86,7 +86,7 @@ const ProductsPage = () => {
       </div>
 
       {productData?.products?.length === 0 && (
-        <div className="text-center text-emerald-400 py-8">No products found</div>
+        <div className="text-center text-teal-400 py-8">No products found</div>
       )}
     </div>
   );

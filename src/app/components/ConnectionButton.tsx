@@ -84,18 +84,14 @@ const ConnectionButton = ({ userId, className = '' }: ConnectionButtonProps) => 
   switch (connectionStatus) {
     case 'none':
       return (
-        <Button
-          onClick={handleConnect}
-          disabled={isSending}
-          className={`flex items-center bg-gradient-to-r from-emerald-500 to-teal-800 text-white gap-2 ${className}`}
-        >
+        <Button onClick={handleConnect} disabled={isSending}>
           <FaUserPlus /> Connect
         </Button>
       );
 
     case 'requested':
       return (
-        <Button disabled variant="outline" className={`flex items-center gap-2 ${className}`}>
+        <Button disabled variant="outline">
           <FaUserClock /> Requested
         </Button>
       );
@@ -105,8 +101,7 @@ const ConnectionButton = ({ userId, className = '' }: ConnectionButtonProps) => 
         <Button
           onClick={handleAccept}
           disabled={isAccepting || !connectionId}
-          className={`flex items-center gap-2 ${className}`}
-          variant="default"
+          variant="outline"
         >
           <FaUserPlus /> Accept Request
         </Button>

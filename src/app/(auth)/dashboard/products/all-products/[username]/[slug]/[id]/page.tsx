@@ -28,7 +28,7 @@ export default function ProductPage() {
   });
 
   if (isLoading) {
-    return <Loader />
+    return <Loader />;
   }
   if (error || !product) return notFound();
 
@@ -39,49 +39,49 @@ export default function ProductPage() {
   );
 
   return (
-    <main className="min-h-screen  p-6 text-emerald-900">
-      <div className="w-full flex items-center justify-between border-b border-emerald-600 text-emerald-200 pb-4">
+    <main className="min-h-screen  p-6 text-teal-900">
+      <div className="w-full flex items-center justify-between border-b border-teal-600 text-teal-200 pb-4">
         <p className="text-3xl text-teal-800">{product.title}</p>
         <p className="text-base">
           By{' '}
           <Link
             href={`/dashboard/explore-alumni/${product.createdUsername}`}
-            className="text-emerald-600"
+            className="text-teal-600"
           >
             {product.createdUsername}
           </Link>
         </p>
       </div>
       <div className="mt-8 flex flex-col md:flex-row gap-3 w-full md:min-h-[600px]">
-        <div className="w-full md:w-2/3 border-b mb-4 md:border-b-0 md:border-r border-emerald-600 pr-0 md:pr-4">
-          <pre className="whitespace-pre-wrap text-emerald-700">{product.description}</pre>
+        <div className="w-full md:w-2/3 border-b mb-4 md:border-b-0 md:border-r border-teal-600 pr-0 md:pr-4">
+          <pre className="whitespace-pre-wrap text-teal-700">{product.description}</pre>
         </div>
         <div className="w-full md:w-1/3 md:pl-4">
-          <div className="flex pb-4 text-emerald-400">
-            Price <span className="font-semibold ml-3 text-emerald-600">₹{product?.price}</span>
+          <div className="flex pb-4 text-teal-400">
+            Price <span className="font-semibold ml-3 text-teal-600">₹{product?.price}</span>
           </div>
           {product.productType === 'session' && (
-            <div className="flex pb-4 text-emerald-400">
+            <div className="flex pb-4 text-teal-400">
               Duration{' '}
-              <span className="font-semibold ml-3 text-emerald-600">{product?.duration} mins</span>
+              <span className="font-semibold ml-3 text-teal-600">{product?.duration} mins</span>
             </div>
           )}
 
-          <div className="flex pb-4 text-emerald-400">
+          <div className="flex pb-4 text-teal-400">
             Type{' '}
-            <span className="font-semibold ml-3 text-emerald-600 capitalize">
+            <span className="font-semibold ml-3 text-teal-600 capitalize">
               {product?.productType}
             </span>
           </div>
 
           {product.createdBy._id === currentUser?._id ? (
             <div className="mt-1">
-              <h1 className="text-emerald-400 text-xl mb-2">Booking Details</h1>
+              <h1 className="text-teal-400 text-xl mb-2">Booking Details</h1>
               {!product.bookedBy ? (
-                <p className="text-emerald-300">Not booked yet!</p>
+                <p className="text-teal-300">Not booked yet!</p>
               ) : (
-                <div className="text-emerald-300 py-1 border-b border-emerald-700 last:border-b-0">
-                  <div className="bg-emerald-700 p-3 rounded-sm border border-emerald-800">
+                <div className="text-teal-300 py-1 border-b border-teal-700 last:border-b-0">
+                  <div className="bg-teal-700 p-3 rounded-sm border border-teal-800">
                     <div className="w-full flex justify-between">
                       <h1 className="text-white">
                         {product.bookedBy?.name} (
@@ -90,7 +90,7 @@ export default function ProductPage() {
                       <Link href={`/dashboard/explore-alumni/${product.bookedBy?.username}`}>
                         <h1 className="hover:underline cursor-pointer text-white text-sm flex items-center gap-1">
                           Visit Profile
-                          <IoMdArrowUp className="rotate-45 bg-white rounded-full text-emerald-800 hover:text-lg transition-all cursor-pointer" />
+                          <IoMdArrowUp className="rotate-45 bg-white rounded-full text-teal-800 hover:text-lg transition-all cursor-pointer" />
                         </h1>
                       </Link>
                     </div>

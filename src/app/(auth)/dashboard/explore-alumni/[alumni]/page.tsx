@@ -45,14 +45,14 @@ const AlumniDetailsPage = () => {
   return (
     <div className="w-full">
       <Card className="overflow-hidden border-none shadow-none rounded-none">
-        <div className="relative h-48 bg-gradient-to-r from-emerald-500 to-teal-800">
+        <div className="relative h-48 bg-gradient-to-r from-teal-500 to-teal-800">
           <div className="absolute -bottom-16 left-6">
             <div className="rounded-full border-4 border-white bg-white overflow-hidden">
               {alumni.profilePicture ? (
                 <Image src={alumni.profilePicture} alt={alumni.name} width={112} height={112} />
               ) : (
                 <Avatar className="w-28 h-28">
-                  <AvatarFallback className="bg-emerald-700 text-emerald-200 text-4xl ">
+                  <AvatarFallback className="bg-teal-700 text-teal-200 text-4xl ">
                     {getInitials(alumni.name)}
                   </AvatarFallback>
                 </Avatar>
@@ -65,14 +65,16 @@ const AlumniDetailsPage = () => {
           <ConnectionButton userId={alumni._id} />
         </div>
 
-        <CardContent className="pt-6 border-b border-emerald-700">
+        <CardContent className="pt-6 border-b border-teal-700">
           <div className="space-y-4">
             <div>
               <h1 className="text-3xl font-bold">
                 {alumni.name} {}
               </h1>
               <p className="text-gray-500">
-              {alumni.position && alumni.company ? `${alumni.position} at ${alumni.company}` : alumni.position || alumni.company}
+                {alumni.position && alumni.company
+                  ? `${alumni.position} at ${alumni.company}`
+                  : alumni.position || alumni.company}
               </p>
             </div>
 

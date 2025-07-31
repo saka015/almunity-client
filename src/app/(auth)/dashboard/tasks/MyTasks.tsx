@@ -34,14 +34,14 @@ const MyTasks = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search a task..."
-          className="border border-gray-500 bg-emerald-700 text-white max-w-sm rounded p-[4px] px-2 outline-none"
+          className="border border-gray-500 bg-teal-700 text-white max-w-sm rounded p-[4px] px-2 outline-none"
         />
         <CreateTask refetch={refetch} />
       </div>
 
       <div className="overflow-x-auto rounded border border-gray-500">
-        <table className="min-w-full table-auto text-left bg-emerald-800">
-          <thead className="bg-emerald-700">
+        <table className="min-w-full table-auto text-left bg-teal-800">
+          <thead className="bg-teal-700">
             <tr>
               <th className="px-4 py-3 border-b border-gray-500">Title</th>
               <th className="px-4 py-3 border-b border-gray-500">Created At</th>
@@ -65,7 +65,7 @@ const MyTasks = () => {
               </tr>
             ) : (
               data?.tasks.map((task) => (
-                <tr key={task._id} className="hover:bg-emerald-600">
+                <tr key={task._id} className="hover:bg-teal-600">
                   <td className="px-4 py-3 border-b border-gray-500 capitalize">{task.title}</td>
                   <td className="px-4 py-3 border-b border-gray-500">
                     {new Date(task.createdAt).toLocaleDateString()}

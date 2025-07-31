@@ -30,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-arp="">
-      <body className="antialiased bg-gradient-to-br from-emeraldmin-h-screen">
+      <body className="antialiased bg-gradient-to-br from-tealmin-h-screen">
         <ClientProviders>
           <Toaster position="top-center" reverseOrder={false} />
           {children}

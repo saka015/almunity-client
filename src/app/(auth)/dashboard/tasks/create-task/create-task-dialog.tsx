@@ -48,13 +48,13 @@ const CreateTask: React.FC<CreateTaskProps> = ({ refetch }) => {
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
           <Button
-            className="border border-gray-500 bg-emerald-700 text-white max-w-sm rounded p-4 outline-none"
+            className="border border-gray-500 bg-teal-700 text-white max-w-sm rounded p-4 outline-none"
             onClick={() => setIsOpen(true)}
           >
             Create a task
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[800px] bg-emerald-800 border-gray-600 text-white">
+        <DialogContent className="sm:max-w-[800px] bg-teal-800 border-gray-600 text-white">
           <DialogHeader>
             <DialogTitle>Create a new task</DialogTitle>
             <DialogDescription>Fill in the details for your new task.</DialogDescription>
@@ -67,7 +67,7 @@ const CreateTask: React.FC<CreateTaskProps> = ({ refetch }) => {
               <Input
                 id="title"
                 placeholder="Task title"
-                className="col-span-3 bg-emerald-700 text-white border-gray-600"
+                className="col-span-3 bg-teal-700 text-white border-gray-600"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 required
@@ -80,7 +80,7 @@ const CreateTask: React.FC<CreateTaskProps> = ({ refetch }) => {
               <Textarea
                 id="desc"
                 placeholder="Short description"
-                className="col-span-3 bg-emerald-700 text-white border-gray-600 max-h-96 overflow-scroll"
+                className="col-span-3 bg-teal-700 text-white border-gray-600 max-h-96 overflow-scroll"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 required
@@ -94,14 +94,14 @@ const CreateTask: React.FC<CreateTaskProps> = ({ refetch }) => {
                 id="price"
                 type="number"
                 placeholder="e.g. 1000"
-                className="col-span-3 bg-emerald-700 text-white border-gray-600"
+                className="col-span-3 bg-teal-700 text-white border-gray-600"
                 value={price}
                 onChange={(e) => setPrice(Number(e.target.value))}
                 required
               />
             </div>
             <DialogFooter>
-              <Button type="submit" className="bg-emerald-700 text-white" disabled={isLoading}>
+              <Button type="submit" className="bg-teal-700 text-white" disabled={isLoading}>
                 {isLoading ? 'Creating...' : 'Create'}
               </Button>
             </DialogFooter>

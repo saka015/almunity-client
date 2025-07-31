@@ -2,6 +2,7 @@
 
 import AlumiCard from '@/app/components/AlumiCard';
 import ConnectCard from '@/app/components/ConnectCard';
+import { Button } from '@/components/ui/button';
 import {
   useGetMyConnectionsQuery,
   useGetUserProfileQuery,
@@ -170,28 +171,32 @@ const Page = () => {
 
   return (
     <div className="font-sans p-4 flex flex-col gap-y-8">
-      <div className="bg-emerald-100 w-fit inline-flex rounded overflow-hidden">
-        <button
+      <div className="bg-teal-100 w-fit inline-flex rounded overflow-hidden">
+        <Button
           onClick={() => setConnectStatus('accepted')}
-          className={`p-2 px-6 font-sans transition-colors ${
-            connectStatus === 'accepted' ? 'bg-emerald-700 text-white' : 'hover:bg-emerald-200'
+          className={`!rounded-none p-3 px-6 font-sans transition-colors ${
+            connectStatus === 'accepted'
+              ? 'bg-teal-700 text-white'
+              : 'bg-gray-100  text-teal-700 shadow-sm hover:bg-gray-200'
           }`}
         >
           My Connections
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => setConnectStatus('pending')}
-          className={`p-2 px-6 font-sans transition-colors ${
-            connectStatus === 'pending' ? 'bg-emerald-700 text-white' : 'hover:bg-emerald-200'
+          className={`!rounded-none p-2 px-6 font-sans transition-colors ${
+            connectStatus === 'pending'
+              ? 'bg-teal-700 text-white'
+              : 'bg-gray-100  text-teal-700 shadow-sm hover:bg-gray-200'
           }`}
         >
           Requests
-        </button>
+        </Button>
       </div>
 
       {isLoading || !currentUserId ? (
         <div className="flex justify-center items-center min-h-[200px]">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-500" />
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-500" />
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">

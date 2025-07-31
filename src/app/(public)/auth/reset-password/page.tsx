@@ -48,13 +48,12 @@ export default function ResetPassword() {
 
     try {
       await resetPassword({ email, newPassword: form.password }).unwrap();
-        toast.success('Password reset successfully');
-        
+      toast.success('Password reset successfully');
 
       if (typeof window !== 'undefined') {
-          localStorage.removeItem('useremail_registration');
-          localStorage.removeItem('isForgotPassword');
-          localStorage.removeItem('isOTPVerified');
+        localStorage.removeItem('useremail_registration');
+        localStorage.removeItem('isForgotPassword');
+        localStorage.removeItem('isOTPVerified');
       }
 
       setTimeout(() => {
@@ -98,13 +97,13 @@ export default function ResetPassword() {
                   placeholder="New Password"
                   value={form.password}
                   onChange={(e) => setForm({ ...form, password: e.target.value })}
-                  className="bg-white py-4 sm:py-5 lg:py-6 rounded-none font-semibold text-base sm:text-lg text-emerald-900 pr-12"
+                  className="bg-white py-4 sm:py-5 lg:py-6 rounded-none font-semibold text-base sm:text-lg text-teal-900 pr-12"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-emerald-900 hover:text-emerald-700 transition-colors"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-teal-900 hover:text-teal-700 transition-colors"
                 >
                   {showPassword ? (
                     <EyeOff size={18} className="sm:w-5 sm:h-5" />
@@ -120,13 +119,13 @@ export default function ResetPassword() {
                   placeholder="Confirm New Password"
                   value={form.confirmPassword}
                   onChange={(e) => setForm({ ...form, confirmPassword: e.target.value })}
-                  className="bg-white py-4 sm:py-5 lg:py-6 rounded-none font-semibold text-base sm:text-lg text-emerald-900 pr-12"
+                  className="bg-white py-4 sm:py-5 lg:py-6 rounded-none font-semibold text-base sm:text-lg text-teal-900 pr-12"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-emerald-900 hover:text-emerald-700 transition-colors"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-teal-900 hover:text-teal-700 transition-colors"
                 >
                   {showConfirmPassword ? (
                     <EyeOff size={18} className="sm:w-5 sm:h-5" />
@@ -139,7 +138,7 @@ export default function ResetPassword() {
 
             <Button
               type="submit"
-              className="w-full h-10 sm:h-12 bg-emerald-800 hover:opacity-90 hover:border-emerald-900 text-white font-medium text-base sm:text-lg rounded-none transition-all duration-200 transform hover:text-white"
+              className="w-full h-10 sm:h-12 bg-teal-800 hover:opacity-90 hover:border-teal-900 text-white font-medium text-base sm:text-lg rounded-none transition-all duration-200 transform hover:text-white"
               disabled={isLoading}
             >
               {isLoading ? 'Resetting Password...' : 'Reset Password'}
@@ -150,7 +149,7 @@ export default function ResetPassword() {
                 Remember your password?{' '}
                 <Link
                   href="/auth/login"
-                  className="text-emerald-400 hover:text-emerald-300 font-medium transition-colors"
+                  className="text-teal-400 hover:text-teal-300 font-medium transition-colors"
                 >
                   Sign in
                 </Link>

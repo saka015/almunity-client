@@ -90,7 +90,7 @@ export default function Register() {
                 placeholder="Username"
                 value={form.username}
                 onChange={(e) => setForm({ ...form, username: e.target.value })}
-                className="bg-white py-4 sm:py-5 lg:py-6 rounded-none font-semibold text-base sm:text-lg text-emerald-900"
+                className="bg-white py-4 sm:py-5 lg:py-6 rounded-none font-semibold text-base sm:text-lg text-teal-900"
                 required
                 minLength={5}
               />
@@ -99,7 +99,7 @@ export default function Register() {
                 placeholder="Full Name"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="bg-white py-4 sm:py-5 lg:py-6 rounded-none font-semibold text-base sm:text-lg text-emerald-900"
+                className="bg-white py-4 sm:py-5 lg:py-6 rounded-none font-semibold text-base sm:text-lg text-teal-900"
                 required
               />
               <Input
@@ -107,7 +107,7 @@ export default function Register() {
                 placeholder="Email"
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
-                className="bg-white py-4 sm:py-5 lg:py-6 rounded-none font-semibold text-base sm:text-lg text-emerald-900"
+                className="bg-white py-4 sm:py-5 lg:py-6 rounded-none font-semibold text-base sm:text-lg text-teal-900"
                 required
               />
               <div className="relative">
@@ -116,14 +116,14 @@ export default function Register() {
                   placeholder="Password"
                   value={form.password}
                   onChange={(e) => setForm({ ...form, password: e.target.value })}
-                  className="bg-white py-4 sm:py-5 lg:py-6 rounded-none font-semibold text-base sm:text-lg text-emerald-900 pr-12"
+                  className="bg-white py-4 sm:py-5 lg:py-6 rounded-none font-semibold text-base sm:text-lg text-teal-900 pr-12"
                   required
                   minLength={6}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -tranemerald-y-1/2 text-emerald-900 hover:text-emerald-700 transition-colors"
+                  className="absolute right-3 top-1/2 transform -tranteal-y-1/2 text-teal-900 hover:text-teal-700 transition-colors"
                 >
                   {showPassword ? (
                     <EyeOff size={18} className="sm:w-5 sm:h-5" />
@@ -136,7 +136,7 @@ export default function Register() {
 
             <Button
               type="submit"
-              className="w-full h-10 sm:h-12 bg-emerald-800 hover:opacity-90 hover:border-emerald-900 text-white font-medium text-base sm:text-lg rounded-none transition-all duration-200 transform hover:text-white"
+              className="w-full h-10 sm:h-12 bg-teal-800 hover:opacity-90 hover:border-teal-900 text-white font-medium text-base sm:text-lg rounded-none transition-all duration-200 transform hover:text-white"
               disabled={loading}
             >
               {loading ? 'Creating account...' : 'Continue'}
@@ -145,7 +145,7 @@ export default function Register() {
               <Button
                 type="button"
                 onClick={handleGoogleLogin}
-                className="flex-1 h-10 sm:h-12 bg-white hover:opacity-90 hover:border-emerald-900 text-emerald-900 font-medium text-sm sm:text-base rounded-none transition-all duration-200 transform hover:text-white flex items-center justify-center gap-2"
+                className="flex-1 h-10 sm:h-12 bg-white hover:opacity-90 hover:border-teal-900 text-teal-900 font-medium text-sm sm:text-base rounded-none transition-all duration-200 transform hover:text-white flex items-center justify-center gap-2"
                 disabled={loading}
               >
                 <FcGoogle className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -153,7 +153,7 @@ export default function Register() {
               </Button>
               <Button
                 type="button"
-                className="flex-1 h-10 sm:h-12 bg-white hover:opacity-90 hover:border-emerald-900 text-emerald-900 font-medium text-sm sm:text-base rounded-none transition-all duration-200 transform hover:text-white flex items-center justify-center gap-2"
+                className="flex-1 h-10 sm:h-12 bg-white hover:opacity-90 hover:border-teal-900 text-teal-900 font-medium text-sm sm:text-base rounded-none transition-all duration-200 transform hover:text-white flex items-center justify-center gap-2"
                 disabled={loading}
               >
                 <FaGithub className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -164,17 +164,11 @@ export default function Register() {
             <div className="space-y-2 text-center pt-4">
               <p className="text-sm sm:text-base text-white">
                 By registering, you agree to our{' '}
-                <Link
-                  href="#"
-                  className="text-emerald-400 hover:text-emerald-300 transition-colors"
-                >
+                <Link href="#" className="text-teal-400 hover:text-teal-300 transition-colors">
                   Terms of Service
                 </Link>{' '}
                 and{' '}
-                <Link
-                  href="#"
-                  className="text-emerald-400 hover:text-emerald-300 transition-colors"
-                >
+                <Link href="#" className="text-teal-400 hover:text-teal-300 transition-colors">
                   Privacy Policy
                 </Link>
               </p>
@@ -183,7 +177,7 @@ export default function Register() {
                 Already have an account?{' '}
                 <Link
                   href="/auth/login"
-                  className="text-emerald-400 hover:text-emerald-300 font-medium transition-colors"
+                  className="text-teal-400 hover:text-teal-300 font-medium transition-colors"
                 >
                   Sign in
                 </Link>

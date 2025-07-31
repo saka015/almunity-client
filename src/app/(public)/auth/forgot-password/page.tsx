@@ -78,14 +78,14 @@ export default function ForgotPassword() {
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="bg-white py-4 sm:py-5 lg:py-6 rounded-none font-semibold text-base sm:text-lg text-emerald-900"
+                className="bg-white py-4 sm:py-5 lg:py-6 rounded-none font-semibold text-base sm:text-lg text-teal-900"
                 required
               />
             </div>
 
             <Button
               type="submit"
-              className="w-full h-10 sm:h-12 bg-emerald-800 hover:opacity-90 hover:border-emerald-900 text-white font-medium text-base sm:text-lg rounded-none transition-all duration-200 transform hover:text-white"
+              className="w-full h-10 sm:h-12 bg-teal-800 hover:opacity-90 hover:border-teal-900 text-white font-medium text-base sm:text-lg rounded-none transition-all duration-200 transform hover:text-white"
               disabled={isLoading}
             >
               {isLoading ? 'Sending OTP...' : 'Send Reset OTP'}
@@ -96,7 +96,7 @@ export default function ForgotPassword() {
                 Remember your password?{' '}
                 <Link
                   href="/auth/login"
-                  className="text-emerald-400 hover:text-emerald-300 font-medium transition-colors"
+                  className="text-teal-400 hover:text-teal-300 font-medium transition-colors"
                 >
                   Sign in
                 </Link>
@@ -105,7 +105,7 @@ export default function ForgotPassword() {
                 Don't have an account?{' '}
                 <Link
                   href="/auth/register"
-                  className="text-emerald-400 hover:text-emerald-300 font-medium transition-colors"
+                  className="text-teal-400 hover:text-teal-300 font-medium transition-colors"
                 >
                   Sign up
                 </Link>
