@@ -43,6 +43,8 @@ export default function Home() {
   const testimonialsInView = useInView(testimonialsRef, { once: true, amount: 0.2 });
   const ctaInView = useInView(ctaRef, { once: true, amount: 0.3 });
 
+  // test
+
   return (
     <main className="overflow-hidden font-inter">
       {/* Hero Section with Abstract Background Elements */}
