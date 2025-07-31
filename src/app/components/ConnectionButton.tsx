@@ -87,7 +87,7 @@ const ConnectionButton = ({ userId, className = '' }: ConnectionButtonProps) => 
         <Button
           onClick={handleConnect}
           disabled={isSending}
-          className={`flex items-center gap-2 ${className}`}
+          className={`flex items-center bg-gradient-to-r from-emerald-500 to-teal-800 text-white gap-2 ${className}`}
         >
           <FaUserPlus /> Connect
         </Button>

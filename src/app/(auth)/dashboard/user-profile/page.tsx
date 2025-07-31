@@ -91,11 +91,15 @@ const UserProfilePage = () => {
         <div className="relative h-48 bg-gradient-to-r from-teal-500 to-emerald-800">
           <div className="absolute -bottom-16 left-6">
             <div className="rounded-full border-4 border-white bg-emerald-500 overflow-hidden">
-              <Avatar className="w-28 h-28">
-                <AvatarFallback className="bg-emerald-700 text-emerald-200 text-4xl ">
-                  {getInitials(profile.name)}
-                </AvatarFallback>
-              </Avatar>
+              {profile.profilePicture ? (
+                <Image src={profile.profilePicture} alt={profile.name} width={112} height={112} />
+              ) : (
+                <Avatar className="w-28 h-28">
+                  <AvatarFallback className="bg-emerald-700 text-emerald-200 text-4xl ">
+                    {getInitials(profile.name)}
+                  </AvatarFallback>
+                </Avatar>
+              )}
             </div>
           </div>
         </div>
@@ -151,9 +155,13 @@ const UserProfilePage = () => {
                       placeholder="Company"
                     />
                   </div>
-                ) : (
+                ) : profile.position && profile.company ? (
                   `${profile.position} at ${profile.company}`
-                )}
+                ) : profile.position ? (
+                  profile.position
+                ) : profile.company ? (
+                  profile.company
+                ) : null}
               </div>
             </div>
 
@@ -166,7 +174,7 @@ const UserProfilePage = () => {
                   placeholder="LinkedIn URL"
                   className="w-fit bg-white"
                 />
-              ) : (
+              ) : profile.linkedin ? (
                 <a
                   href={profile.linkedin}
                   target="_blank"
@@ -176,14 +184,16 @@ const UserProfilePage = () => {
                   <FaLinkedin className="text-xl" />
                   LinkedIn Profile
                 </a>
+              ) : null}
+              {profile.email && (
+                <a
+                  href={`mailto:${profile.email}`}
+                  className="flex items-center gap-2 text-gray-600 hover:text-gray-800"
+                >
+                  <FaEnvelope className="text-xl" />
+                  Contact
+                </a>
               )}
-              <a
-                href={`mailto:${profile.email}`}
-                className="flex items-center gap-2 text-gray-600 hover:text-gray-800"
-              >
-                <FaEnvelope className="text-xl" />
-                Contact
-              </a>
             </div>
 
             <div>
@@ -202,7 +212,7 @@ const UserProfilePage = () => {
                     />
                   </div>
                 ) : (
-                  <p className="text-gray-600">Email: {profile.email}</p>
+                  <p className="text-gray-600">Email: {profile.email || 'Not provided'}</p>
                 )}
                 <p className="text-gray-600 ">
                   Verification Status:{' '}
@@ -225,17 +235,21 @@ const UserProfilePage = () => {
                   placeholder="Graduation Year"
                 />
               ) : (
-                <p className="text-gray-600">Class of {profile.graduationYear}</p>
+                <p className="text-gray-600">
+                  {profile.graduationYear
+                    ? `Class of ${profile.graduationYear}`
+                    : 'Graduation year not provided'}
+                </p>
               )}
             </div>
-            <div>
+            <div className="pb-7">
               <h2 className="text-xl font-semibold mb-2">Account Created</h2>
               <p className="text-gray-600">{new Date(profile.createdAt).toLocaleDateString()}</p>
             </div>
           </div>
         </div>
       </div>
-
+      {/* 
       <div className="overflow-x-auto shadow-md mt-2">
         <table className="min-w-full divide-y divide-emerald-600 bg-teal-800 text-white">
           <thead className="bg-teal-900">
@@ -279,7 +293,7 @@ const UserProfilePage = () => {
             ))}
           </tbody>
         </table>
-      </div>
+      </div> */}
     </div>
   );
 };

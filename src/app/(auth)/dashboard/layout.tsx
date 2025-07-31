@@ -40,7 +40,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     };
   }, []);
   return (
-    <div className="flex h-screen overflow-hidden bg-emerald-50">
+    <div className="flex h-screen overflow-hidden bg-white">
       <div className="hidden w-[12%] border-r border-emerald-700 p-5 xl:flex flex-col transition-all duration-300">
         <div className="flex items-center justify-between mb-12">
           <h1 className="flex gap-1 items-center text-teal-950 text-3xl font-bold">

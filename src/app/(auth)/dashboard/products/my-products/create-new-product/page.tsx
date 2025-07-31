@@ -83,9 +83,9 @@ export default function CreateNewProduct() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="mx-auto container max-w-2xl space-y-6 bg-emerald-900 p-6 rounded-2xl shadow-xl text-white"
+      className="mx-auto container max-w-2xl max-h-[70vh] overflow-y-auto space-y-6 bg-teal-900 p-6 rounded shadow-xl text-white"
     >
-      <h2 className="text-2xl font-bold text-emerald-400">Create a Product</h2>
+      <h2 className="text-2xl font-bold text-teal-400">Create a Product</h2>
       <div className="space-y-2">
         <Label htmlFor="productType">Product Type</Label>
         <select
@@ -94,7 +94,7 @@ export default function CreateNewProduct() {
           value={formData.productType}
           onChange={handleChange}
           required
-          className="w-full bg-emerald-800 text-white border border-emerald-500 rounded-md p-2"
+          className="w-full bg-teal-800 text-white border border-teal-500 rounded-md p-2"
         >
           <option value="session">Session</option>
           <option value="product">Product</option>
@@ -109,7 +109,7 @@ export default function CreateNewProduct() {
           value={formData.title}
           onChange={handleChange}
           required
-          className="bg-emerald-800 text-white border-emerald-500"
+          className="bg-teal-800 text-white border-teal-500"
         />
       </div>
 
@@ -120,7 +120,7 @@ export default function CreateNewProduct() {
           name="description"
           value={formData.description}
           onChange={handleChange}
-          className="bg-emerald-800 text-white border-emerald-500"
+          className="bg-teal-800 text-white border-teal-500"
         />
       </div>
 
@@ -133,7 +133,7 @@ export default function CreateNewProduct() {
           value={formData.price}
           onChange={handleChange}
           required
-          className="bg-emerald-800 text-white border-emerald-500"
+          className="bg-teal-800 text-white border-teal-500"
         />
       </div>
 
@@ -146,7 +146,7 @@ export default function CreateNewProduct() {
               name="duration"
               value={formData.duration}
               onChange={handleChange}
-              className="w-full bg-emerald-800 text-white border border-emerald-500 rounded-md p-2"
+              className="w-full bg-teal-800 text-white border border-teal-500 rounded-md p-2"
             >
               <option value="15">15 minutes</option>
               <option value="30">30 minutes</option>
@@ -163,7 +163,7 @@ export default function CreateNewProduct() {
               type="url"
               value={formData.meetLink}
               onChange={handleChange}
-              className="bg-emerald-800 text-white border-emerald-500"
+              className="bg-teal-800 text-white border-teal-500"
             />
           </div>
 
@@ -173,9 +173,9 @@ export default function CreateNewProduct() {
               mode="multiple"
               selected={availableDates}
               onSelect={(dates) => dates && setAvailableDates(dates)}
-              className="rounded-md border bg-emerald-800 text-white border-emerald-500 "
+              className="rounded-md border bg-teal-800 text-white border-teal-500 "
             />
-            <p className="text-sm text-emerald-400 max-w-64">
+            <p className="text-sm text-teal-400 max-w-64">
               {availableDates.length
                 ? availableDates.map((d) => format(d, 'PPP')).join(', ')
                 : 'No dates selected'}
@@ -194,14 +194,14 @@ export default function CreateNewProduct() {
             value={formData.productLink}
             onChange={handleChange}
             placeholder="Put google drive link/any other public link"
-            className="bg-emerald-800 text-white border-emerald-500"
+            className="bg-teal-800 text-white border-teal-500"
           />
         </div>
       )}
 
       <Button
         type="submit"
-        className="bg-emerald-500 hover:bg-emerald-600 text-white w-full"
+        className="bg-teal-800 hover:bg-teal-700 text-white w-full"
         disabled={isLoading}
       >
         {isLoading ? 'Creating...' : 'Create Product'}

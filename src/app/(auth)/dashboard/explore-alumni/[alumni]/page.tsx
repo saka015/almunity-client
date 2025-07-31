@@ -48,11 +48,15 @@ const AlumniDetailsPage = () => {
         <div className="relative h-48 bg-gradient-to-r from-emerald-500 to-teal-800">
           <div className="absolute -bottom-16 left-6">
             <div className="rounded-full border-4 border-white bg-white overflow-hidden">
-              <Avatar className="w-28 h-28">
-                <AvatarFallback className="bg-emerald-700 text-emerald-200 text-4xl ">
-                  {getInitials(alumni.name)}
-                </AvatarFallback>
-              </Avatar>
+              {alumni.profilePicture ? (
+                <Image src={alumni.profilePicture} alt={alumni.name} width={112} height={112} />
+              ) : (
+                <Avatar className="w-28 h-28">
+                  <AvatarFallback className="bg-emerald-700 text-emerald-200 text-4xl ">
+                    {getInitials(alumni.name)}
+                  </AvatarFallback>
+                </Avatar>
+              )}
             </div>
           </div>
         </div>
@@ -68,20 +72,22 @@ const AlumniDetailsPage = () => {
                 {alumni.name} {}
               </h1>
               <p className="text-gray-500">
-                {alumni.position} at {alumni.company}
+              {alumni.position && alumni.company ? `${alumni.position} at ${alumni.company}` : alumni.position || alumni.company}
               </p>
             </div>
 
             <div className="flex gap-4">
-              <Link
-                href={alumni.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
-              >
-                <FaLinkedin className="text-xl" />
-                LinkedIn Profile
-              </Link>
+              {alumni.linkedin ? (
+                <Link
+                  href={alumni.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
+                >
+                  <FaLinkedin className="text-xl" />
+                  LinkedIn Profile
+                </Link>
+              ) : null}
               <a
                 href={`mailto:${alumni.email}`}
                 className="flex items-center gap-2 text-gray-600 hover:text-gray-800"

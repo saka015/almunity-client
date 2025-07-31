@@ -117,9 +117,9 @@ const Page = () => {
           username={connectionData.username}
           name={connectionData.name}
           graduationYear={connectionData.graduationYear}
-          linkedin={connectionData.linkedin}
           company={connectionData.company}
           position={connectionData.position}
+          profilePicture={connectionData.profilePicture || ''}
         />
       );
     }
@@ -154,6 +154,7 @@ const Page = () => {
           linkedin={connectionData.linkedin}
           company={connectionData.company}
           position={connectionData.position}
+          profilePicture={connectionData.profilePicture || ''}
           onAccept={() => {
             console.log('Handling accept for sender:', senderId);
             handleAcceptRequest(senderId);

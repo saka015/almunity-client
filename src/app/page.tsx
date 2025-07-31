@@ -127,7 +127,7 @@ export default function Home() {
           <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 mt-6">
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Link
-                href="/login"
+                href="/auth/login"
                 className="px-8 py-6 w-fit flex justify-center items-center rounded-full bg-indigo-600 text-white hover:bg-indigo-700 transition-colors shadow-lg hover:shadow-xl"
               >
                 Get Started

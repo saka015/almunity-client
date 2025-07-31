@@ -10,6 +10,7 @@ interface Alumni {
   position: string;
   email: string;
   college: string;
+  profilePicture?: string;
 }
 
 export interface UserProfile {
@@ -24,6 +25,7 @@ export interface UserProfile {
   company: string;
   position: string;
   calendly: string;
+  profilePicture?: string;
   createdAt: string;
   updatedAt: string;
   __v: number;
@@ -39,6 +41,7 @@ export interface ConnectionResponse {
     linkedin: string;
     company: string;
     position: string;
+    profilePicture?: string;
   };
   receiver: {
     _id: string;
@@ -48,6 +51,7 @@ export interface ConnectionResponse {
     linkedin: string;
     company: string;
     position: string;
+    profilePicture?: string;
   };
   status: 'pending' | 'accepted';
   createdAt: string;

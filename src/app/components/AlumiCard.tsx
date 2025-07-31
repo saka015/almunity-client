@@ -3,15 +3,16 @@ import { CiLinkedin } from 'react-icons/ci';
 import Link from 'next/link';
 import { Avatar, AvatarFallback } from '@radix-ui/react-avatar';
 import { Button } from '@/components/ui/button';
+import Image from 'next/image';
 
 interface AlumiCardProps {
   _id: string;
   username: string;
   name: string;
   graduationYear: number;
-  linkedin: string;
   company: string;
   position: string;
+  profilePicture: string;
 }
 
 const AlumiCard: React.FC<AlumiCardProps> = ({
@@ -19,14 +20,10 @@ const AlumiCard: React.FC<AlumiCardProps> = ({
   username,
   name,
   graduationYear,
-  linkedin,
   company,
   position,
+  profilePicture,
 }) => {
-  const handleLinkedInClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    window.open(linkedin, '_blank');
-  };
 
   const getInitials = (name: string) => {
     const parts = name.trim().split(' ');
@@ -37,21 +34,22 @@ const AlumiCard: React.FC<AlumiCardProps> = ({
 
   return (
     <Link href={`/dashboard/explore-alumni/${username}`}>
-      <div className="flex flex-col min-w-xs backdrop-blur-md bg-white/10 border border-teal-800/30 shadow-2xl rounded-lg p-6 items-center gap-6 hover:border-teal-500 hover:bg-teal-50/20 transition-all duration-200 cursor-pointer">
-        <div className="w-24 h-24 rounded-full bg-teal-700 text-teal-100 flex items-center justify-center text-3xl font-bold shadow-lg">
+      <div className="flex flex-col min-w-xs backdrop-blur-md bg-white/10 border border-teal-800/30  rounded-lg p-6 items-center gap-6 hover:border-teal-500 hover:bg-teal-50/20 transition-all duration-200 cursor-pointer">
+        <div className="w-24 h-24 rounded-full bg-teal-700 text-teal-100 flex items-center justify-center text-3xl font-bold">
+          {profilePicture ? (
+            <Image src={profilePicture} alt={name} width={96} height={96} className="rounded-full" />
+          ) : (
           <Avatar>
             <AvatarFallback>{getInitials(name)}</AvatarFallback>
           </Avatar>
+          )}
         </div>
 
         <div className="flex flex-col justify-center w-full">
-          <div className="flex justify-between items-center text-2xl mb-4">
+          <div className="flex justify-between items-center text-2xl">
             <h2 className="font-bold text-teal-800 text-center">{name}</h2>
-            <button onClick={handleLinkedInClick} className="hover:text-teal-600 transition-colors">
-              <CiLinkedin className="text-blue-500 text-2xl" />
-            </button>
-          </div>
           <p className="text-sm font-semibold text-teal-700 mt-1">🎓 {graduationYear}</p>
+          </div>
         </div>
         <Button className="w-full bg-teal-700 text-white hover:bg-teal-600 transition-colors">
 View Profile

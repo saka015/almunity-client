@@ -9,6 +9,7 @@ export interface User {
   username: string;
   role: 'user' | 'admin';
   isVerified: boolean;
+  profilePicture?: string;
 }
 
 interface OTPVerifyResponse {
@@ -61,6 +62,13 @@ export const authApi = createApi({
       }),
     }),
 
+    googleLogin: builder.mutation({
+      query: () => ({
+        url: '/auth/google',
+        method: 'GET',
+      }),
+    }),
+
     logout: builder.mutation({
       query: () => ({
         url: '/auth/logout',
@@ -87,6 +95,7 @@ export const authApi = createApi({
 export const {
   useRegisterMutation,
   useLoginMutation,
+  useGoogleLoginMutation,
   useLogoutMutation,
   useVerifyOtpMutation,
   useResendOtpMutation,

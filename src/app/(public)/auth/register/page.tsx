@@ -62,6 +62,11 @@ export default function Register() {
     }
   };
 
+  const handleGoogleLogin = () => {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_API_URL || 'http://localhost:5000/api/v1';
+    window.location.href = `${baseUrl}/auth/google`;
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen p-2 sm:p-4">
       <div className="w-full max-w-7xl min-h-[70vh] bg-teal-950 shadow-xl flex flex-col lg:flex-row overflow-hidden rounded-none">
@@ -139,6 +144,7 @@ export default function Register() {
             <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
               <Button
                 type="button"
+                onClick={handleGoogleLogin}
                 className="flex-1 h-10 sm:h-12 bg-white hover:opacity-90 hover:border-emerald-900 text-emerald-900 font-medium text-sm sm:text-base rounded-none transition-all duration-200 transform hover:text-white flex items-center justify-center gap-2"
                 disabled={loading}
               >

@@ -69,7 +69,7 @@ const Page = () => {
         ) : error ? (
           <div className="text-red-500">Error loading alumni data</div>
         ) : (
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3 2xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3 2xl:grid-cols-4 max-w-8xl mx-auto">
             {alumni?.map((alumnus: any) => (
               <AlumiCard
                 key={alumnus._id}
@@ -77,9 +77,9 @@ const Page = () => {
                 username={alumnus.username}
                 name={alumnus.name}
                 graduationYear={alumnus.graduationYear}
-                linkedin={alumnus.linkedin}
                 company={alumnus.company}
                 position={alumnus.position}
+                profilePicture={alumnus.profilePicture}
               />
             ))}
           </div>

@@ -28,7 +28,7 @@ export default function ProductPage() {
   });
 
   if (isLoading) {
-    return <Loader />;
+    return <Loader />
   }
   if (error || !product) return notFound();
 
@@ -39,9 +39,9 @@ export default function ProductPage() {
   );
 
   return (
-    <main className="min-h-screen p-6 text-emerald-900">
+    <main className="min-h-screen  p-6 text-emerald-900">
       <div className="w-full flex items-center justify-between border-b border-emerald-600 text-emerald-200 pb-4">
-        <p className="text-3xl">{product.title}</p>
+        <p className="text-3xl text-teal-800">{product.title}</p>
         <p className="text-base">
           By{' '}
           <Link
@@ -54,7 +54,7 @@ export default function ProductPage() {
       </div>
       <div className="mt-8 flex flex-col md:flex-row gap-3 w-full md:min-h-[600px]">
         <div className="w-full md:w-2/3 border-b mb-4 md:border-b-0 md:border-r border-emerald-600 pr-0 md:pr-4">
-          <pre className="whitespace-pre-wrap text-emerald-200">{product.description}</pre>
+          <pre className="whitespace-pre-wrap text-emerald-700">{product.description}</pre>
         </div>
         <div className="w-full md:w-1/3 md:pl-4">
           <div className="flex pb-4 text-emerald-400">
@@ -115,6 +115,9 @@ export default function ProductPage() {
                 productId={product?._id}
                 availableDates={product?.availableDates}
                 hasUserBooked={hasUserBooked}
+                productType={product?.productType}
+                productLink={product?.productLink}
+                meetLink={product?.meetLink}
               />
             </form>
           )}

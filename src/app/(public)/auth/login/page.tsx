@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useLoginMutation } from '@/redux/api/auth-api';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -16,6 +16,7 @@ import { FaGithub } from 'react-icons/fa6';
 export default function Login() {
   const dispatch = useDispatch();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [form, setForm] = useState({ email: '', password: '' });
   const [loginError, setLoginError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -42,6 +43,14 @@ export default function Login() {
     }
   };
 
+  const handleGoogleLogin = () => {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_API_URL || 'http://localhost:5000/api/v1';
+    window.location.href = `${baseUrl}/auth/google`;
+  };
+
+  const error = searchParams.get('error');
+  const success = searchParams.get('success');
+
   return (
     <div className="flex items-center justify-center min-h-screen p-2 sm:p-4">
       <div className="w-full max-w-7xl min-h-[70vh] bg-teal-950 shadow-xl flex flex-col lg:flex-row-reverse overflow-hidden ">
@@ -59,9 +68,15 @@ export default function Login() {
           </div>
 
           <form onSubmit={handleSubmit} className="mt-6 sm:mt-8 space-y-4 px-4 sm:px-8 lg:px-12">
-            {loginError && (
+            {(loginError || error) && (
               <div className="p-3 bg-red-500/10 border border-red-500/20 text-red-400 text-sm ">
-                {loginError}
+                {loginError || error}
+              </div>
+            )}
+
+            {success && (
+              <div className="p-3 bg-green-500/10 border border-green-500/20 text-green-400 text-sm ">
+                {success}
               </div>
             )}
 
@@ -95,7 +110,12 @@ export default function Login() {
                   )}
                 </button>
               </div>
-              <Link href="/auth/forgot-password" className="float-right text-emerald-100 -mt-1 mb-2 hover:text-emerald-300 font-medium transition-colors">Forgot Password?</Link>
+              <Link
+                href="/auth/forgot-password"
+                className="float-right text-emerald-100 -mt-1 mb-2 hover:text-emerald-300 font-medium transition-colors"
+              >
+                Forgot Password?
+              </Link>
             </div>
 
             <Button
@@ -109,20 +129,21 @@ export default function Login() {
             <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
               <Button
                 type="button"
+                onClick={handleGoogleLogin}
                 className="flex-1 h-10 sm:h-12 bg-white hover:opacity-90 hover:border-emerald-900 text-emerald-900 font-medium text-sm sm:text-base rounded-none transition-all duration-200 transform hover:text-white flex items-center justify-center gap-2"
                 disabled={isLoading}
               >
                 <FcGoogle className="w-4 h-4 sm:w-5 sm:h-5" />
                 <span className="hidden sm:inline">Google</span>
               </Button>
-              <Button
+              {/* <Button
                 type="button"
                 className="flex-1 h-10 sm:h-12 bg-white hover:opacity-90 hover:border-emerald-900 text-emerald-900 font-medium text-sm sm:text-base rounded-none transition-all duration-200 transform hover:text-white flex items-center justify-center gap-2"
                 disabled={isLoading}
               >
                 <FaGithub className="w-4 h-4 sm:w-5 sm:h-5" />
                 <span className="hidden sm:inline">Github</span>
-              </Button>
+              </Button> */}
             </div>
 
             <div className="space-y-2 text-center pt-4">
@@ -133,7 +154,7 @@ export default function Login() {
                   className="text-emerald-400 hover:text-emerald-300 font-medium transition-colors"
                 >
                   Sign up
-                </Link> 
+                </Link>
               </p>
             </div>
           </form>
