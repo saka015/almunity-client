@@ -1,13 +1,17 @@
 'use client';
 import Link from 'next/link';
 import { PiStudentLight } from 'react-icons/pi';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { IoRocketOutline, IoChatbubbleEllipsesOutline } from 'react-icons/io5';
 import { CiUser } from 'react-icons/ci';
 import { BsPeople } from 'react-icons/bs';
 import { AiOutlineProduct } from 'react-icons/ai';
 import { FaTasks } from 'react-icons/fa';
+import { Button } from '@/components/ui/button';
+import { useLogoutMutation } from '@/redux/api/auth-api';
+import { toast } from 'react-hot-toast';
+
 
 const sidebarNav = [
   { href: '/dashboard/explore-alumni', icon: <IoRocketOutline size={24} />, title: 'Explore' },
@@ -15,13 +19,14 @@ const sidebarNav = [
   // { href: '/dashboard/tasks', icon: <FaTasks size={24} />, title: 'Tasks' },
   { href: '/dashboard/connections', icon: <BsPeople size={24} />, title: 'Connections' },
   { href: '/dashboard/chat', icon: <IoChatbubbleEllipsesOutline size={24} />, title: 'Chat' },
-  // { href: '/dashboard/products', icon: <AiOutlineProduct size={24} />, title: 'Products' },
+  { href: '/dashboard/products', icon: <AiOutlineProduct size={24} />, title: 'Products' },
 ];
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(true);
-
+  const [logout, { isLoading }] = useLogoutMutation();
+  const router = useRouter();
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 1000) {
@@ -62,7 +67,18 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               );
             })}
           </div>
+          <Button
+            onClick={() => {
+              logout({}).unwrap().then(() => {
+                toast.success('Logged out successfully');
+                router.push('/');
+              }).catch((error) => {
+                toast.error('Failed to logout');
+              });
+            }}
+            variant='outline' className=' text-emerald-700 p-7 border-emerald-700'>Logout</Button>
         </div>
+
       </div>
 
       <div className=" bg-white flex-1 overflow-y-auto">{children}</div>

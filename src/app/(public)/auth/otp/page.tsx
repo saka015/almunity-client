@@ -60,11 +60,18 @@ const Page = () => {
       }
 
       toast.success(response?.message || 'OTP verified successfully');
+
       if (typeof window !== 'undefined') {
-        localStorage.removeItem('useremail_registration');
+        const isForgotPassword = localStorage.getItem('isForgotPassword') === 'true';
+
+        if (isForgotPassword) {
+          router.push('/auth/reset-password');
+        } else {
+          router.push('/dashboard');
+        }
       }
+
       setOtp('');
-      router.push('/dashboard');
     } catch (error: any) {
       console.error('Verification error:', error);
       toast.error(error?.data?.message || 'OTP verification failed');
